@@ -4,18 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
+import { ServerComponent } from './learning-mix/server/server.component';
+import { LearningMixModule } from './learning-mix/learning-mix.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LearningMixComponent
+    LearningMixComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    LearningMixModule,
     // FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
