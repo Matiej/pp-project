@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
-import { ServerComponent } from './learning-mix/server/server.component';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
-
+ 
 @NgModule({
   declarations: [
     AppComponent,
     LearningMixComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LearningMixModule,
-    // FormsModule
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

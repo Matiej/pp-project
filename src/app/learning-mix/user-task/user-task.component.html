@@ -1,0 +1,33 @@
+<h4>user-task works!</h4>
+<br />
+
+<label for="userName">User Name</label>
+<input
+  class="form-control"
+  type="text"
+  name="userName"
+  id="userName"
+  [placeholder]="userPlaceHolder"
+  [(ngModel)]="username"
+/>
+<br />
+<p>
+  {{
+    username.length == 0
+      ? "You did not enter user name yet"
+      : "Your user name is: " + username
+  }}
+</p>
+
+<button
+  class="btn btn-warning"
+  (click)="onKickUser()"
+  [disabled]="isKickUserButtonDisable()"
+>
+  Kick User
+</button>
+<br />
+<br />
+<div *ngIf="isMessageVisible">
+  <p class="pconfirmed">{{ kickOffMessage }}</p>
+</div>

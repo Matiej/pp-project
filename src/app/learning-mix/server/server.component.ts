@@ -6,5 +6,7 @@ import { Component } from "@angular/core";
     
 })
 export class ServerComponent {
+    serverId: number = 11;
+    serverStatus: string = 'running';
 
 }
