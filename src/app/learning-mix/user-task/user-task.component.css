@@ -1,0 +1,15 @@
+h4 {
+    color: darkcyan;
+    text-shadow: 2px 5px 8px #eaf94d;
+    text-align: center;
+  }
+
+.pconfirmed {
+    text-align: center;
+    font-size: large;
+    margin-left : 10%;
+    margin-right : 10%;
+    padding: 15px;
+    background-color: #eaf94d;
+    border: darkgreen;
+}
