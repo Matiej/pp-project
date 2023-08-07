@@ -1,1 +1,5 @@
-<p>Server id: {{serverId}} is {{serverStatus}}</p>
+<div style="width: fit-content">
+  <p [ngStyle]="getStyles()">
+    Server id: {{ serverId }} is {{ serverStatus }}
+  </p>
+</div>

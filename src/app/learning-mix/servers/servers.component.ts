@@ -21,12 +21,13 @@ import { Component, OnInit } from '@angular/core';
   ],
 })
 export class ServersComponent implements OnInit {
-// styleUrls: ['./servers.component.css'],
+  // styleUrls: ['./servers.component.css'],
 
   private addServerButtonDisabled: boolean = true;
   private addServerInfo: string = "Now you can't add new server.";
-  serverName: string = "";
-  serverCreatedMessage: string = "";
+  serverName: string = '';
+  serverCreatedMessage: string = '';
+  isServerCreated: boolean = false;
 
   constructor() {
     this.setAddServerButtonTime();
@@ -41,6 +42,7 @@ export class ServersComponent implements OnInit {
   onClickAddServerButton(): void {
     this.addServerButtonDisabled = !this.addServerButtonDisabled;
     this.setAddServerButtonTime();
+    this.isServerCreated = true;
   }
 
   addNewServerInfo(): string {
@@ -51,9 +53,11 @@ export class ServersComponent implements OnInit {
 
   onUpdateServerName(serverName: Event): void {
     this.serverName = (<HTMLInputElement>serverName.target).value;
-    }
+  }
 
   private setAddServerButtonTime(): void {
-    setTimeout(() => (this.addServerButtonDisabled = false), 1500);
+    setTimeout(() => {
+      (this.addServerButtonDisabled = false), (this.isServerCreated = false);
+    }, 1500);
   }
 }
