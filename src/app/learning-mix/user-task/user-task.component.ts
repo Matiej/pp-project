@@ -21,6 +21,12 @@ export class UserTaskComponent {
     this.username = '';
   }
 
+  getUserNameMessage(): string {
+    return this.username.length == 0
+      ? "You did not enter user name yet"
+      : "Your user name is: " + this.username;
+  }
+
   kickedOffUserMessage(name: string) {
     this.kickOffMessage = 'User named: ' + name + ' kicked off!';
   }

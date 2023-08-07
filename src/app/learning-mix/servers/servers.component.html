@@ -4,12 +4,16 @@
   name="srverName"
   id="serverName"
   class="form-control form-control-sm"
-  style="width: 80%;"
+  style="width: 80%"
   placeholder="Enter server name"
   (input)="onUpdateServerName($event)"
 />
 <br />
 <p>{{ addNewServerInfo() }}</p>
+<p *ngIf="isServerCreated">Server was created, it's name: + {{ serverName }}</p>
+<!-- <ng-template #noServer>
+    <p>No server was created</p>
+  </ng-template> -->
 <button
   class="btn btn-primary"
   (click)="onClickAddServerButton()"
@@ -18,4 +22,6 @@
   Add Server
 </button>
 <br />
+<br />
+<app-server></app-server>
 <app-server></app-server>
