@@ -1,5 +1,13 @@
-<div style="width: fit-content">
-  <p [ngStyle]="getStyles()">
-    Server id: {{ serverId }} is {{ serverStatus }}
-  </p>
+<div
+  [ngClass]="{
+    'server-st': true,
+    'online': currentServer?.status === 'online',
+    'offline': currentServer?.status === 'offline'
+  }"
+>
+  <p>Here in code is example of ngclass and ngStyle</p>
+  <p [ngStyle]="getStyles()">Server:  {{currentServer?.serverName}},
+     IP: {{ currentServer?.ipAddress }} is {{ currentServer?.status }}</p>
+  <p>Example od ngClass:</p>
 </div>
+<!-- [ngClass]= "{server-st.online: serverStatus==='online'}" -->
