@@ -1,0 +1,12 @@
+.server-st{
+    width: fit-content
+}
+
+.server-st.offline{
+    background-color: black;
+    color:wheat;
+}
+
+.server-st.online{
+    background-color: antiquewhite;
+}

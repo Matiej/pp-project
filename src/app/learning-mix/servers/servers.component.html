@@ -1,14 +1,28 @@
-<label for="serverName">Server name</label>
+<form [formGroup]="serverForm">
+  <label for="serverName">Server name</label>
 <input
   type="text"
-  name="srverName"
+  name="serverName"
   id="serverName"
+  formControlName="serverName"
   class="form-control form-control-sm"
   style="width: 80%"
   placeholder="Enter server name"
   (input)="onUpdateServerName($event)"
 />
 <br />
+<label for="ipAddress">IP address</label>
+<input
+  type="text"
+  name="ipAddress"
+  id="ipAddress"
+  formControlName="ipAddress"
+  class="form-control form-control-sm"
+  style="width: 80%"
+  placeholder="Enter valid IP address"
+  
+/>
+<br>
 <p>{{ addNewServerInfo() }}</p>
 <p *ngIf="isServerCreated">Server was created, it's name: + {{ serverName }}</p>
 <!-- <ng-template #noServer>
@@ -21,7 +35,12 @@
 >
   Add Server
 </button>
+</form>
 <br />
 <br />
-<app-server></app-server>
-<app-server></app-server>
+<div *ngIf="servers.length > 0">
+  <app-server
+    *ngFor="let server of servers"
+    [currentServer]="server"
+  ></app-server>
+</div>

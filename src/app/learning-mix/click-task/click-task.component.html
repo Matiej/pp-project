@@ -1,0 +1,36 @@
+<div class="text-center">
+  <button
+    class="btn btn-primary mx-2"
+    (click)="onClickDisplayDetails()"
+    [disabled]="isDetailsButtonDisabled"
+  >
+    Display Details
+  </button>
+  <button
+    class="btn btn-warning mx-2"
+    (click)="onClickHideDetails()"
+    [disabled]="!isDetailsButtonDisabled"
+  >
+    Hide Details
+  </button>
+</div>
+
+<div class="text-center">
+  <h2>MAGIC COUNTER</h2>
+  <p styles="background-color: red"
+  *ngIf="showDetails">{{ secretPassword }}</p>
+
+  <div *ngFor="let detail of details; let i = index">
+    <dl
+      [ngClass]="{
+        detailb: i >= 5
+      }"
+      [ngStyle]="i >= 5 ? { color: 'white' } : {}"
+    >
+      <dt>Times clicked button "Display Details":</dt>
+      <dd>- {{ detail.counter }} -</dd>
+      <dt>Time when clicked:</dt>
+      <dd>- {{ detail.timestamp | date : "yyyy-MM-dd HH:mm:ss" }} -</dd>
+    </dl>
+  </div>
+</div>

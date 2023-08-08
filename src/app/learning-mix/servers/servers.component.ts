@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Server } from '../server/server';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-servers',
@@ -28,21 +30,42 @@ export class ServersComponent implements OnInit {
   serverName: string = '';
   serverCreatedMessage: string = '';
   isServerCreated: boolean = false;
+  servers: Server[] = []
+  serverForm: FormGroup;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
+    this.serverForm = this.fb.group({
+      serverName:['', Validators.required],
+      ipAddress:['', Validators.required]
+    });
     this.setAddServerButtonTime();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getTestServers();
+  }
 
   isDisabled(): boolean {
     return this.addServerButtonDisabled;
   }
 
   onClickAddServerButton(): void {
+    this.addNewServer();  
     this.addServerButtonDisabled = !this.addServerButtonDisabled;
     this.setAddServerButtonTime();
     this.isServerCreated = true;
+    this.clearForm();
+  }
+
+  private addNewServer() {
+    const serverName = this.serverForm.get('serverName')!.value;
+    const ipAddress = this.serverForm.get('ipAddress')!.value;
+    this.servers.push(new Server(serverName, ipAddress, this.getSeverStatus()));
+  }
+
+  private clearForm() {
+    this.serverForm.get('ipAddress')?.setValue("");
+    this.serverForm.get('serverName')?.setValue("");
   }
 
   addNewServerInfo(): string {
@@ -55,9 +78,23 @@ export class ServersComponent implements OnInit {
     this.serverName = (<HTMLInputElement>serverName.target).value;
   }
 
+  getTestServers(): void {
+    this.servers.push(new Server("MyTestServer1", "192.168.2.1", this.getSeverStatus()));
+    this.servers.push( new Server("MyTestServer2", "192.168.10.1", this.getSeverStatus()));
+  }
+
   private setAddServerButtonTime(): void {
     setTimeout(() => {
       (this.addServerButtonDisabled = false), (this.isServerCreated = false);
     }, 1500);
   }
+
+  private getSeverStatus(): string {
+    return Math.random() > 0.5 ? "online" : "offline";
+  }
+
+  private getServerIpAddress(): string {
+    return "localhost";
+  }
+
 }
