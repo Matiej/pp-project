@@ -17,8 +17,11 @@
 
 <div class="text-center">
   <h2>MAGIC COUNTER</h2>
-  <p styles="background-color: red"
-  *ngIf="showDetails">{{ secretPassword }}</p>
+  <p *ngIf="showDetails">
+    <span style="background: rgb(201, 255, 93); color: red">{{
+      secretPassword
+    }}</span>
+  </p>
 
   <div *ngFor="let detail of details; let i = index">
     <dl

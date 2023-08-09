@@ -1,0 +1,68 @@
+<nav class="nabar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" (click)="collapsed = !collapsed">
+            <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
+          </button>
+      <a class="navbar-brand" href="#">
+        <img
+          src="/assets/logo.png"
+          class="me-2"
+          height="40"
+          alt="booklogo"
+          loading="lazy"
+        />
+      </a>
+      <a class="navbar-brand" href="#"> pp-Project</a>
+    </div>
+    <div class="navbar-collapse" [class.collapse] ="collapsed" (window:resize)="collapsed=true">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Books-Api</a></li>
+        <li><a href="#">Wish List</a></li>
+        <!-- <li><a href="#">Page 3</a></li> -->
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a
+            class="btn btn-dark px-1"
+            target="_blank"
+            href="https://github.com/Matiej"
+            role="button"
+          >
+            <i class="icon"
+              ><img class="icon-size" src="/assets/github-circle.png"
+            /></i>
+          </a>
+        </li>
+        <li>
+          <a
+            class="btn btn-dark px-4"
+            target="_blank"
+            href="https://www.linkedin.com/in/matiej/"
+            role="button"
+          >
+            <i class="icon"
+              ><img class="icon-size" src="/assets/linkedin-box.png"
+            /></i>
+          </a>
+        </li>
+        <li class="dropdown">
+          <a
+            href="#"
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Manage S <span class="caret"></span
+          ></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Save Data</a></li>
+            <li><a href="#">Fetch Data</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
