@@ -14,6 +14,7 @@ import { BookDetailComponent } from './book-api/books/book-detail/book-detail.co
 import { WishListComponent } from './wish-list/wish-list.component';
 import { WishItemComponent } from './wish-list/wish-item/wish-item.component';
 import { WishEditComponent } from './wish-list/wish-edit/wish-edit.component';
+import { OpenlibraryApiService } from './book-api/openlibrary-api/service/openlibrary-api.service';
  
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { WishEditComponent } from './wish-list/wish-edit/wish-edit.component';
     ReactiveFormsModule
   ],
  
-  providers: [],
+  providers: [OpenlibraryApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
