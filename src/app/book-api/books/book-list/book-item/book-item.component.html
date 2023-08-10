@@ -1,5 +1,6 @@
 <div class="row">
-<dl>
+  <dl>
+    <img *ngIf="book.coverUrl && book.coverUrl !== ''" [src]="book.coverUrl" />
     <dt>Book number:</dt>
     <dd style="margin-left: 25px">-{{ bookNumber }}-</dd>
     <dt>Title:</dt>
@@ -7,5 +8,4 @@
     <dt>Authors:</dt>
     <dd>- {{ book.author_name }} -</dd>
   </dl>
-
 </div>

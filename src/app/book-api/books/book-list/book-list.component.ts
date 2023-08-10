@@ -1,7 +1,6 @@
-import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { SearchAuthor } from '../model/search-author.model';
-import { AUTHOR_SEARCH_RESULT } from '../database/books-database';
+import { Book } from '../model/book.model';
+import { BooksService } from '../service/books.service';
 
 @Component({
   selector: 'app-book-list',
@@ -9,8 +8,14 @@ import { AUTHOR_SEARCH_RESULT } from '../database/books-database';
   styleUrls: ['./book-list.component.css'],
 })
 export class BookListComponent implements OnInit {
-  readonly books: SearchAuthor[] = AUTHOR_SEARCH_RESULT;
-  constructor() {}
+  books: Book[] = [];
+  constructor(private booksService: BooksService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadBooks();
+  }
+
+  private loadBooks(): void {
+    this.books = this.booksService.fetchBooks();
+  }
 }
