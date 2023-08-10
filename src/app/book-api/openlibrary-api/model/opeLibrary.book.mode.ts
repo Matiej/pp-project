@@ -1,5 +1,5 @@
-import { AuthoreKey } from "./author-key";
-import { DateType } from "./date-type";
+import { AuthoreKey } from "./author-key.model";
+import { DateType } from "./date-type.model";
 import { WorkKey } from "./work-key";
 
 export interface Book {
@@ -21,4 +21,6 @@ export interface Book {
     revision: number;
     created: DateType;
     last_modified: DateType;
+
+    
 }

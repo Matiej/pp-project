@@ -1,1 +1,8 @@
-<p>book-list works!</p>
+<div *ngFor="let book of books; let i = index">
+  <hr />
+  <app-book-item
+  [book]="book"
+  [bookNumber] = "i+1"
+  ></app-book-item>
+  <hr />
+</div>
