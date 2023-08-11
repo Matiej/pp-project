@@ -16,6 +16,7 @@ import { WishItemComponent } from './wish-list/wish-item/wish-item.component';
 import { WishEditComponent } from './wish-list/wish-edit/wish-edit.component';
 import { OpenlibraryApiService } from './book-api/openlibrary-api/service/openlibrary-api.service';
 import { BookItemComponent } from './book-api/books/book-list/book-item/book-item.component';
+import { HttpClientModule } from '@angular/common/http'; 
  
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { BookItemComponent } from './book-api/books/book-list/book-item/book-ite
     AppRoutingModule,
     LearningMixModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule 
   ],
  
   providers: [OpenlibraryApiService],

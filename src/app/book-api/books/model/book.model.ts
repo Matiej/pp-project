@@ -1,7 +1,10 @@
-import { SearchAuthor } from '../../openlibrary-api/model/search-author.model';
+import { SearchBook } from '../../openlibrary-api/model/search-book.model';
+import { CoverSize } from './cover-size';
 export class Book {
   private static readonly COVER_ULR: string = 'https://covers.openlibrary.org/b/olid/';
+  private static readonly COVER_SMALL_SIZE: string = '-S';
   private static readonly COVER_MEDIUM_SIZE: string = '-M';
+  private static readonly COVER_LARGE_SIZE: string = '-L';
   private static readonly COVER_URL_POSTFIX: string = '.jpg';
 
   public title?: string;
@@ -16,9 +19,10 @@ export class Book {
   public author_key?: string[];
   public author_name?: string[];
   public isbn?: string[];
-  public coverUrl?: string;
+  public coverUrls?: CoverSize;
+  public coverCode?: string;
 
-  public static convertToBook(searchAuthor: SearchAuthor): Book {
+  public static convertToBook(searchAuthor: SearchBook): Book {
     const book = new Book();
     book.title = searchAuthor.title;
     book.title_suggest = searchAuthor.title_suggest;
@@ -32,15 +36,35 @@ export class Book {
     book.author_key = searchAuthor.author_key;
     book.author_name = searchAuthor.author_name;
     book.isbn = searchAuthor.isbn;
-    book.coverUrl = this.prepareCoverUlr(searchAuthor.cover_edition_key!)
+    book.coverUrls = this.prepareCoverUlr(searchAuthor.cover_edition_key!)
+    book.coverCode = searchAuthor.cover_edition_key ? searchAuthor.cover_edition_key : '';
  
      return book;
   }
 
-  private static prepareCoverUlr(coverKey: string) {
-    if(coverKey && coverKey != undefined) {
-        return this.COVER_ULR + coverKey + this.COVER_MEDIUM_SIZE + this.COVER_URL_POSTFIX;
+  public static convertToBookList(searchBooks: SearchBook[]): Book[] {
+    const books = []
+    for(const element of searchBooks) {
+      books.push(Book.convertToBook(element));
     }
-    return "";
+    return books;
   }
+
+  private static prepareCoverUlr(coverKey: string): CoverSize {
+    
+    if(coverKey && coverKey != undefined) {
+      return {
+        smallSizeCoverurl: this.COVER_ULR + coverKey + this.COVER_SMALL_SIZE + this.COVER_URL_POSTFIX,
+        mediumSizeCoverurl: this.COVER_ULR + coverKey + this.COVER_MEDIUM_SIZE + this.COVER_URL_POSTFIX,
+        largeSizeCoverurl: this.COVER_ULR + coverKey + this.COVER_LARGE_SIZE + this.COVER_URL_POSTFIX
+    
+      };
+    }
+     return {
+      smallSizeCoverurl: '',
+      mediumSizeCoverurl: "",
+      largeSizeCoverurl: ""
+    };
+  }
+ 
 }

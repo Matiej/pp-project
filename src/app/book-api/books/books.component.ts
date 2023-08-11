@@ -1,19 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BooksService } from './service/books.service';
 import { Book } from './model/book.model';
 
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
-  styleUrls: ['./books.component.css']
+  styleUrls: ['./books.component.css'],
 })
 export class BooksComponent {
-  constructor(private booksService: BooksService) {
+  titleSearchQuery: string = '';
+  clickResult: string = '';
 
+  constructor() {}
+
+  onTitleSearchSubmit() {
+    this.clickResult = this.titleSearchQuery;
+    this.titleSearchQuery = "";
   }
 
-  getBooks(): Book[] {
-    return this.booksService.fetchBooks();
-  }
-  
+
 }

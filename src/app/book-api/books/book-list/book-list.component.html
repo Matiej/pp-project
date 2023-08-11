@@ -1,8 +1,15 @@
+<hr class="hr big" />
 <div *ngFor="let book of books; let i = index">
-  <hr />
-  <app-book-item
-  [book]="book"
-  [bookNumber] = "i+1"
-  ></app-book-item>
-  <hr />
+  <div class="row">
+    <div class="col-xs-12">
+      <app-book-item [book]="book" [bookNumber]="i + 1"></app-book-item>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <button class="btn btn-success">Details</button>
+        <hr class="hr small" />
+      </div>
+    </div>
+  </div>
 </div>
+<hr class="hr big" />

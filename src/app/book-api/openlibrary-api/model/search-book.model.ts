@@ -1,4 +1,4 @@
-export interface SearchAuthor {
+export interface SearchBook {
     key: string;
     type?: string;
     seed?: string[];
