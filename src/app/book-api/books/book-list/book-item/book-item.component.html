@@ -1,12 +1,22 @@
 <div class="row">
-  <dl>
-    <img *ngIf="book.coverUrls && book.coverUrls.smallSizeCoverurl !== ''" 
-    [src]="book.coverUrls.smallSizeCoverurl" />
-    <dt>Book number:</dt>
-    <dd style="margin-left: 25px">-{{ bookNumber }}-</dd>
-    <dt>Title:</dt>
-    <dd>- {{ book.title }} -</dd>
-    <dt>Authors:</dt>
-    <dd>- {{ book.author_name }} -</dd>
-  </dl>
+  <a href="#" class="list-group-item clearfix">
+    <div class="pull-left">
+      <p style="margin-left: 10px" class="list-group-item-text">
+        -{{ bookNumber }}-
+      </p>
+      <h4 class="list-group-item-heading">Title: {{ book.title }}</h4>
+      <p class="list-group-item-text">Authors;{{ book.author_name }}</p>
+    </div>
+    <span
+      class="pull-right"
+      *ngIf="book.coverUrls && book.coverUrls.smallSizeCoverurl !== ''"
+    >
+      <img
+        class="img-responsive"
+        style="max-height: 50px"
+        alt="{{ book.coverCode }}"
+        [src]="book.coverUrls.smallSizeCoverurl"
+      />
+    </span>
+  </a>
 </div>
