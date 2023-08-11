@@ -1,6 +1,6 @@
-import { SearchAuthor } from './model/search-author.model';
+import { SearchBook } from './model/search-book.model';
 
-export const AUTHOR_SEARCH_RESULT: SearchAuthor[] = [
+export const AUTHOR_SEARCH_RESULT: SearchBook[] = [
   {
     key: '/works/OL30119372W',
     type: 'work',
