@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { BooksComponent } from './book-api/books/books.component';
+import { BookApiComponent } from './book-api/book-api.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'books',
-    component: BooksComponent
+    component: BookApiComponent
   }
 ];
 
