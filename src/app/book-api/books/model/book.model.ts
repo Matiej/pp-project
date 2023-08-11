@@ -1,4 +1,4 @@
-import { SearchAuthor } from '../../openlibrary-api/model/search-author.model';
+import { SearchBook } from '../../openlibrary-api/model/search-book.model';
 import { CoverSize } from './cover-size';
 export class Book {
   private static readonly COVER_ULR: string = 'https://covers.openlibrary.org/b/olid/';
@@ -20,8 +20,9 @@ export class Book {
   public author_name?: string[];
   public isbn?: string[];
   public coverUrls?: CoverSize;
+  public coverCode?: string;
 
-  public static convertToBook(searchAuthor: SearchAuthor): Book {
+  public static convertToBook(searchAuthor: SearchBook): Book {
     const book = new Book();
     book.title = searchAuthor.title;
     book.title_suggest = searchAuthor.title_suggest;
@@ -36,8 +37,17 @@ export class Book {
     book.author_name = searchAuthor.author_name;
     book.isbn = searchAuthor.isbn;
     book.coverUrls = this.prepareCoverUlr(searchAuthor.cover_edition_key!)
+    book.coverCode = searchAuthor.cover_edition_key ? searchAuthor.cover_edition_key : '';
  
      return book;
+  }
+
+  public static convertToBookList(searchBooks: SearchBook[]): Book[] {
+    const books = []
+    for(const element of searchBooks) {
+      books.push(Book.convertToBook(element));
+    }
+    return books;
   }
 
   private static prepareCoverUlr(coverKey: string): CoverSize {
