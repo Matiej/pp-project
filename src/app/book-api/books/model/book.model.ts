@@ -1,7 +1,10 @@
 import { SearchAuthor } from '../../openlibrary-api/model/search-author.model';
+import { CoverSize } from './cover-size';
 export class Book {
   private static readonly COVER_ULR: string = 'https://covers.openlibrary.org/b/olid/';
+  private static readonly COVER_SMALL_SIZE: string = '-S';
   private static readonly COVER_MEDIUM_SIZE: string = '-M';
+  private static readonly COVER_LARGE_SIZE: string = '-L';
   private static readonly COVER_URL_POSTFIX: string = '.jpg';
 
   public title?: string;
@@ -16,7 +19,7 @@ export class Book {
   public author_key?: string[];
   public author_name?: string[];
   public isbn?: string[];
-  public coverUrl?: string;
+  public coverUrls?: CoverSize;
 
   public static convertToBook(searchAuthor: SearchAuthor): Book {
     const book = new Book();
@@ -32,15 +35,26 @@ export class Book {
     book.author_key = searchAuthor.author_key;
     book.author_name = searchAuthor.author_name;
     book.isbn = searchAuthor.isbn;
-    book.coverUrl = this.prepareCoverUlr(searchAuthor.cover_edition_key!)
+    book.coverUrls = this.prepareCoverUlr(searchAuthor.cover_edition_key!)
  
      return book;
   }
 
-  private static prepareCoverUlr(coverKey: string) {
+  private static prepareCoverUlr(coverKey: string): CoverSize {
+    
     if(coverKey && coverKey != undefined) {
-        return this.COVER_ULR + coverKey + this.COVER_MEDIUM_SIZE + this.COVER_URL_POSTFIX;
+      return {
+        smallSizeCoverurl: this.COVER_ULR + coverKey + this.COVER_SMALL_SIZE + this.COVER_URL_POSTFIX,
+        mediumSizeCoverurl: this.COVER_ULR + coverKey + this.COVER_MEDIUM_SIZE + this.COVER_URL_POSTFIX,
+        largeSizeCoverurl: this.COVER_ULR + coverKey + this.COVER_LARGE_SIZE + this.COVER_URL_POSTFIX
+    
+      };
     }
-    return "";
+     return {
+      smallSizeCoverurl: '',
+      mediumSizeCoverurl: "",
+      largeSizeCoverurl: ""
+    };
   }
+ 
 }
