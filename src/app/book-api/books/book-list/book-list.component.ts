@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { Book } from '../model/book.model';
 import { BooksService } from '../service/books.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-book-list',
@@ -14,31 +15,31 @@ import { BooksService } from '../service/books.service';
   styleUrls: ['./book-list.component.css'],
 })
 export class BookListComponent implements OnInit, OnChanges {
-  books: Book[] = [];
   @Input()
-  titleSearchQuery: string = '';
+  $booksChild: Observable<Book[]> = new Observable<Book[]>();
+  books: Book[] = [];
 
   constructor(private booksService: BooksService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (
-      changes['titleSearchQuery'] &&
-      changes['titleSearchQuery'].currentValue
-    ) {
-      this.searchForBooksByTitle(this.titleSearchQuery);
+    console.log('ngchanges');
+    console.log(changes['$booksChild'].currentValue);
+
+    if (changes['$booksChild'] && changes['$booksChild'].currentValue) {
+      this.books = [];
+      this.subscribeNewBooks();
     }
   }
 
   ngOnInit(): void {
-    this.loadBooks();
+    this.books = [];
+    this.subscribeNewBooks();
+
+    // this.loadBooks();
   }
 
-  private loadBooks(): void {
-    this.books.push(...this.booksService.fetchBooks());
-  }
-
-  private searchForBooksByTitle(title: string): void {
-    this.booksService.searchBooksByTitle(title).subscribe(
+  private subscribeNewBooks() {
+    this.$booksChild.subscribe(
       (books: Book[]) => {
         if (books.length > 0) {
           this.books.push(...books);
@@ -48,5 +49,9 @@ export class BookListComponent implements OnInit, OnChanges {
         console.log('An error occurred: ' + error);
       }
     );
+  }
+
+  private loadBooks(): void {
+    this.books.push(...this.booksService.fetchBooks());
   }
 }

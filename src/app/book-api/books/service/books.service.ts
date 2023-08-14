@@ -5,13 +5,22 @@ import { Book } from '../model/book.model';
 import { HttpClient } from '@angular/common/http';
 import { OpenLibrarySearch } from '../../openlibrary-api/model/openLibrary.search';
 import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BooksService {
+  private searchBooksByTitleSubject = new BehaviorSubject<Book[] | null>(null);
+  searchQuery$ = this.searchBooksByTitleSubject.asObservable();
+
   constructor(private openLibraryService: OpenlibraryApiService) {}
+
+  setSearchBooksByTitle(booksSearchByTitle: string) {
+    this.searchBooksByTitle(booksSearchByTitle).subscribe((books) => {
+      this.searchBooksByTitleSubject.next(books);
+    });
+  }
 
   fetchBooks(): Book[] {
     const searchResult: SearchBook[] =

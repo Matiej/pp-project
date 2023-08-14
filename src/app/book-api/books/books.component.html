@@ -1,13 +1,17 @@
 <div class="container">
-  <form class="form-inline" (submit)="onTitleSearchSubmit()">
+  <form
+    class="form-inline"
+    #searchForm="ngForm"
+    (ngSubmit)="onTitleSearchSubmit(searchForm)"
+  >
     <div class="form-group">
-      <label for="search">Search Books by title:</label>
+      <label for="byTitle">Search Books by title:</label>
       <input
         type="text"
         class="form-control"
         id="byTitle"
-        name="query"
-        [(ngModel)]="titleSearchQuery"
+        name="byTitle"
+        ngModel
         placeholder="Enter book title for search"
       />
     </div>
@@ -15,13 +19,14 @@
   </form>
 </div>
 
-<div class="row">
+<div *ngIf="isEmptyBooks" class="row">
   <div class="col-md-5">
     <app-book-list
-    [titleSearchQuery] ="clickResult"
+    [$booksChild]="$books"
     ></app-book-list>
   </div>
   <div class="col-md-7">
     <app-book-detail></app-book-detail>
   </div>
 </div>
+ 

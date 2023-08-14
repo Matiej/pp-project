@@ -27,7 +27,7 @@ export class OpenlibraryApiService {
       this.http.get<OpenLibrarySearch>(this.OPELIBRARY_SEARCH_URL, {
         params: params,
       });
-
+      console.log(searchResult);
     return searchResult;
   }
 
