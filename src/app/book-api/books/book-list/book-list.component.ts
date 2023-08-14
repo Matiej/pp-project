@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { Book } from '../model/book.model';
@@ -18,6 +20,12 @@ export class BookListComponent implements OnInit, OnChanges {
   @Input()
   $booksChild: Observable<Book[]> = new Observable<Book[]>();
   books: Book[] = [];
+
+  @Output()
+  book: EventEmitter<Book> = new EventEmitter();
+
+  @Output()
+  enableBookDetails: EventEmitter<void> = new EventEmitter();
 
   constructor(private booksService: BooksService) {}
 
@@ -35,7 +43,7 @@ export class BookListComponent implements OnInit, OnChanges {
     this.books = [];
     this.subscribeNewBooks();
 
-    // this.loadBooks();
+    this.loadBooks();
   }
 
   private subscribeNewBooks() {
@@ -52,6 +60,14 @@ export class BookListComponent implements OnInit, OnChanges {
   }
 
   private loadBooks(): void {
+
     this.books.push(...this.booksService.fetchBooks());
   }
+
+  onDetailsClick(book: Book):void {
+    console.log(book.title)
+    this.enableBookDetails.emit();
+    this.book.emit(book);
+  }
+
 }
