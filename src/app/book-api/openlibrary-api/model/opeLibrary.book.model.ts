@@ -3,6 +3,7 @@ import { DateType } from './date-type.model';
 import { WorkKey } from './work-key';
 
 export interface OpenLibraryBook {
+  subjects: string[];
   publishers?: string[];
   source_records: string[];
   title: string;
@@ -13,10 +14,6 @@ export interface OpenLibraryBook {
   publish_date?: string;
   key: string;
   authors: AuthoreKey[];
-  works: WorkKey[];
-  type: {
-    key: string;
-  };
   latest_revision?: number;
   revision?: number;
   created?: DateType;

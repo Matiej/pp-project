@@ -6,6 +6,8 @@ import { SearchBook } from '../../openlibrary-api/model/search-book.model';
 import { OpenlibraryApiService } from '../../openlibrary-api/service/openlibrary-api.service';
 import { Book } from '../model/book.model';
 import { BookDetails } from '../model/book.details.model';
+import { BookDetailResponse } from '../book-detail/book-detail-response';
+import { OpenLibraryBook } from '../../openlibrary-api/model/opeLibrary.book.model';
 
 @Injectable({
   providedIn: 'root',
@@ -43,10 +45,20 @@ export class BooksService {
     );
   }
 
-  // searchBookDetailsByCode(code: string): Observable<BookDetails> {
+  // searchBookDetailsByCode(
+  //   code: string,
+  //   book: Book
+  // ): Observable<BookDetailResponse> | null {
   //   this.openLibraryService.seachBookByIdCode(code).pipe(
-  //     map((bookDetails: BookDetails) => {
+  //     map((openLibraryBook: OpenLibraryBook) => {
+  //       const bookDetails = new BookDetails();
+  //       bookDetails.subjects(openLibraryBook.subjects);
+  //       bookDetails.description(openLibraryBook.description);
+  //       const response = new BookDetailResponse();
 
-  //   })
+  //       return response;
+  //     })
   //   );
+  //   return null;
+  // }
 }
