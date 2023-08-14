@@ -23,10 +23,15 @@
   <div class="col-md-5">
     <app-book-list
     [$booksChild]="$books"
+    (enableBookDetails)="showDetails()"
+    (book)="sendToBooDetailsComponent($event)"
     ></app-book-list>
   </div>
-  <div class="col-md-7">
-    <app-book-detail></app-book-detail>
+  <div class="col-md-7" *ngIf = "isBookDetails">
+    <app-book-detail 
+    (closeDetails)="closeDetails()"
+    [incomingBook]="bookToSend"
+    ></app-book-detail>
   </div>
 </div>
  

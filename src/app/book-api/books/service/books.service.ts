@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { OpenlibraryApiService } from '../../openlibrary-api/service/openlibrary-api.service';
-import { SearchBook } from '../../openlibrary-api/model/search-book.model';
-import { Book } from '../model/book.model';
-import { HttpClient } from '@angular/common/http';
-import { OpenLibrarySearch } from '../../openlibrary-api/model/openLibrary.search';
-import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject, map } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
+import { OpenLibrarySearch } from '../../openlibrary-api/model/openLibrary.search';
+import { SearchBook } from '../../openlibrary-api/model/search-book.model';
+import { OpenlibraryApiService } from '../../openlibrary-api/service/openlibrary-api.service';
+import { Book } from '../model/book.model';
+import { BookDetails } from '../model/book.details.model';
 
 @Injectable({
   providedIn: 'root',
@@ -42,4 +42,11 @@ export class BooksService {
       })
     );
   }
+
+  // searchBookDetailsByCode(code: string): Observable<BookDetails> {
+  //   this.openLibraryService.seachBookByIdCode(code).pipe(
+  //     map((bookDetails: BookDetails) => {
+
+  //   })
+  //   );
 }
