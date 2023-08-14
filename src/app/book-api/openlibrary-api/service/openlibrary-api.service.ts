@@ -4,6 +4,7 @@ import { AUTHOR_SEARCH_RESULT } from '../books-database';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { OpenLibrarySearch } from '../model/openLibrary.search';
+import { OpenLibraryBook } from '../model/opeLibrary.book.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,9 @@ import { OpenLibrarySearch } from '../model/openLibrary.search';
 export class OpenlibraryApiService {
   readonly OPELIBRARY_SEARCH_URL: string =
     'https://openlibrary.org/search.json';
+  
+    readonly OPELIBRARY_BOOKS_URL: string =
+    'https://openlibrary.org/books/';
 
   constructor(private http: HttpClient) {}
 
@@ -34,4 +38,12 @@ export class OpenlibraryApiService {
   private prepareSearchParam(searchParamm: string): string {
     return searchParamm.replaceAll(' ', '+');
   }
+
+  seachBookByIdCode(code: string): Observable<OpenLibraryBook> {
+    const result : Observable<OpenLibraryBook> = this.http.get<OpenLibraryBook>
+    (this.OPELIBRARY_BOOKS_URL + code + "json");
+
+    return result;
+  }
 }
+
