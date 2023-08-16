@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { Book } from './model/book.model';
 import { BooksService } from './service/books.service';
+import { BookDetailResponse } from './book-detail/book-detail-response';
 
 @Component({
   selector: 'app-books',
@@ -11,10 +12,11 @@ import { BooksService } from './service/books.service';
 })
 export class BooksComponent {
   $books: Observable<Book[]> = new Observable<Book[]>();
-  isEmptyBooks: boolean = true;
+  //todo change this to false;
+  isBooksAvailable: boolean = true;
   isBookDetails: boolean = false;
-  bookToSend: Book | undefined;
-  
+  $detailsToSend: Observable<BookDetailResponse> =
+    new Observable<BookDetailResponse>();
 
   constructor(private bookService: BooksService) {}
 
@@ -27,9 +29,9 @@ export class BooksComponent {
       .pipe(
         map((books) => {
           if (books.length > 0) {
-            this.isEmptyBooks = true;
+            this.isBooksAvailable = true;
           } else {
-            this.isEmptyBooks = false;
+            this.isBooksAvailable = false;
           }
         })
       )
@@ -45,8 +47,11 @@ export class BooksComponent {
     this.isBookDetails = false;
   }
 
-  sendToBooDetailsComponent(book: Book):void {
-    this.bookService
-    this.bookToSend = book;
+  sendToBooDetailsComponent(book: Book): void {
+    console.log(book);
+    let detailsResponse: Observable<BookDetailResponse> | undefined =
+      this.bookService.searchBookDetailsByCode(book);
+
+    this.$detailsToSend = detailsResponse;
   }
 }

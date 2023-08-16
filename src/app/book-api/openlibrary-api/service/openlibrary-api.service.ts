@@ -14,7 +14,7 @@ export class OpenlibraryApiService {
     'https://openlibrary.org/search.json';
 
   private readonly OPELIBRARY_BOOKS_URL: string =
-    'https://openlibrary.org/books/';
+    'https://openlibrary.org';
 
   constructor(private http: HttpClient) {}
 
@@ -39,11 +39,11 @@ export class OpenlibraryApiService {
     return searchParamm.replaceAll(' ', '+');
   }
 
-  seachBookByIdCode(code: string): Observable<OpenLibraryBook> {
+  seachBookByIdCode(code: string | undefined): Observable<OpenLibraryBook> {
     const result: Observable<OpenLibraryBook> = this.http.get<OpenLibraryBook>(
-      this.OPELIBRARY_BOOKS_URL + code + 'json'
+      this.OPELIBRARY_BOOKS_URL + code + '.json'
     );
-
+      console.log(result);
     return result;
   }
 }

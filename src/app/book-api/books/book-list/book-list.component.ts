@@ -30,9 +30,6 @@ export class BookListComponent implements OnInit, OnChanges {
   constructor(private booksService: BooksService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngchanges');
-    console.log(changes['$booksChild'].currentValue);
-
     if (changes['$booksChild'] && changes['$booksChild'].currentValue) {
       this.books = [];
       this.subscribeNewBooks();
@@ -54,20 +51,18 @@ export class BookListComponent implements OnInit, OnChanges {
         }
       },
       (error: any) => {
-        console.log('An error occurred: ' + error);
+        console.log('An error occurred while fetching books: ' + error);
       }
     );
   }
 
   private loadBooks(): void {
-
     this.books.push(...this.booksService.fetchBooks());
   }
 
-  onDetailsClick(book: Book):void {
-    console.log(book.title)
+  onDetailsClick(book: Book): void {
+    console.log(book.title);
     this.enableBookDetails.emit();
     this.book.emit(book);
   }
-
 }

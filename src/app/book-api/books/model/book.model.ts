@@ -21,6 +21,7 @@ export class Book {
   public isbn?: string[];
   public coverUrls?: CoverSize;
   public coverCode?: string;
+  public key?: string;
 
   public static convertToBook(searchAuthor: SearchBook): Book {
     const book = new Book();
@@ -38,6 +39,7 @@ export class Book {
     book.isbn = searchAuthor.isbn;
     book.coverUrls = this.prepareCoverUlr(searchAuthor.cover_edition_key!)
     book.coverCode = searchAuthor.cover_edition_key ? searchAuthor.cover_edition_key : '';
+    book.key = searchAuthor.key;
  
      return book;
   }

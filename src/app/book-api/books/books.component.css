@@ -1,0 +1,29 @@
+
+
+.list-container {
+  height: 100vh;
+  overflow-y: scroll; /* Enable vertical scrolling */
+}
+
+.search-bar {
+  margin-bottom: 40px; /* Adjust as needed */
+}
+
+.search-bar-row {
+  margin-bottom: 20px; /* Adjust the space between search bar and books list */
+}
+
+.books-row {
+  margin-top: 10px; /* Adjust as needed */
+}
+
+.mds5{
+    padding-right: 65px;
+    padding-left: 15px;
+}
+
+.mds7{
+    
+    padding-right: 15px;
+    padding-left: 55px;
+}
