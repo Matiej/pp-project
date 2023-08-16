@@ -1,0 +1,6 @@
+.container {
+    margin-left: 20%; /* Ustaw margines z lewej strony */
+    margin-right: 35%; /* Ustaw margines z prawej strony */
+    padding-right: 15px;
+    padding-left: 10px;
+  }
