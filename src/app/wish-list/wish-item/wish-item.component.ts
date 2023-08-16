@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { WishItem } from './wish-item-model';
 
 @Component({
   selector: 'app-wish-item',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./wish-item.component.css']
 })
 export class WishItemComponent {
+  @Input()
+  wishitem: WishItem | undefined;
 
 }
