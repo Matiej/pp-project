@@ -1,3 +1,4 @@
+import { AuthoreKey } from '../../openlibrary-api/model/author-key.model';
 import { OpenLibraryBook } from '../../openlibrary-api/model/opeLibrary.book.model';
 import { Book } from './book.model';
 
@@ -17,11 +18,11 @@ export class BookDetails {
   private _created?: Date;
   private _last_modified?: Date;
 
-  get subjects(): string[]| undefined {
+  get subjects(): string[] | undefined {
     return this._subjects;
   }
 
-  set subjects(value: string[]) {
+  set subjects(value: string[] | undefined) {
     this._subjects = value;
   }
 
@@ -29,7 +30,7 @@ export class BookDetails {
     return this._key;
   }
 
-  set key(value: string) {
+  set key(value: string | undefined) {
     this._key = value;
   }
 
@@ -37,31 +38,31 @@ export class BookDetails {
     return this._title;
   }
 
-  set title(value: string) {
+  set title(value: string | undefined) {
     this._title = value;
   }
 
-  get authors(): string[] | undefined {   
+  get authors(): string[] | undefined {
     return this._authors;
   }
 
-  set authors(value: string[]) {
+  set authors(value: string[] | undefined) {
     this._authors = value;
   }
 
-  get type(): string | undefined{
+  get type(): string | undefined {
     return this._type;
   }
 
-  set type(value: string) {
+  set type(value: string | undefined) {
     this._type = value;
   }
 
-  get covers(): number[] | undefined{
+  get covers(): number[] | undefined {
     return this._covers;
   }
 
-  set covers(value: number[]) {
+  set covers(value: number[] | undefined) {
     this._covers = value;
   }
 
@@ -69,7 +70,7 @@ export class BookDetails {
     return this._description;
   }
 
-  set description(value: string) {
+  set description(value: string | undefined) {
     this._description = value;
   }
 
@@ -101,15 +102,15 @@ export class BookDetails {
     return this._latest_revision;
   }
 
-  set latest_revision(value: number) {
+  set latest_revision(value: number | undefined) {
     this._latest_revision = value;
   }
 
-  get revision(): number| undefined {
+  get revision(): number | undefined {
     return this._revision;
   }
 
-  set revision(value: number) {
+  set revision(value: number | undefined) {
     this._revision = value;
   }
 
@@ -117,7 +118,7 @@ export class BookDetails {
     return this._created;
   }
 
-  set created(value: Date) {
+  set created(value: Date | undefined) {
     this._created = value;
   }
 
@@ -125,15 +126,36 @@ export class BookDetails {
     return this._last_modified;
   }
 
-  set last_modified(value: Date) {
+  set last_modified(value: Date | undefined) {
     this._last_modified = value;
   }
 
-  public static convertToBookDetails(libraryBook: OpenLibraryBook): BookDetails {
+  public static convertToBookDetails(
+    libraryBook: OpenLibraryBook
+  ): BookDetails {
     const details: BookDetails = new BookDetails();
-
+    details.subjects = libraryBook.subjects;
+    details.key = libraryBook.key;
+    details.title = libraryBook.title;
+    details.authors = this.convertAuthors(libraryBook.authors);
+    details.type = libraryBook.type?.key;
+    details.covers = libraryBook.covers;
+    details.description = libraryBook.description;
+    details.subject_places= libraryBook.subject_places;
+    details.subject_people = libraryBook.subject_people;
+    details.subject_times = libraryBook.subject_times;
+    details.latest_revision = libraryBook.latest_revision;
+    details.revision = libraryBook.revision;
+    details.created = libraryBook.created?.value;
+    details.last_modified = libraryBook.last_modified?.value;
 
     return details;
+  }
 
+  private static convertAuthors(authorsKey?: AuthoreKey[]): string[] {
+    const authors: string[] = [];
+    authorsKey?.forEach((author) => authors.push());
+
+    return authors;
   }
 }

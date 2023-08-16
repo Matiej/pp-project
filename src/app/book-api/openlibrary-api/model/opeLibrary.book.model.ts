@@ -1,9 +1,10 @@
 import { AuthoreKey } from './author-key.model';
 import { DateType } from './date-type.model';
+import { OpenLibraryType } from './openLibrary.type';
 import { WorkKey } from './work-key';
 
 export interface OpenLibraryBook {
-  subjects: string[];
+  subjects?: string[];
   publishers?: string[];
   source_records: string[];
   title: string;
@@ -12,8 +13,9 @@ export interface OpenLibraryBook {
   full_title: string;
   isbn_10?: string[];
   publish_date?: string;
-  key: string;
-  authors: AuthoreKey[];
+  key?: string;
+  authors?: AuthoreKey[];
+  type?: OpenLibraryType
   latest_revision?: number;
   revision?: number;
   created?: DateType;
