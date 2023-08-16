@@ -2,6 +2,11 @@
   <div class="col-xs-10">
     <app-wish-edit></app-wish-edit>
     <hr />
-    <p>The list</p>
+    <ul class="list-group" *ngFor="let wish of wishItems">
+      <a class="list-group-item" style="cursor: pointer">
+        <app-wish-item [wishitem]="wish"></app-wish-item>
+      </a>
+    </ul>
+ 
   </div>
 </div>
