@@ -1,0 +1,22 @@
+.list-container {
+  height: 70vh;
+  overflow-y: scroll; /* Enable vertical scrolling */
+}
+
+.custom-hr {
+  border: 1px solid rgb(134, 129, 129); /* Adjust as needed */
+  background-color: rgb(153, 153, 153) !important;
+  margin-bottom: 2px;
+}
+
+.custom-hr-top {
+  margin-top: 2px; /* Adjust as needed */
+}
+
+.wish-title {
+  color: #333333; /* Dark grey color */
+  text-shadow: 2px 3px 7px #990000; /* Deep red shadow */
+  font-size: 5rem; /* Adjust the size if needed */
+  font-weight: bold; /* Bold font */
+  font-style: italic;
+}
