@@ -8,7 +8,9 @@
       >
         <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
       </button>
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="#"
+      routerLink="home" routerLinkActive="active"
+      >
         <img
           src="/assets/logo.png"
           class="me-2"
@@ -25,7 +27,9 @@
       (window:resize)="collapsed = true"
     >
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li class="active"><a href="#"
+          routerLink="home" routerLinkActive="active"
+          >Home</a></li>
         <li>
           <a href="#" routerLink="books" routerLinkActive="active">Books-Api</a>
         </li>
