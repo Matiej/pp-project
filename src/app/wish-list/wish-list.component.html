@@ -1,12 +1,16 @@
 <div class="row">
-  <div class="col-xs-10">
-    <app-wish-edit></app-wish-edit>
-    <hr />
-    <ul class="list-group" *ngFor="let wish of wishItems">
+  <div class="col-xs-12" style="text-align: center">
+    <h1 class="wish-title">Your wish list for the moment</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 list-container">
+    <hr class="custom-hr" />
+    <ul class="list-group" *ngFor="let wish of wishItems; let i = index">
       <a class="list-group-item" style="cursor: pointer">
-        <app-wish-item [wishitem]="wish"></app-wish-item>
+        <app-wish-item [wishitem]="wish" [wishNumer]="i + 1"> </app-wish-item>
       </a>
     </ul>
- 
   </div>
+  <app-wish-edit></app-wish-edit>
 </div>

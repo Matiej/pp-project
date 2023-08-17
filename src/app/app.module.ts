@@ -16,7 +16,8 @@ import { WishItemComponent } from './wish-list/wish-item/wish-item.component';
 import { WishEditComponent } from './wish-list/wish-edit/wish-edit.component';
 import { OpenlibraryApiService } from './book-api/openlibrary-api/service/openlibrary-api.service';
 import { BookItemComponent } from './book-api/books/book-list/book-item/book-item.component';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component'; 
  
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     WishListComponent,
     WishItemComponent,
     WishEditComponent,
-    BookItemComponent
+    BookItemComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

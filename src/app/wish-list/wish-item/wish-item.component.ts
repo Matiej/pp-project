@@ -9,5 +9,7 @@ import { WishItem } from './wish-item-model';
 export class WishItemComponent {
   @Input()
   wishitem: WishItem | undefined;
+  @Input()
+  wishNumer: number = 0;  
 
 }
