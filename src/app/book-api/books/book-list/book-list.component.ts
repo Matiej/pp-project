@@ -10,6 +10,8 @@ import {
 import { Book } from '../model/book.model';
 import { BooksService } from '../service/books.service';
 import { Observable } from 'rxjs';
+import { BookDetailResponse } from '../book-detail/book-detail-response';
+import { WishSharedService } from 'src/app/shared/wish-shared.service';
 
 @Component({
   selector: 'app-book-list',
@@ -27,7 +29,10 @@ export class BookListComponent implements OnInit, OnChanges {
   @Output()
   enableBookDetails: EventEmitter<void> = new EventEmitter();
 
-  constructor(private booksService: BooksService) {}
+  constructor(
+    private booksService: BooksService,
+    private wishSharedService: WishSharedService
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['$booksChild'] && changes['$booksChild'].currentValue) {
@@ -39,7 +44,6 @@ export class BookListComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.books = [];
     this.subscribeNewBooks();
-
     this.loadBooks();
   }
 
@@ -51,7 +55,7 @@ export class BookListComponent implements OnInit, OnChanges {
         }
       },
       (error: any) => {
-        console.log('An error occurred while fetching books: ' + error);
+        console.error('An error occurred while fetching books: ' + error);
       }
     );
   }
@@ -61,8 +65,17 @@ export class BookListComponent implements OnInit, OnChanges {
   }
 
   onDetailsClick(book: Book): void {
-    console.log(book.title);
     this.enableBookDetails.emit();
     this.book.emit(book);
+  }
+
+  itemEnableDetails() : void {
+    this.enableBookDetails.emit();
+  }
+
+  onToWishListClick(book: Book): void {
+    const response: Observable<BookDetailResponse> =
+      this.booksService.searchBookDetailsByCode(book);
+    this.wishSharedService.addToWishList(response);
   }
 }
