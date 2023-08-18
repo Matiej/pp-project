@@ -1,8 +1,9 @@
 import { PictureSizeUrl } from "src/app/shared/picture.size";
+import { WishType } from "./wish-type";
 
 export class WishItem {
   public name: string;
-  public type: string;
+  public type: WishType;
   public title: string;
   public firstPublishYear: string;
   public description: string;
@@ -10,7 +11,7 @@ export class WishItem {
 
   constructor(
     name: string,
-    type: string,
+    type: WishType,
     title: string,
     firstPublishYear: string,
     description: string,

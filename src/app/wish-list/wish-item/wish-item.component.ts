@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { WishItem } from './wish-item-model';
+import { WishType } from './wish-type';
 
 @Component({
   selector: 'app-wish-item',
@@ -10,6 +11,7 @@ export class WishItemComponent {
   @Input()
   wishitem: WishItem | undefined;
   @Input()
-  wishNumer: number = 0;  
+  wishNumer: number = 0;
+  wishType = WishType;
 
 }
