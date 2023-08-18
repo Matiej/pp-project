@@ -1,67 +1,71 @@
-<hr class="hr big" />
-<div class="row">
-  <div class="col-xs-12">
+<div class="col-sm-12 detail-background">
+  <hr class="hr big" />
+  <div class="row detail-background">
     <button (click)="onCloseClick()" class="xbutton btn btn-danger btn-sm">
       X
     </button>
-    <a
-      href="#"
-      (click)="
-        openLargeImage(bookDetailResponse?.book?.coverUrls?.largeSizeCoverurl)
-      "
-    >
-      <img
-        alt="{{ bookDetailResponse?.book?.coverCode }}"
-        [src]="bookDetailResponse?.book?.coverUrls?.mediumSizeCoverurl"
-        class="img-responsive"
-      />
-    </a>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{ bookDetailResponse?.bookDetails?.title }}</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <label for="authors">Authors:</label>
-    <p id="authors" ngClass="authors">
-      {{ bookDetailResponse?.book?.author_name }}
-    </p>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <label for="description">Description:</label>
-    <p id="description" name="description">
-      {{ bookDetailResponse?.bookDetails?.description }}
-    </p>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-6">
-    <label for="pages">Number of Pages:</label>
-    <p id="year" name="pages">
-      {{ bookDetailResponse?.book?.number_of_pages_median }}
-    </p>
-  </div>
-  <div class="col-xs-6">
-    <label for="pages">First publish Year:</label>
-    <p>{{ bookDetailResponse?.book?.first_publish_year }}</p>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle">
-        Mange Book <span class="caret"> </span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li><a href="#">To Wish List</a></li>
-        <li><a href="#">Send by Emial</a></li>
-      </ul>
+  <div class="row">
+    <div class="col-sm-12" style="margin-left: 0px">
+      <a
+        href="#"
+        (click)="
+          openLargeImage(bookDetailResponse?.book?.coverUrls?.largeSizeCoverurl)
+        "
+      >
+        <img
+          alt="{{ bookDetailResponse?.book?.coverCode }}"
+          [src]="bookDetailResponse?.book?.coverUrls?.mediumSizeCoverurl"
+          class="img-responsive"
+        />
+      </a>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>{{ bookDetailResponse?.bookDetails?.title }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <label for="authors">Authors:</label>
+      <p id="authors" ngClass="authors">
+        {{ bookDetailResponse?.book?.author_name }}
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <label for="description">Description:</label>
+      <p id="description" name="description">
+        {{ bookDetailResponse?.bookDetails?.description }}
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <label for="pages">Number of Pages:</label>
+      <p id="year" name="pages">
+        {{ bookDetailResponse?.book?.number_of_pages_median }}
+      </p>
+    </div>
+    <div class="col-sm-6">
+      <label for="pages">First publish Year:</label>
+      <p>{{ bookDetailResponse?.book?.first_publish_year }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle">
+          Mange Book <span class="caret"> </span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">To Wish List</a></li>
+          <li><a href="#">Send by Emial</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="hr big" />
 </div>
-<hr class="hr big" />
