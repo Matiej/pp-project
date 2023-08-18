@@ -22,10 +22,8 @@ export class BookListComponent implements OnInit, OnChanges {
   @Input()
   $booksChild: Observable<Book[]> = new Observable<Book[]>();
   books: Book[] = [];
-
   @Output()
   book: EventEmitter<Book> = new EventEmitter();
-
   @Output()
   enableBookDetails: EventEmitter<void> = new EventEmitter();
 
