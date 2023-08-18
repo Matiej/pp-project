@@ -40,7 +40,7 @@ export class BooksComponent {
   }
 
   showDetails(): void {
-    this.isBookDetails = true;
+    this.isBookDetails = !this.isBookDetails;
   }
 
   closeDetails(): void {
@@ -48,7 +48,6 @@ export class BooksComponent {
   }
 
   sendToBooDetailsComponent(book: Book): void {
-    console.log(book);
     let detailsResponse: Observable<BookDetailResponse> | undefined =
       this.bookService.searchBookDetailsByCode(book);
 

@@ -13,8 +13,7 @@ export class OpenlibraryApiService {
   private readonly OPELIBRARY_SEARCH_URL: string =
     'https://openlibrary.org/search.json';
 
-  private readonly OPELIBRARY_BOOKS_URL: string =
-    'https://openlibrary.org';
+  private readonly OPELIBRARY_BOOKS_URL: string = 'https://openlibrary.org';
 
   constructor(private http: HttpClient) {}
 
@@ -31,7 +30,7 @@ export class OpenlibraryApiService {
       this.http.get<OpenLibrarySearch>(this.OPELIBRARY_SEARCH_URL, {
         params: params,
       });
-    console.log(searchResult);
+
     return searchResult;
   }
 
@@ -43,7 +42,6 @@ export class OpenlibraryApiService {
     const result: Observable<OpenLibraryBook> = this.http.get<OpenLibraryBook>(
       this.OPELIBRARY_BOOKS_URL + code + '.json'
     );
-      console.log(result);
     return result;
   }
 }
