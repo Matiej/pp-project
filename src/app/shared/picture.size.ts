@@ -4,6 +4,8 @@ export class PictureSizeUrl {
   public largeSizeUrl: string;
   public picCode: string;
 
+  
+
   constructor(
     smallSizeUlr: string,
     mediumSizeUlr: string,

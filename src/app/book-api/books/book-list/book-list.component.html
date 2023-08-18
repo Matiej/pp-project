@@ -2,11 +2,16 @@
 <div *ngFor="let book of books; let i = index">
   <div class="row">
     <div class="col-xs-12">
-      <app-book-item [book]="book" [bookNumber]="i + 1"></app-book-item>
+      <app-book-item [book]="book" [bookNumber]="i + 1"
+      (closeDetails)="itemEnableDetails()"
+      >
+     
+      </app-book-item>
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <button class="btn btn-success" (click)="onDetailsClick(book)">Details</button>
+        <button class="btn btn-primary book-btns" (click)="onToWishListClick(book)">To Wish List</button>
+        <button class="btn btn-success book-btns" (click)="onDetailsClick(book)">Details</button>
         <hr class="hr small" />
       </div>
     </div>

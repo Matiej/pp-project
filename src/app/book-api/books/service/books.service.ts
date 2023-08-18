@@ -48,10 +48,6 @@ export class BooksService {
   searchBookDetailsByCode(book: Book): Observable<BookDetailResponse> {
     return this.openLibraryService.seachBookByIdCode(book.key).pipe(
       map((openLibraryBook: OpenLibraryBook) => {
-      console.log("openlibabryd etails")
-        console.log(openLibraryBook);
-      
-        
         const bookDetails = BookDetails.convertToBookDetails(openLibraryBook);
         const response = new BookDetailResponse(book, bookDetails);
         return response;

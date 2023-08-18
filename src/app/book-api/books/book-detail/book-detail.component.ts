@@ -26,9 +26,6 @@ export class BookDetailComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngchanges');
-    console.log(changes['$incomingBookDetailResponse'].currentValue);
-
     if (
       changes['$incomingBookDetailResponse'] &&
       changes['$incomingBookDetailResponse'].currentValue
@@ -54,7 +51,7 @@ export class BookDetailComponent implements OnInit, OnChanges {
         this.bookDetailResponse = detailResponse;
       },
       (error: any) => {
-        console.log('An error occurred during book detail fetch: ' + error);
+        console.error('An error occurred during book detail fetch: ' + error);
       }
     );
   }
