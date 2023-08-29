@@ -1,4 +1,18 @@
 .icon-size {
-    width: 80%; /* Change to the percentage width you desire */
-    height: auto; /* Maintains the aspect ratio */
-  }
+  width: 80%; /* Change to the percentage width you desire */
+  height: auto; /* Maintains the aspect ratio */
+}
+
+.hide-badge {
+  display: none;
+}
+
+/* Adjust the style of the badge if necessary */
+.badge {
+  background-color: red;
+  border-radius: 50%; /* Makes the badge round */
+  padding: 5px 10px; /* Adjust as needed */
+  font-size: 12px; /* Adjust as needed */
+  vertical-align: middle;
+  margin-left: 5px; /* Space between "Wish List" text and the badge */
+}
