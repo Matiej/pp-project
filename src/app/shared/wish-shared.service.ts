@@ -10,11 +10,13 @@ import { WishType } from '../wish-list/wish-item/wish-type';
 })
 export class WishSharedService {
   private _wishlist = new BehaviorSubject<WishItem[]>([]);
-  private wishlist$ = this._wishlist.asObservable();
+  private wishlist$ = new Observable<WishItem[]>();
+  private _wishCounter = new BehaviorSubject<number>(0);
+  private wishCounter$ = this._wishCounter.asObservable();
 
   constructor() {}
 
-  addToWishList(bookDetails: Observable<BookDetailResponse>): void {
+  public addToWishList(bookDetails: Observable<BookDetailResponse>): void {
     bookDetails.subscribe((bookDetails: BookDetailResponse) => {
       const picUrl: PictureSizeUrl = new PictureSizeUrl(
         bookDetails.book.coverUrls?.smallSizeCoverurl!,
@@ -35,10 +37,28 @@ export class WishSharedService {
       const currentWishList: WishItem[] = this._wishlist.getValue();
       currentWishList.push(item);
       this._wishlist.next(currentWishList);
+
+      
+
+      const currentWishiesNumber = this._wishCounter.value +1;
+      this.refreshWishCounter(currentWishiesNumber);  
+
+
     });
   }
 
-  getWishList(): Observable<WishItem[]> {
+  public getWishList(): Observable<WishItem[]> {
+    this.wishlist$ = this._wishlist.asObservable();
     return this.wishlist$;
   }
+
+  public refreshWishCounter(wishiesNumber: number):void {
+    this._wishCounter.next(wishiesNumber);
+  }
+
+  public getWishiesCounter(): Observable<number> {
+    return this.wishCounter$;
+  }
+
+
 }

@@ -26,6 +26,7 @@ export class BookListComponent implements OnInit, OnChanges {
   book: EventEmitter<Book> = new EventEmitter();
   @Output()
   enableBookDetails: EventEmitter<void> = new EventEmitter();
+  showToast: boolean = false;
 
   constructor(
     private booksService: BooksService,
@@ -67,7 +68,7 @@ export class BookListComponent implements OnInit, OnChanges {
     this.book.emit(book);
   }
 
-  itemEnableDetails() : void {
+  itemEnableDetails(): void {
     this.enableBookDetails.emit();
   }
 
@@ -75,5 +76,12 @@ export class BookListComponent implements OnInit, OnChanges {
     const response: Observable<BookDetailResponse> =
       this.booksService.searchBookDetailsByCode(book);
     this.wishSharedService.addToWishList(response);
+    
+
+    this.showToast = true;
+
+    setTimeout(() => {
+      this.showToast = false;
+    }, 3000);
   }
 }

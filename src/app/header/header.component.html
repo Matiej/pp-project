@@ -45,7 +45,9 @@
         </li>
         <li>
           <a href="#" routerLink="whish-list" routerLinkActive="active"
-            >Wish List</a
+            >Wish List
+            <span class="badge" [class.hide-badge]="wishCounter == 0">{{ wishCounter }}</span>
+            </a
           >
         </li>
         <li>

@@ -3,7 +3,7 @@
     <h1 class="wish-title">Your wish list for the moment</h1>
   </div>
   <div class="col-xs-12" style="text-align: left; margin-left: 3px">
-    <i>- Number of wishies: {{ wishItems.length}} -</i>
+    <i>- Number of wishies: {{ wishItems.length }} -</i>
   </div>
 </div>
 <div class="row">
@@ -12,8 +12,16 @@
     <ul class="list-group" *ngFor="let wish of wishItems; let i = index">
       <a class="list-group-item" style="cursor: pointer">
         <app-wish-item [wishitem]="wish" [wishNumer]="i + 1"> </app-wish-item>
+        <div style="padding: 15px">
+          <button type="button" class="btn btn-danger wish-button" (click)="onRemoveWish(i)">
+            Remove
+          </button>
+        </div>
       </a>
     </ul>
   </div>
   <app-wish-edit></app-wish-edit>
+  <div class="wish-remove-toast" *ngIf="showToast">
+    Wish removed successfully!
+  </div>
 </div>
