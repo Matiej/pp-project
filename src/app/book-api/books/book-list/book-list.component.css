@@ -1,27 +1,27 @@
 .hr.small {
-    border-color: rgb(200, 233, 200);
-    /* background-color: red;   */
-    width: 25%;
-    margin-left: 0;
-    margin-right: auto;
-    margin-bottom: 0;
-    margin-top: 0;
-    height: 1px;
-    margin: 5px 0
+  border-color: rgb(200, 233, 200);
+  /* background-color: red;   */
+  width: 25%;
+  margin-left: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-top: 0;
+  height: 1px;
+  margin: 5px 0;
 }
 
 .hr.big {
-    
-    width: 80%;
-    margin-left: 0;
-    margin-right: auto;
-    border-color: rgb(182, 175, 175);
-    margin-bottom: 1;
-    
+  width: 80%;
+  margin-left: 0;
+  margin-right: auto;
+  border-color: rgb(182, 175, 175);
+  margin-bottom: 1;
 }
 
-.book-btns{
-    margin: 2px;
+.book-btns {
+  margin: 2px;
 }
 
-
+p {
+  color: navy;
+}

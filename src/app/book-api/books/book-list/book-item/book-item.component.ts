@@ -18,7 +18,6 @@ export class BookItemComponent {
   @Output()
   isBookDetails: EventEmitter<void> = new EventEmitter();
 
-
   onClickItem(): void {
     this.isBookDetails.emit();
   }
