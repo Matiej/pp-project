@@ -6,6 +6,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Book } from '../model/book.model';
 import { BooksService } from '../service/books.service';
@@ -18,6 +19,8 @@ import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.css'],
+  encapsulation: ViewEncapsulation.Emulated, // it is default setting, if change for nonte,
+  // all css styles from this componen will be available and overwritte others
 })
 export class BookListComponent implements OnInit, OnChanges {
   @Input()
