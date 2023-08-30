@@ -2,3 +2,30 @@
 body {
     background-color: #e2e2e2; /* or any color you prefer */
   }
+
+  
+.success-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #01ca5b;
+  color: rgb(36, 0, 0);
+  padding: 10px 20px;
+  border-radius: 4px;
+  z-index: 1000;
+  max-width: 300px;
+  text-align: center;
+}
+
+.remove-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #e91c1c;
+  color: rgb(245, 235, 235);
+  padding: 10px 20px;
+  border-radius: 4px;
+  z-index: 1000;
+  max-width: 300px;
+  text-align: center;
+}

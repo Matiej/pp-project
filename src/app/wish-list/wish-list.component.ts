@@ -3,6 +3,7 @@ import { WishItem } from './wish-item/wish-item-model';
 import { PictureSizeUrl } from '../shared/picture.size';
 import { WishSharedService } from '../shared/wish-shared.service';
 import { WishType } from './wish-item/wish-type';
+import { TOAST_MESSAGES } from '../constants/toast-messages';
 
 @Component({
   selector: 'app-wish-list',
@@ -12,6 +13,7 @@ import { WishType } from './wish-item/wish-type';
 export class WishListComponent implements OnInit {
   wishItems: WishItem[] = [];
   showToast: boolean = false;
+  toastMessage: string = '';
 
   constructor(private wishSharedService: WishSharedService) {}
 
@@ -33,12 +35,16 @@ export class WishListComponent implements OnInit {
     if (index >= 0 && index < this.wishItems.length) {
       this.wishItems.splice(index, 1);
       this.wishSharedService.refreshWishCounter(this.wishItems.length);
-      this.showToast = true;
-
-      setTimeout(() => {
-        this.showToast = false;
-      }, 3000);
+      this.showToastMessage(TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY, 3000);
     }
+  }
+
+  private showToastMessage(message: string, timeout: number) {
+    this.toastMessage = message;
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+    }, timeout);
   }
 
   private createWish(): WishItem[] {
