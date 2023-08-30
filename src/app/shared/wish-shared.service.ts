@@ -26,11 +26,13 @@ export class WishSharedService {
       );
 
       const item: WishItem = new WishItem(
-        bookDetails.book.author_name?.join(', ')!,
-        WishType.BOOK,
         bookDetails.book.title!,
-        bookDetails.book.first_publish_year?.toString()!,
-        bookDetails.bookDetails.description!,
+        WishType.BOOK,
+        bookDetails.bookDetails.description! +
+          ' ||AUTHORS: ' +
+          bookDetails.book.author_name?.join(', ')! +
+          ' ||PUBLISH YEAR:' +
+          bookDetails.book.first_publish_year?.toString()!,
         picUrl
       );
 
@@ -38,12 +40,8 @@ export class WishSharedService {
       currentWishList.push(item);
       this._wishlist.next(currentWishList);
 
-      
-
-      const currentWishiesNumber = this._wishCounter.value +1;
-      this.refreshWishCounter(currentWishiesNumber);  
-
-
+      const currentWishiesNumber = this._wishCounter.value + 1;
+      this.refreshWishCounter(currentWishiesNumber);
     });
   }
 
@@ -52,13 +50,11 @@ export class WishSharedService {
     return this.wishlist$;
   }
 
-  public refreshWishCounter(wishiesNumber: number):void {
+  public refreshWishCounter(wishiesNumber: number): void {
     this._wishCounter.next(wishiesNumber);
   }
 
   public getWishiesCounter(): Observable<number> {
     return this.wishCounter$;
   }
-
-
 }

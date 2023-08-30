@@ -70,10 +70,6 @@ export class BookListComponent implements OnInit, OnChanges {
     this.book.emit(book);
   }
 
-  itemEnableDetails(): void {
-    this.enableBookDetails.emit();
-  }
-
   onToWishListClick(book: Book): void {
     const response: Observable<BookDetailResponse> =
       this.booksService.searchBookDetailsByCode(book);

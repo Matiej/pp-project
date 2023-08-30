@@ -45,6 +45,7 @@ export class BooksComponent {
 
   closeDetails(): void {
     this.isBookDetails = false;
+    
   }
 
   sendToBooDetailsComponent(book: Book): void {
