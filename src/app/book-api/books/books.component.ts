@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { Book } from './model/book.model';
@@ -20,11 +20,23 @@ export class BooksComponent {
 
   constructor(private bookService: BooksService) {}
 
-  onTitleSearchSubmit(searchBookBytitleForm: NgForm) {
-    this.$books = this.bookService.searchBooksByTitle(
-      searchBookBytitleForm.value.byTitle
-    );
-
+  onTitleSearchSubmit(searchRequest: { criteria: string; text: string }) {
+    switch (searchRequest.criteria) {
+      case 'title':
+        this.$books = this.searchBooksByTitle(searchRequest.text);
+        break;
+      case 'author':
+        alert('author serach is not available');
+        break;
+      case 'text':
+        alert('text serach is not available');
+        break;
+      case 'subject':
+        alert('subject serach is not available');
+        break;
+      default:
+        alert('nothing to display');
+    }
     this.$books
       .pipe(
         map((books) => {
@@ -36,7 +48,10 @@ export class BooksComponent {
         })
       )
       .subscribe();
-    searchBookBytitleForm.reset();
+  }
+
+  private searchBooksByTitle(title: string): Observable<Book[]> {
+    return this.bookService.searchBooksByTitle(title);
   }
 
   showDetails(): void {
@@ -45,7 +60,6 @@ export class BooksComponent {
 
   closeDetails(): void {
     this.isBookDetails = false;
-    
   }
 
   sendToBooDetailsComponent(book: Book): void {
