@@ -1,0 +1,43 @@
+ <!--<div class="row search-bar-row">
+  
+  <form class="form-inline search-bar">
+    <div class="form-group">
+      <label for="byTitle">Search Books by title:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="byTitle"
+        name="byTitle"
+        #byTitle
+        placeholder="Enter book title for search"
+      />
+    </div>
+    <button class="btn btn-default" (click)="onTitleSearchSubmit(byTitle)">
+      Search
+    </button>
+  </form>
+</div> -->
+
+<div class="container">
+  <div class="row" style="padding-top: 22px;">
+    <div class="col-md-4">
+      <select class="form-control" [(ngModel)]="selectedCriteria">
+        <option value="title">Title</option>
+        <option value="author">Author</option>
+        <option value="text">Text</option>
+        <option value="subject">Subject</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        #searchText
+        placeholder="Enter your search"
+      />
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary" (click)="onSearchClick(searchText)">Search</button>
+    </div>
+  </div>
+</div>
