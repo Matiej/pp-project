@@ -12,6 +12,7 @@ import { BooksService } from '../service/books.service';
 import { Observable } from 'rxjs';
 import { BookDetailResponse } from '../book-detail/book-detail-response';
 import { WishSharedService } from 'src/app/shared/wish-shared.service';
+import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 
 @Component({
   selector: 'app-book-list',
@@ -27,6 +28,7 @@ export class BookListComponent implements OnInit, OnChanges {
   @Output()
   enableBookDetails: EventEmitter<void> = new EventEmitter();
   showToast: boolean = false;
+  toastMessage: string = "";
 
   constructor(
     private booksService: BooksService,
@@ -75,13 +77,15 @@ export class BookListComponent implements OnInit, OnChanges {
   onToWishListClick(book: Book): void {
     const response: Observable<BookDetailResponse> =
       this.booksService.searchBookDetailsByCode(book);
-    this.wishSharedService.addToWishList(response);
-    
+    this.wishSharedService.addToWishList(response)
+    this.showToastMessage(TOAST_MESSAGES.WISH_ADDED_SUCCESSFULLY, 3000);
+  }
 
+  private showToastMessage(message: string, timeout: number) {
+    this.toastMessage = message;
     this.showToast = true;
-
     setTimeout(() => {
       this.showToast = false;
-    }, 3000);
+    }, timeout);
   }
 }
