@@ -1,34 +1,28 @@
 <div class="container">
-  <div class="row search-bar-row">
-    <form
-      class="form-inline search-bar"
-      #searchForm="ngForm"
-      (ngSubmit)="onTitleSearchSubmit(searchForm)"
+  <app-books-serch-bar (searchRequest)="onTitleSearchSubmit($event)">
+  </app-books-serch-bar>
+
+  <div class="enable-but-container">
+    <label for="enable_but">Default Books</label>
+    <button
+      id="enable_but"
+      name="enable_but"
+      class="btn btn-primary"
+      (click)="onEnableDefaultBooks()"
     >
-      <div class="form-group">
-        <label for="byTitle">Search Books by title:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="byTitle"
-          name="byTitle"
-          ngModel
-          placeholder="Enter book title for search"
-        />
-      </div>
-      <button type="submit" class="btn btn-default">Search</button>
-    </form>
+      {{ enableButtonName }}
+    </button>
   </div>
 
-  <div class="row books-row " *ngIf="isBooksAvailable">
-    <div class="col-md-5 mds5  list-container">
+  <div class="row books-row" *ngIf="isBooksAvailable">
+    <div class="col-md-5 mds5 list-container">
       <app-book-list
         [$booksChild]="$books"
         (enableBookDetails)="showDetails()"
         (book)="sendToBooDetailsComponent($event)"
       ></app-book-list>
     </div>
-    <div class="col-md-7 mds7 " *ngIf="isBookDetails">
+    <div class="col-md-7 mds7" *ngIf="isBookDetails">
       <app-book-detail
         (closeDetails)="closeDetails()"
         [$incomingBookDetailResponse]="$detailsToSend"

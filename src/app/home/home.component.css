@@ -22,3 +22,11 @@
     border: 1px solid rgb(102, 92, 92);
   }
 
+  .home-title {
+    color: #74081a; /* Dark grey color */
+    text-shadow: 3px 4px 8px #312d2d; /* Deep red shadow */
+    
+    font-weight: bold; /* Bold font */
+    font-style: italic;
+  }
+

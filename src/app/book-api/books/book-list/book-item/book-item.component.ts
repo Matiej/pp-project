@@ -16,10 +16,9 @@ export class BookItemComponent {
   })
   bookNumber: number = 0;
   @Output()
-  closeDetails: EventEmitter<void> = new EventEmitter();
-
+  isBookDetails: EventEmitter<void> = new EventEmitter();
 
   onClickItem(): void {
-    this.closeDetails.emit();
+    this.isBookDetails.emit();
   }
 }

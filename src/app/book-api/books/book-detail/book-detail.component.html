@@ -6,9 +6,8 @@
     </button>
   </div>
   <div class="row">
-    <div class="col-sm-12" style="margin-left: 0px">
+    <div class="col-sm-12" style="margin-left: 0px;">
       <a
-        href="#"
         (click)="
           openLargeImage(bookDetailResponse?.book?.coverUrls?.largeSizeCoverurl)
         "
@@ -16,7 +15,7 @@
         <img
           alt="{{ bookDetailResponse?.book?.coverCode }}"
           [src]="bookDetailResponse?.book?.coverUrls?.mediumSizeCoverurl"
-          class="img-responsive"
+          class="img-responsive" style="cursor: pointer"
         />
       </a>
     </div>
