@@ -12,9 +12,9 @@ import { BookDetailResponse } from './book-detail/book-detail-response';
 })
 export class BooksComponent {
   $books: Observable<Book[]> = new Observable<Book[]>();
-  //todo change this to false;
-  isBooksAvailable: boolean = true;
+  isBooksAvailable: boolean = false;
   isBookDetails: boolean = false;
+  enableButtonName: string = 'Enable';
   $detailsToSend: Observable<BookDetailResponse> =
     new Observable<BookDetailResponse>();
 
@@ -52,5 +52,10 @@ export class BooksComponent {
       this.bookService.searchBookDetailsByCode(book);
 
     this.$detailsToSend = detailsResponse;
+  }
+
+  onEnableDefaultBooks() {
+    this.isBooksAvailable = !this.isBooksAvailable;
+    this.enableButtonName = !this.isBooksAvailable ? 'Enable' : 'Disable';
   }
 }

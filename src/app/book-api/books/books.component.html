@@ -18,6 +18,14 @@
       </div>
       <button type="submit" class="btn btn-default">Search</button>
     </form>
+    <div class="enable-but-container">
+      <label for="enable_but">Default Books</label>
+      <button id="enable_but" name="enable_but" 
+       class="btn btn-primary"
+       (click)="onEnableDefaultBooks()">{{enableButtonName}}</button>
+ 
+  </div>
+    
   </div>
 
   <div class="row books-row " *ngIf="isBooksAvailable">
