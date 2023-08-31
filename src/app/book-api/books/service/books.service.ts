@@ -37,11 +37,6 @@ export class BooksService {
   searchBooksByTitle(title: string): Observable<Book[]> {
     return this.openLibraryService.searchBooksByTitle(title).pipe(
       map((openLibrarySearch: OpenLibrarySearch) => {
-        //   if (openLibrarySearch && openLibrarySearch.numFound > 0) {
-        //     return Book.convertToBookList(openLibrarySearch.docs);
-        //   }
-        //   return [];
-
         return this.convertToSearchBookList(openLibrarySearch);
       })
     );
@@ -50,10 +45,6 @@ export class BooksService {
   searchBooksByAuthor(author: string, sorting: string): Observable<Book[]> {
     return this.openLibraryService.searchBooksByAuthor(author, sorting).pipe(
       map((openLibrarySearch: OpenLibrarySearch) => {
-        // if (openLibrarySearch && openLibrarySearch.numFound > 0) {
-        //   return Book.convertToBookList(openLibrarySearch.docs);
-        // }
-        // return [];
         return this.convertToSearchBookList(openLibrarySearch);
       })
     );
