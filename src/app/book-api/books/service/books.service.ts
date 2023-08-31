@@ -26,7 +26,7 @@ export class BooksService {
 
   fetchBooks(): Book[] {
     const searchResult: SearchBook[] =
-      this.openLibraryService.searchBooksByAuthor();
+      this.openLibraryService.fetchBooksFromMemoryDB();
     const books = [];
     for (const element of searchResult) {
       books.push(Book.convertToBook(element));
@@ -37,12 +37,35 @@ export class BooksService {
   searchBooksByTitle(title: string): Observable<Book[]> {
     return this.openLibraryService.searchBooksByTitle(title).pipe(
       map((openLibrarySearch: OpenLibrarySearch) => {
-        if (openLibrarySearch && openLibrarySearch.numFound > 0) {
-          return Book.convertToBookList(openLibrarySearch.docs);
-        }
-        return [];
+        //   if (openLibrarySearch && openLibrarySearch.numFound > 0) {
+        //     return Book.convertToBookList(openLibrarySearch.docs);
+        //   }
+        //   return [];
+
+        return this.convertToSearchBookList(openLibrarySearch);
       })
     );
+  }
+
+  searchBooksByAuthor(author: string, sorting: string): Observable<Book[]> {
+    return this.openLibraryService.searchBooksByAuthor(author, sorting).pipe(
+      map((openLibrarySearch: OpenLibrarySearch) => {
+        // if (openLibrarySearch && openLibrarySearch.numFound > 0) {
+        //   return Book.convertToBookList(openLibrarySearch.docs);
+        // }
+        // return [];
+        return this.convertToSearchBookList(openLibrarySearch);
+      })
+    );
+  }
+
+  private convertToSearchBookList(
+    openLibrarySearch: OpenLibrarySearch
+  ): Book[] {
+    if (openLibrarySearch && openLibrarySearch.numFound > 0) {
+      return Book.convertToBookList(openLibrarySearch.docs);
+    }
+    return [];
   }
 
   searchBookDetailsByCode(book: Book): Observable<BookDetailResponse> {

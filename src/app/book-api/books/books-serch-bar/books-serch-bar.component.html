@@ -8,7 +8,14 @@
         <option value="subject">Subject</option>
       </select>
     </div>
-    <div class="col-md-8  searchbar">
+    <div class="col-md-2 searchbar" *ngIf="selectedCriteria==='author'">
+      <select class="form-control" [(ngModel)]="selectSorting">
+        <option value="new">New</option>
+        <option value="old">Old</option>
+        <option value="random">Random</option>
+      </select>
+    </div>
+    <div class="col-md-6 searchbar" >
       <input
         type="text"
         class="form-control"
