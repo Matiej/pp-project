@@ -13,6 +13,7 @@ import { OpenLibraryBook } from '../../openlibrary-api/model/opeLibrary.book.mod
   providedIn: 'root',
 })
 export class BooksService {
+
   private searchBooksByTitleSubject = new BehaviorSubject<Book[] | null>(null);
   searchQuery$ = this.searchBooksByTitleSubject.asObservable();
 
@@ -44,6 +45,14 @@ export class BooksService {
 
   searchBooksByAuthor(author: string, sorting: string): Observable<Book[]> {
     return this.openLibraryService.searchBooksByAuthor(author, sorting).pipe(
+      map((openLibrarySearch: OpenLibrarySearch) => {
+        return this.convertToSearchBookList(openLibrarySearch);
+      })
+    );
+  }
+
+  searchBooksByText(text: string, limit: number): Observable<Book[]> {
+    return this.openLibraryService.searchBooksByText(text, limit).pipe(
       map((openLibrarySearch: OpenLibrarySearch) => {
         return this.convertToSearchBookList(openLibrarySearch);
       })

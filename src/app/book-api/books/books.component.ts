@@ -20,17 +20,27 @@ export class BooksComponent {
 
   constructor(private bookService: BooksService) {}
 
-  onTitleSearchSubmit(searchRequest: { criteria: string; text: string; 
-    sorting: string  }) {
+  onTitleSearchSubmit(searchRequest: {
+    criteria: string;
+    text: string;
+    sorting: string;
+    limit: number;
+  }) {
     switch (searchRequest.criteria) {
       case 'title':
         this.$books = this.searchBooksByTitle(searchRequest.text);
         break;
       case 'author':
-        this.$books = this.searchBooksByAuthor(searchRequest.text, searchRequest.sorting);
+        this.$books = this.searchBooksByAuthor(
+          searchRequest.text,
+          searchRequest.sorting
+        );
         break;
       case 'text':
-        alert('text serach is not available');
+        this.$books = this.searchBooksByText(
+          searchRequest.text,
+          searchRequest.limit
+        );
         break;
       case 'subject':
         alert('subject serach is not available');
@@ -55,9 +65,16 @@ export class BooksComponent {
     return this.bookService.searchBooksByTitle(title);
   }
 
-  private searchBooksByAuthor(author: string, sorting: string): Observable<Book[]> {
+  private searchBooksByAuthor(
+    author: string,
+    sorting: string
+  ): Observable<Book[]> {
     return this.bookService.searchBooksByAuthor(author, sorting);
-  } 
+  }
+
+  private searchBooksByText(text: string, limit: number): Observable<Book[]> {
+    return this.bookService.searchBooksByText(text, limit);
+  }
 
   showDetails(): void {
     this.isBookDetails = !this.isBookDetails;

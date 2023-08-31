@@ -10,6 +10,7 @@ export class BooksSerchBarComponent {
   private _selectedCriteria: string = 'title';
   selectSorting: string = 'new';
   searchValue: string = '';
+  textSearchLimit: number = 10;
   isSearchFiledDisabled: boolean = false;
   searchFiledPlaceholder: string = 'Enter your search';
 
@@ -18,6 +19,7 @@ export class BooksSerchBarComponent {
     criteria: string;
     text: string;
     sorting: string;
+    limit: number
   }> = new EventEmitter();
 
   get selectedCriteria(): string {
@@ -41,7 +43,9 @@ export class BooksSerchBarComponent {
       criteria: this._selectedCriteria,
       text: searchText.value,
       sorting: this.selectSorting,
+      limit: this.textSearchLimit
     });
     searchText.value = '';
+    this.searchValue = '';
   }
 }
