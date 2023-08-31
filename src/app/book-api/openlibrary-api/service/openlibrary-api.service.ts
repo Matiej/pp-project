@@ -10,6 +10,7 @@ import { OpenLibraryBook } from '../model/opeLibrary.book.model';
   providedIn: 'root',
 })
 export class OpenlibraryApiService {
+
   private readonly OPELIBRARY_SEARCH_URL: string =
     'https://openlibrary.org/search.json';
 
@@ -17,7 +18,7 @@ export class OpenlibraryApiService {
 
   constructor(private http: HttpClient) {}
 
-  searchBooksByAuthor(): SearchBook[] {
+  fetchBooksFromMemoryDB(): SearchBook[] {
     return AUTHOR_SEARCH_RESULT;
   }
 
@@ -33,6 +34,31 @@ export class OpenlibraryApiService {
 
     return searchResult;
   }
+
+  searchBooksByAuthor(author: string, sorting: string): Observable<OpenLibrarySearch> {
+    let params = new HttpParams()
+    .append('author', this.prepareSearchParam(author)
+    ).append('sort', sorting);
+    const searchResult: Observable<OpenLibrarySearch> =
+      this.http.get<OpenLibrarySearch>(this.OPELIBRARY_SEARCH_URL, {
+        params: params,
+      });
+
+    return searchResult;
+  }
+
+  searchBooksByText(text: string, limit: number): Observable<OpenLibrarySearch> {
+    let params = new HttpParams()
+    .append('q', this.prepareSearchParam(text)
+    ).append('limit', limit);
+    console.log(params);
+    const searchResult: Observable<OpenLibrarySearch> =
+      this.http.get<OpenLibrarySearch>(this.OPELIBRARY_SEARCH_URL, {
+        params: params,
+      });
+      return searchResult;
+  }
+
 
   private prepareSearchParam(searchParamm: string): string {
     return searchParamm.replaceAll(' ', '+');

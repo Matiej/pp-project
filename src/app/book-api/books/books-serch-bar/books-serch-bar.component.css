@@ -1,7 +1,26 @@
 .searchbar {
-    color: #083979;
-    background-color: #337ab7;
-    border-color: #2e6da4;
-    border-radius: 4px;
-    border: 1px solid transparent;
+  color: #083979;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+
+.btn-dark-grey {
+  background-color: #333; /* Dark Grey Color */
+  border-color: black; /* Slightly Darker Border for a 3D effect */
+  color: #fff; /* White Text Color */
+}
+
+.btn-dark-grey:hover,
+.btn-dark-grey:focus {
+  background-color: #4e4d4d; /* A bit darker for hover and active states */
+  border-color: #9e9191; /* Even darker border for a 3D effect on hover/active */
+}
+
+.btn-dark-grey:active,
+.btn-dark-grey.active
+ {
+  background-color: #b31313; /* A bit darker for hover and active states */
+  border-color: #bdb8b8; /* Even darker border for a 3D effect on hover/active */
 }

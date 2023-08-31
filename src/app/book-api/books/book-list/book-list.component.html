@@ -1,5 +1,7 @@
+
 <hr class="hr big" />
 <div *ngFor="let book of books; let i = index">
+  <i>Total items found: {{books.length}}</i>
   <div class="row">
     <div class="col-xs-12">
       <app-book-item [book]="book" [bookNumber]="i + 1"

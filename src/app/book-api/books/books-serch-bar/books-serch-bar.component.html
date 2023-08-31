@@ -1,23 +1,58 @@
 <div class="container">
   <div class="row" style="padding-top: 22px">
     <div class="col-md-2  searchbar">
-      <select class="form-control" [(ngModel)]="selectedCriteria">
+      <label for="criteriaSelector" style="color: whitesmoke;">Select Criteria</label>
+      <select class="form-control" 
+      style="margin-bottom: 20px;"
+      id="criteriaSelector"
+      name="criteriaSelector"
+      [(ngModel)]="selectedCriteria">
         <option value="title">Title</option>
         <option value="author">Author</option>
         <option value="text">Text</option>
         <option value="subject">Subject</option>
       </select>
     </div>
-    <div class="col-md-8  searchbar">
+    <div class="col-md-2 searchbar" *ngIf="selectedCriteria==='author'">
+      <label for="sortingSelector" style="color: whitesmoke;">Sorting Method</label>
+      <select class="form-control" 
+      style="margin-bottom: 20px;"
+      id="sortingSelector"
+      name="sortingSelector"
+      [(ngModel)]="selectSorting">
+        <option value="new">New</option>
+        <option value="old">Old</option>
+        <option value="random">Random</option>
+      </select>
+    </div>
+    <div class="col-md-1 searchbar" *ngIf="selectedCriteria==='text'">
+      <label for="limitSelector" style="color: whitesmoke;">Limit</label>
+      <select class="form-control" [(ngModel)]="textSearchLimit" style="margin-bottom: 20px;"
+      id="limitSelector" name="limitSelector" 
+      >
+        <option value="10">10</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <div class="col-md-6 searchbar" >
+      <label for="searchField" style="color: whitesmoke;">Search</label>
       <input
+      style="margin-bottom: 20px;"
+      id="searchField"
+      name="searchField"
         type="text"
         class="form-control"
+        [(ngModel)]="searchValue"
         #searchText
-        placeholder="Enter your search"
+        placeholder= {{searchFiledPlaceholder}}
+        [disabled]="isSearchFiledDisabled"
       />
     </div>
-    <div class="col-md-2">
-      <button class="btn btn-primary" (click)="onSearchClick(searchText)">
+    <div class="col-md-2 searchbar">
+      <button class="btn  btn-dark-grey" style="margin-bottom: 20px; margin-top: 25px; margin-left: 25px;" 
+      [disabled]="!searchValue"
+      (click)="onSearchClick(searchText)">
         Search
       </button>
     </div>
