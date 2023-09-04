@@ -43,12 +43,14 @@ export class BookListComponent implements OnInit, OnChanges {
       this.books = [];
       this.subscribeNewBooks();
     }
+     
+    
   }
 
   ngOnInit(): void {
     this.books = [];
     this.subscribeNewBooks();
-    this.loadBooks();
+    // this.loadBooks();
   }
 
   private subscribeNewBooks() {
@@ -56,6 +58,7 @@ export class BookListComponent implements OnInit, OnChanges {
       (books: Book[]) => {
         if (books.length > 0) {
           this.books.push(...books);
+          this.onDetailsClick(this.books[0])
         }
       },
       (error: any) => {
