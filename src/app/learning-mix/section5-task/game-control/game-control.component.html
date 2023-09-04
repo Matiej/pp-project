@@ -1,0 +1,25 @@
+<hr />
+<div class="row">
+
+
+  <div class="col-xs-12" style="text-align: center">
+    <h1 class="game-control-title" style="margin: 35px">
+      Super Game Controller
+    </h1>
+    
+    <div class="col-sm-6">
+      <button class="btn btn-primary"
+      [disabled]="isStartButtonDisable"
+      (click)="onStartButtonClick()"
+      >Start Game</button>
+    </div>
+    <div class="col-sm-6">
+      <button class="btn btn-danger"
+      [disabled]="isStopButtonDisable"
+      (click)="onStopButtonClick()"
+      >Stop Game</button>
+    </div>
+  </div>
+  
+</div>
+<hr style="color: black;"/>
