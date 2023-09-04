@@ -77,11 +77,17 @@ export class BooksComponent {
   }
 
   showDetails(): void {
-    this.isBookDetails = !this.isBookDetails;
+    console.log('Show Details');
+    if (!this.isBookDetails) {
+      this.isBookDetails = !this.isBookDetails;
+    }
   }
 
   closeDetails(): void {
-    this.isBookDetails = false;
+    console.log('closeDetails');
+    if (this.isBookDetails == true) {
+      this.isBookDetails = false;
+    }
   }
 
   sendToBooDetailsComponent(book: Book): void {
