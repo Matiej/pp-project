@@ -1,0 +1,22 @@
+.even-style {
+    background-color: #6699ff; /* Blueish background color */
+    animation: blinkingBackground 0.5s infinite;
+    padding: 2px 5px; /* Optional padding to give space around the text with the background color */
+  }
+
+
+  
+ @keyframes blinkingBackground {
+  0% { background-color: transparent; }
+  50% { background-color: #ffffff; } /* White color for example. Adjust as needed. */
+  100% { background-color: transparent; }
+}
+
+.even-message {
+    text-align: center;
+    color: black; /* Dark grey color */
+    text-shadow: 3px 5px 9px #e70f0f; /* Deep red shadow */
+    font-size: 2rem; /* Adjust the size if needed */
+    font-weight: bold; /* Bold font */
+    font-style: italic;
+  }
