@@ -10,12 +10,13 @@ import { Section5TaskComponent } from './section5-task/section5-task.component';
 import { GameControlComponent } from './section5-task/game-control/game-control.component';
 import { OddComponent } from './section5-task/odd/odd.component';
 import { EvenComponent } from './section5-task/even/even.component';
+import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 
 @NgModule({
   declarations: [ServerComponent, ServersComponent, UserTaskComponent, ClickTaskComponent, 
-    Section5TaskComponent, GameControlComponent, OddComponent, EvenComponent],
+    Section5TaskComponent, GameControlComponent, OddComponent, EvenComponent, SpinnerTestComponent],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule],
-  exports: [ServersComponent, UserTaskComponent, ClickTaskComponent, Section5TaskComponent],
+  exports: [ServersComponent, UserTaskComponent, ClickTaskComponent, Section5TaskComponent, SpinnerTestComponent],
   providers: [],
 })
 export class LearningMixModule {}

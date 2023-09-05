@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-5">
+    <button class="btn btn-primary" (click)="onSpinnerClick()">
+      {{ spinnerButtonDesc }}
+    </button>
+  </div>
+  <div class="col-md-7">
+    <h4>{{ message }}</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div
+    *ngIf="isSpinner"
+    class="text-center"
+    style="
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    "
+  >
+    <div class="spinner"></div>
+  </div>
+</div>

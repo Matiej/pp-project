@@ -1,7 +1,20 @@
 <div class="container">
-  <app-books-serch-bar (searchRequest)="onTitleSearchSubmit($event)">
-  </app-books-serch-bar>
 
+  <app-books-serch-bar (searchRequest)="onSearchSubmit($event)">
+  </app-books-serch-bar>
+  <div class="row">
+    <div
+      *ngIf="isSpinner"
+      class="text-center"
+      style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      "
+    >
+      <div class="spinner"></div>
+    </div>
   <div class="enable-but-container">
     <label for="enable_but">Default Books</label>
     <button
