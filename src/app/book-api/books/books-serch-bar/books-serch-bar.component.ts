@@ -6,7 +6,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./books-serch-bar.component.css'],
 })
 export class BooksSerchBarComponent {
-  // selectedCriterias: string = 'title';
   private _selectedCriteria: string = 'title';
   selectSorting: string = 'new';
   searchValue: string = '';

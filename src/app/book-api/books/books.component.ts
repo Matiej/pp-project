@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { Book } from './model/book.model';
 import { BooksService } from './service/books.service';
 import { BookDetailResponse } from './book-detail/book-detail-response';
@@ -14,10 +14,10 @@ export class BooksComponent {
   $books: Observable<Book[]> = new Observable<Book[]>();
   isBooksAvailable: boolean = false;
   isBookDetails: boolean = false;
-  enableButtonName: string = 'Enable';
   $detailsToSend: Observable<BookDetailResponse> =
     new Observable<BookDetailResponse>();
   isSpinner: boolean = false;
+  isDeafultBooksEneabled: boolean = false;
 
   constructor(private bookService: BooksService) {}
 
@@ -49,18 +49,34 @@ export class BooksComponent {
       default:
         alert('nothing to display');
     }
-    this.closeDetails();
+    this.featchBooksActions(this.$books);
+  }
+
+  onEnableDefaultBooks() {
+    if (this.isBooksAvailable && this.isDeafultBooksEneabled) {
+      this.$books = of([]);
+      this.closeDetails();
+    } else {
+      this.$books = this.fetchDefaultBooks();
+      this.isDeafultBooksEneabled = true;
+    }
+    this.featchBooksActions(this.$books);
+  }
+
+  private featchBooksActions(booksObs: Observable<Book[]>): void {
+    this.isBooksAvailable = false;
     this.isSpinner = true;
-    this.$books
+    this.closeDetails();
+    booksObs
       .pipe(
         map((books) => {
           if (books.length > 0) {
             this.isBooksAvailable = true;
-            this.isSpinner = false;
           } else {
             this.isBooksAvailable = false;
-            this.isSpinner = true;
+            this.isSpinner = false;
           }
+          this.isSpinner = false;
         })
       )
       .subscribe();
@@ -81,17 +97,20 @@ export class BooksComponent {
     return this.bookService.searchBooksByText(text, limit);
   }
 
+  private fetchDefaultBooks(): Observable<Book[]> {
+    return this.bookService.fetchBooks();
+  }
+
   showDetails(): void {
-    console.log('Show Details');
     if (!this.isBookDetails) {
       this.isBookDetails = !this.isBookDetails;
     }
   }
 
   closeDetails(): void {
-    console.log('closeDetails');
     if (this.isBookDetails == true) {
       this.isBookDetails = false;
+      this.$detailsToSend = of();
     }
   }
 
@@ -102,8 +121,7 @@ export class BooksComponent {
     this.$detailsToSend = detailsResponse;
   }
 
-  onEnableDefaultBooks() {
-    this.isBooksAvailable = !this.isBooksAvailable;
-    this.enableButtonName = !this.isBooksAvailable ? 'Enable' : 'Disable';
+  get enableButtonName(): string {
+    return !this.isBooksAvailable ? 'Enable' : 'Disable';
   }
 }

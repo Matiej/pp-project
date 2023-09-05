@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { OpenLibrarySearch } from '../../openlibrary-api/model/openLibrary.search';
 import { SearchBook } from '../../openlibrary-api/model/search-book.model';
@@ -25,14 +25,14 @@ export class BooksService {
     });
   }
 
-  fetchBooks(): Book[] {
+  fetchBooks(): Observable<Book[]> {
     const searchResult: SearchBook[] =
       this.openLibraryService.fetchBooksFromMemoryDB();
     const books = [];
     for (const element of searchResult) {
       books.push(Book.convertToBook(element));
     }
-    return books;
+    return of(books);
   }
 
   searchBooksByTitle(title: string): Observable<Book[]> {
