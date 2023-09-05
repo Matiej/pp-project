@@ -13,7 +13,7 @@ export class BooksSerchBarComponent {
   textSearchLimit: number = 10;
   isSearchFiledDisabled: boolean = false;
   searchFiledPlaceholder: string = 'Enter your search';
-
+  
   @Output()
   searchRequest: EventEmitter<{
     criteria: string;
@@ -34,6 +34,7 @@ export class BooksSerchBarComponent {
       this.isSearchFiledDisabled = true;
     } else {
       this.searchFiledPlaceholder = 'Enter your search';
+      this.isSearchFiledDisabled = false;
     }
     this.searchValue = '';
   }
