@@ -17,10 +17,11 @@ export class BooksComponent {
   enableButtonName: string = 'Enable';
   $detailsToSend: Observable<BookDetailResponse> =
     new Observable<BookDetailResponse>();
+  isSpinner: boolean = false;
 
   constructor(private bookService: BooksService) {}
 
-  onTitleSearchSubmit(searchRequest: {
+  onSearchSubmit(searchRequest: {
     criteria: string;
     text: string;
     sorting: string;
@@ -48,13 +49,17 @@ export class BooksComponent {
       default:
         alert('nothing to display');
     }
+    this.closeDetails();
+    this.isSpinner = true;
     this.$books
       .pipe(
         map((books) => {
           if (books.length > 0) {
             this.isBooksAvailable = true;
+            this.isSpinner = false;
           } else {
             this.isBooksAvailable = false;
+            this.isSpinner = true;
           }
         })
       )
