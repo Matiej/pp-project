@@ -43,14 +43,11 @@ export class BookListComponent implements OnInit, OnChanges {
       this.books = [];
       this.subscribeNewBooks();
     }
-     
-    
   }
 
   ngOnInit(): void {
     this.books = [];
     this.subscribeNewBooks();
-    // this.loadBooks();
   }
 
   private subscribeNewBooks() {
@@ -65,10 +62,6 @@ export class BookListComponent implements OnInit, OnChanges {
         console.error('An error occurred while fetching books: ' + error);
       }
     );
-  }
-
-  private loadBooks(): void {
-    this.books.push(...this.booksService.fetchBooks());
   }
 
   onDetailsClick(book: Book): void {
