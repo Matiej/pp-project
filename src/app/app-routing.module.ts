@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { WishListComponent } from './wish-list/wish-list.component';
-import { BooksComponent } from './book-api/books/books.component';
 import { BookApiComponent } from './book-api/book-api.component';
 import { HomeComponent } from './home/home.component';
+import { CourseCertComponent } from './course-cert/course-cert.component';
 
 const routes: Routes = [
   {
@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
   },
+  {
+    path: 'course-cert',
+    component: CourseCertComponent,
+  }
 ];
 
 @NgModule({
