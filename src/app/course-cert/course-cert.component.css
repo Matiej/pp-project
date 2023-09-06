@@ -1,0 +1,21 @@
+.cert-title {
+    color: #aa1e36; /* Dark grey color */
+    text-shadow: 3px 4px 8px #abc538; /* Deep red shadow */
+    
+    font-weight: bold; /* Bold font */
+    font-style: italic;
+    margin: 15px;
+    margin-bottom: 50px;
+  }
+
+  .cert-image {
+    border: 1px solid black;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+.cert-image:hover {
+    transform: scale(1.05);
+}

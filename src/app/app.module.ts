@@ -18,8 +18,10 @@ import { OpenlibraryApiService } from './book-api/openlibrary-api/service/openli
 import { BookItemComponent } from './book-api/books/book-list/book-item/book-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
-import { BooksSerchBarComponent } from './book-api/books/books-serch-bar/books-serch-bar.component'; 
- 
+import { BooksSerchBarComponent } from './book-api/books/books-serch-bar/books-serch-bar.component';
+import { CourseCertComponent } from './course-cert/course-cert.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,8 @@ import { BooksSerchBarComponent } from './book-api/books/books-serch-bar/books-s
     WishEditComponent,
     BookItemComponent,
     HomeComponent,
-    BooksSerchBarComponent
+    BooksSerchBarComponent,
+    CourseCertComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,9 +45,10 @@ import { BooksSerchBarComponent } from './book-api/books/books-serch-bar/books-s
     LearningMixModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule 
+    HttpClientModule,
+    NgxExtendedPdfViewerModule
   ],
- 
+
   providers: [OpenlibraryApiService],
   bootstrap: [AppComponent],
 })
