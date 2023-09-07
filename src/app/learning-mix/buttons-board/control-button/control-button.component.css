@@ -1,0 +1,8 @@
+.control-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgb(236, 186, 186);
+  padding: 1px; /* Adjust this value to change the space between the border and the inner content */
+  box-sizing: border-box;
+}
