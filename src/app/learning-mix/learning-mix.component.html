@@ -1,47 +1,44 @@
-<div style="text-align: center">
-  <h1 style="align-content: center; color: red">learning-mix works!</h1>
-  <a
-    >Place to write
-    <input type="text" placeholder="writhe something here" />
-  </a>
-  <p>Your wiritig results{{ moduleName }}</p>
-</div>
 <div>
-  <h3>learning-mix component contains:</h3>
-</div>
-<hr />
-
-<b style="margin-left: 10px">Spiner test.</b>
-<div class="task">
-  <ul>
-    <app-spinner-test></app-spinner-test>
-  </ul>
+  <h1 [class]="titleStyleClass">{{ learningComponentTitle }}</h1>
+  <app-buttons-board (boardlButtonClicked)="onBoardButtonClick($event)" 
+  [buttonLables]="buttonLabelNames">
+  </app-buttons-board>
 </div>
 
-<b style="margin-left: 10px">Section5 - task.</b>
-<div class="task">
-  <ul>
-    <app-section5-task></app-section5-task>
-  </ul>
+<div class="task" *ngIf="isComponentActive('app_spinner_test')">
+  <hr />
+  <app-spinner-test></app-spinner-test>
+  <hr />
 </div>
 
-<hr />
-<b style="margin-left: 10px">1.</b>
-<div class="task">
-  <ul>
-    <app-servers></app-servers>
-  </ul>
+<div class="task" *ngIf="isComponentActive('app_section5_task')">
+  <hr />
+  <app-section5-task></app-section5-task>
+  <hr />
 </div>
-<b style="margin-left: 10px">2.</b>
-<div class="task">
-  <ul>
-    <app-user-task></app-user-task>
-  </ul>
+
+<div class="task" *ngIf="isComponentActive('app_servers')">
+  <hr />
+  <app-servers></app-servers>
+  <hr />
 </div>
-<b style="margin-left: 10px">3.</b>
-<div class="task">
-  <ul>
-    <app-click-task></app-click-task>
-  </ul>
+
+<div class="task" *ngIf="isComponentActive('app_user_task')">
+  <hr />
+  <app-user-task></app-user-task>
+  <hr />
 </div>
-<hr />
+
+<div class="task" *ngIf="isComponentActive('app_click_task')">
+  <hr />
+  <app-click-task></app-click-task>
+  <hr />
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-auto">
+    <a [href]="mixImageSrc" target="_blank">
+      <img [src]="mixImageSrc" class="mix-image">
+    </a>
+  </div>
+</div>

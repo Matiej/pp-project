@@ -11,12 +11,33 @@ import { GameControlComponent } from './section5-task/game-control/game-control.
 import { OddComponent } from './section5-task/odd/odd.component';
 import { EvenComponent } from './section5-task/even/even.component';
 import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
+import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
+import { ControlButtonComponent } from './buttons-board/control-button/control-button.component';
 
 @NgModule({
-  declarations: [ServerComponent, ServersComponent, UserTaskComponent, ClickTaskComponent, 
-    Section5TaskComponent, GameControlComponent, OddComponent, EvenComponent, SpinnerTestComponent],
+  declarations: [
+    ServerComponent,
+    ServersComponent,
+    UserTaskComponent,
+    ClickTaskComponent,
+    Section5TaskComponent,
+    GameControlComponent,
+    OddComponent,
+    EvenComponent,
+    SpinnerTestComponent,
+    ButtonsBoardComponent,
+    ControlButtonComponent,
+  ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule],
-  exports: [ServersComponent, UserTaskComponent, ClickTaskComponent, Section5TaskComponent, SpinnerTestComponent],
+  exports: [
+    ServersComponent,
+    UserTaskComponent,
+    ClickTaskComponent,
+    Section5TaskComponent,
+    SpinnerTestComponent,
+    ButtonsBoardComponent,
+    ControlButtonComponent,
+  ],
   providers: [],
 })
 export class LearningMixModule {}
