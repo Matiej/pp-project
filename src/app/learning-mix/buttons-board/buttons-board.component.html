@@ -1,0 +1,9 @@
+<div class="row">
+  <app-control-button
+    class="col-sm-2"
+    *ngFor="let buttonLabel of buttonLables"
+    [controlButtonLabel]="buttonLabel"
+    (controlButtonClicked)="onBoardButtonClick($event)"
+  >
+  </app-control-button>
+</div>

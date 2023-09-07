@@ -1,17 +1,20 @@
-<app-game-control 
-(statGame)="onStartGame()"
-(stopGame)="onStopGame()"
-></app-game-control>
-<div class="contaier" *ngIf="tickIntrecement !== 0">
-  <app-even 
-  [evenGameNumber]="tickIntrecement"
-  [evenTextToShow]="gameMessage"
-  *ngIf="tickIntrecement % 2 === 0"
-  >
-  </app-even>
-  <app-odd
-  [oddGameNumber]="tickIntrecement"
-  [oddTextToShow]="gameMessage"
-  *ngIf="tickIntrecement % 2 !== 0"
-  ></app-odd>
+<div class="row">
+  <b style="margin-left: 20px">--Section5 - task--</b>
+  <app-game-control
+    (statGame)="onStartGame()"
+    (stopGame)="onStopGame()"
+  ></app-game-control>
+  <div class="contaier" *ngIf="tickIntrecement !== 0">
+    <app-even
+      [evenGameNumber]="tickIntrecement"
+      [evenTextToShow]="gameMessage"
+      *ngIf="tickIntrecement % 2 === 0"
+    >
+    </app-even>
+    <app-odd
+      [oddGameNumber]="tickIntrecement"
+      [oddTextToShow]="gameMessage"
+      *ngIf="tickIntrecement % 2 !== 0"
+    ></app-odd>
+  </div>
 </div>
