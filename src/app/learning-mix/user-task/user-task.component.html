@@ -1,31 +1,32 @@
-<h4>user-task works!</h4>
-<br />
+<b style="margin-left: 20px">--User task--</b>
+<div class="row" style="margin: 10%">
+  <br />
+  <label for="userName">User Name</label>
+  <input
+    class="form-control"
+    type="text"
+    name="userName"
+    id="userName"
+    style="width: 80%"
+    [placeholder]="userPlaceHolder"
+    [(ngModel)]="username"
+  />
+  ngmodel - two way binding
+  <br />
+  <p>
+    {{ getUserNameMessage() }}
+  </p>
 
-<label for="userName">User Name</label>
-<input
-  class="form-control"
-  type="text"
-  name="userName"
-  id="userName"
-  style="width: 80%"
-  [placeholder]="userPlaceHolder"
-  [(ngModel)]="username"
-/>
-ngmodel - two way binding 
-<br />
-<p>
-  {{ getUserNameMessage() }}
-</p>
-
-<button
-  class="btn btn-warning"
-  (click)="onKickUser()"
-  [disabled]="isKickUserButtonDisable()"
->
-  Kick User
-</button>
-<br />
-<br />
-<div *ngIf="isMessageVisible">
-  <p class="pconfirmed">{{ kickOffMessage }}</p>
+  <button
+    class="btn btn-warning"
+    (click)="onKickUser()"
+    [disabled]="isKickUserButtonDisable()"
+  >
+    Kick User
+  </button>
+  <br />
+  <br />
+  <div *ngIf="isMessageVisible">
+    <p class="pconfirmed">{{ kickOffMessage }}</p>
+  </div>
 </div>
