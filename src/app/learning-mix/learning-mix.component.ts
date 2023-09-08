@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ButtonLabelName, getButtonLabel } from '../shared/button-name';
 import { ASSETS_PATHS } from '../constants/assets-paths';
 
@@ -7,7 +7,7 @@ import { ASSETS_PATHS } from '../constants/assets-paths';
   templateUrl: './learning-mix.component.html',
   styleUrls: ['./learning-mix.component.css'],
 })
-export class LearningMixComponent {
+export class LearningMixComponent implements OnInit {
   learningComponentTitle: string =
     'It is Learning component to test and learn.';
   titleStyleClass: string = 'learning-module-title';
@@ -17,12 +17,30 @@ export class LearningMixComponent {
     app_servers: false,
     app_user_task: false,
     app_click_task: false,
+    app_section7_directives: false,
   };
-  private components: string[] = Object.keys(this.componentStates);
-  mixImageSrc: string = ASSETS_PATHS.MIX_IMAGE_FILE_SOURCE;
+  mixImageSrc: string = '';
+
+
+  ngOnInit(): void {
+    this.setRadommixImageSrc();
+  }
 
   isComponentActive(name: string): boolean {
     return this.componentStates[name];
+  }
+
+  private setRadommixImageSrc(): void {
+    const learningMixImages: string[] = [
+      ASSETS_PATHS.MIX_IMAGE_FILE_SOURCE_1,
+      ASSETS_PATHS.MIX_IMAGE_FILE_SOURCE_2,
+      ASSETS_PATHS.MIX_IMAGE_FILE_SOURCE_3,
+      ASSETS_PATHS.MIX_IMAGE_FILE_SOURCE_4,
+    ];
+    const randomIndex: number = Math.round(
+      Math.random() * (learningMixImages.length - 1)
+    );
+    this. mixImageSrc = learningMixImages[randomIndex];
   }
 
   onBoardButtonClick(boardlButtonClicked: {
@@ -37,7 +55,7 @@ export class LearningMixComponent {
     }
   }
 
-  get buttonLabelNames(): ButtonLabelName[] {
+  get firstLinebuttonLabelNames(): ButtonLabelName[] {
     let buttonLabelNames: ButtonLabelName[] = [];
     Object.keys(this.componentStates).forEach((component) =>
       buttonLabelNames.push(getButtonLabel(component))
