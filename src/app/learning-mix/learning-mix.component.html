@@ -1,7 +1,7 @@
 <div>
   <h1 [class]="titleStyleClass">{{ learningComponentTitle }}</h1>
   <app-buttons-board (boardlButtonClicked)="onBoardButtonClick($event)" 
-  [buttonLables]="buttonLabelNames">
+  [firstLinebuttonLables]="firstLinebuttonLabelNames">
   </app-buttons-board>
 </div>
 
@@ -35,7 +35,13 @@
   <hr />
 </div>
 
-<div class="row justify-content-center">
+<div class="task" *ngIf="isComponentActive('app_section7_directives')">
+  <hr />
+  <app-section7-directives></app-section7-directives>
+  <hr />
+</div>
+
+<div class="row justify-content-center" style="margin-top: 3%;">
   <div class="col-auto">
     <a [href]="mixImageSrc" target="_blank">
       <img [src]="mixImageSrc" class="mix-image">

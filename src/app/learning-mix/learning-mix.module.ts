@@ -13,6 +13,8 @@ import { EvenComponent } from './section5-task/even/even.component';
 import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
 import { ControlButtonComponent } from './buttons-board/control-button/control-button.component';
+import { Section7DirectivesComponent } from './section7-directives/section7-directives.component';
+import { BasicHighlightDirective } from './section7-directives/basic-highlight.directive';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { ControlButtonComponent } from './buttons-board/control-button/control-b
     SpinnerTestComponent,
     ButtonsBoardComponent,
     ControlButtonComponent,
+    Section7DirectivesComponent,
+    BasicHighlightDirective
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule],
   exports: [
@@ -37,6 +41,8 @@ import { ControlButtonComponent } from './buttons-board/control-button/control-b
     SpinnerTestComponent,
     ButtonsBoardComponent,
     ControlButtonComponent,
+    Section7DirectivesComponent, 
+    BasicHighlightDirective
   ],
   providers: [],
 })

@@ -4,6 +4,7 @@ export enum ButtonLabelName {
   SERVER_TASK = 'Servers Task',
   USER_TASK = 'User Task',
   CLICK_TASK = 'Click Task',
+  SECTIOIN7_DIRECTIVES = 'Sectction7 Directives',
 }
 
 export function getComponentName(buttonLabel: ButtonLabelName): string {
@@ -18,6 +19,8 @@ export function getComponentName(buttonLabel: ButtonLabelName): string {
       return 'app_user_task';
     case ButtonLabelName.CLICK_TASK:
       return 'app_click_task';
+    case ButtonLabelName.SECTIOIN7_DIRECTIVES:
+      return 'app_section7_directives';
     default:
       throw new Error("No component for button label '" + buttonLabel);
   }
@@ -35,7 +38,11 @@ export function getButtonLabel(componentName: string): ButtonLabelName {
       return ButtonLabelName.USER_TASK;
     case 'app_click_task':
       return ButtonLabelName.CLICK_TASK;
+    case 'app_section7_directives':
+      return ButtonLabelName.SECTIOIN7_DIRECTIVES;
     default:
-      throw new Error("No button label for component name '" + componentName + "'");
+      throw new Error(
+        "No button label for component name '" + componentName + "'"
+      );
   }
 }

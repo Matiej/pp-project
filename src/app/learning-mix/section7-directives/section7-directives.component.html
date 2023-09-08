@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button type="button" class="btn btn-primary" (click)="onButtonClick()">
+      {{ buttonName }}
+    </button>
+    <hr />
+    <h2>{{ displaingNumbers }}</h2>
+    <br /><br />
+    <ul class="list-group">
+      <div *ngIf="onlyOdd">
+        <li
+          class="list-group-item"
+          [ngClass]="{ odd: number % 2 !== 0 }"
+          [ngStyle]="{
+            backgroundColor: number % 2 !== 0 ? 'yellow' : 'transparet'
+          }"
+          *ngFor="let number of numbers"
+        >
+          <p *ngIf="number % 2 !== 0">{{ number }}</p>
+        </li>
+      </div>
+      <div *ngIf="!onlyOdd">
+        <li
+          class="list-group-item"
+          *ngFor="let number of numbers"
+          [ngClass]="{ odd: number % 2 !== 0 }"
+          [ngStyle]="{
+            backgroundColor: number % 2 !== 0 ? 'yellow' : 'transparet'
+          }"
+        >
+          <i *ngIf="number % 2 === 0">{{ number }}</i>
+        </li>
+      </div>
+    </ul>
+    <p appBasicHighlight>My basic directive styling</p>
+  </div>
+</div>
