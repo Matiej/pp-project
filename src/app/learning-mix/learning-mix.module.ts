@@ -14,6 +14,7 @@ import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
 import { ControlButtonComponent } from './buttons-board/control-button/control-button.component';
 import { Section7DirectivesComponent } from './section7-directives/section7-directives.component';
+import { BasicHighlightDirective } from './section7-directives/basic-highlight.directive';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { Section7DirectivesComponent } from './section7-directives/section7-dire
     ButtonsBoardComponent,
     ControlButtonComponent,
     Section7DirectivesComponent,
+    BasicHighlightDirective
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule],
   exports: [
@@ -39,7 +41,8 @@ import { Section7DirectivesComponent } from './section7-directives/section7-dire
     SpinnerTestComponent,
     ButtonsBoardComponent,
     ControlButtonComponent,
-    Section7DirectivesComponent
+    Section7DirectivesComponent, 
+    BasicHighlightDirective
   ],
   providers: [],
 })

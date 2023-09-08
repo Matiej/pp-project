@@ -53,6 +53,7 @@ export class LearningMixComponent implements OnInit {
       this.componentStates[boardlButtonClicked.componentName] =
         boardlButtonClicked.isTurnedOn;
     }
+     this.setRadommixImageSrc();
   }
 
   get firstLinebuttonLabelNames(): ButtonLabelName[] {
