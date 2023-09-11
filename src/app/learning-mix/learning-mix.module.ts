@@ -15,6 +15,7 @@ import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
 import { ControlButtonComponent } from './buttons-board/control-button/control-button.component';
 import { Section7DirectivesComponent } from './section7-directives/section7-directives.component';
 import { BasicHighlightDirective } from './section7-directives/basic-highlight.directive';
+import { BetterCorrectHighlightDirective } from '../shared/direcives/better-correct-highlight.directive';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { BasicHighlightDirective } from './section7-directives/basic-highlight.d
     ButtonsBoardComponent,
     ControlButtonComponent,
     Section7DirectivesComponent,
-    BasicHighlightDirective
+    BasicHighlightDirective, BetterCorrectHighlightDirective
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule],
   exports: [
@@ -42,7 +43,7 @@ import { BasicHighlightDirective } from './section7-directives/basic-highlight.d
     ButtonsBoardComponent,
     ControlButtonComponent,
     Section7DirectivesComponent, 
-    BasicHighlightDirective
+    BasicHighlightDirective, BetterCorrectHighlightDirective
   ],
   providers: [],
 })
