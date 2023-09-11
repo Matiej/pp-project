@@ -15,6 +15,7 @@ import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
 import { ControlButtonComponent } from './buttons-board/control-button/control-button.component';
 import { Section7DirectivesComponent } from './section7-directives/section7-directives.component';
 import { BasicHighlightDirective } from './section7-directives/basic-highlight.directive';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,9 @@ import { BasicHighlightDirective } from './section7-directives/basic-highlight.d
     ButtonsBoardComponent,
     ControlButtonComponent,
     Section7DirectivesComponent,
-    BasicHighlightDirective
+    BasicHighlightDirective,
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, SharedModule],
   exports: [
     ServersComponent,
     UserTaskComponent,
@@ -41,8 +42,8 @@ import { BasicHighlightDirective } from './section7-directives/basic-highlight.d
     SpinnerTestComponent,
     ButtonsBoardComponent,
     ControlButtonComponent,
-    Section7DirectivesComponent, 
-    BasicHighlightDirective
+    Section7DirectivesComponent,
+    BasicHighlightDirective,
   ],
   providers: [],
 })

@@ -5,3 +5,16 @@
 .odd {
     color: brown;
 }
+
+.correct-redner-paragraph {
+    font-size: 15px;
+    font-style: italic;
+    color: #ebacac;
+}
+
+.correct-render-header {
+    font-size: 25px;
+    font-style: italic;
+    font-weight: bold;
+    color: #c6eeb6;
+}
