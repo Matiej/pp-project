@@ -21,6 +21,7 @@ import { HomeComponent } from './home/home.component';
 import { BooksSerchBarComponent } from './book-api/books/books-serch-bar/books-serch-bar.component';
 import { CourseCertComponent } from './course-cert/course-cert.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -47,8 +48,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     ReactiveFormsModule,
     HttpClientModule,
     NgxExtendedPdfViewerModule,
+    SharedModule,
   ],
-
   providers: [OpenlibraryApiService],
   bootstrap: [AppComponent],
 })
