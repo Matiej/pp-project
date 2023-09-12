@@ -6,8 +6,8 @@ import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 export class BetterCorrectHighlightDirective implements OnInit {
   readonly OWN_PARAGRAPH_PARAM: string = 'own_para';
   readonly OWN_HEADER_PARAM: string = 'own_header';
-  readonly OWN_HEADER_CSS_NAME: string = 'correct-redner-paragraph';
-  readonly OWN_PARAGRAPH_CSS_NAME: string = 'correct-render-header';
+  readonly OWN_HEADER_CSS_NAME: string = 'correct-render-header';
+  readonly OWN_PARAGRAPH_CSS_NAME: string = 'correct-redner-paragraph';
 
   @Input() appBetterCorrectHighlight: string | undefined;
 
@@ -19,7 +19,8 @@ export class BetterCorrectHighlightDirective implements OnInit {
       'background-color',
       'blue'
     );
-
+      const stt = this.getStyleClass(this.appBetterCorrectHighlight);
+        console.log(stt)
     this.renderer.addClass(
       this.elRef.nativeElement,
       this.getStyleClass(this.appBetterCorrectHighlight)
@@ -27,6 +28,7 @@ export class BetterCorrectHighlightDirective implements OnInit {
   }
 
   private getStyleClass(param: string | undefined): string {
+    console.log(param);
     switch (param) {
       case this.OWN_PARAGRAPH_PARAM:
         return this.OWN_PARAGRAPH_CSS_NAME;
