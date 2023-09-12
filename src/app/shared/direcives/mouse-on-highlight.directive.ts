@@ -14,7 +14,6 @@ export class MouseOnHighlightDirective implements OnInit {
   ngOnInit(): void {}
 
   @HostListener('mouseenter') mouseover(eventData: Event) {
-    console.log('mouseovew');
     this.renderer.setStyle(
       this.elRef.nativeElement,
       'background-color',
@@ -24,7 +23,6 @@ export class MouseOnHighlightDirective implements OnInit {
   }
 
   @HostListener('mouseleave') mouseleave() {
-    console.log('mouseleave');
     this.renderer.setStyle(
       this.elRef.nativeElement,
       'background-color',

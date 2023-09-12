@@ -19,7 +19,7 @@
           <p *ngIf="number % 2 !== 0">{{ number }}</p>
         </li>
       </div>
-      <div *ngIf="!onlyOdd">
+      <div *appUnless="onlyOdd">
         <li
           class="list-group-item"
           *ngFor="let number of numbers"
@@ -31,10 +31,52 @@
           <i *ngIf="number % 2 === 0">{{ number }}</i>
         </li>
       </div>
+      <br />
+      <div appBasicHighlight >
+        <p>[ngSwitch] example:</p>
+        <div class="col-xs-6" [ngSwitch]="evenValue" style="color: brown;">
+          <i *ngSwitchCase="2">Value - 2</i>
+          <i *ngSwitchCase="4">Value - 4</i>
+          <i *ngSwitchCase="6">Value - 6</i>
+          <i *ngSwitchDefault>Default value</i>
+        </div>
+        <div class="col-xs-6" [ngSwitch]="oddValue" style="color: brown;">
+          <i *ngSwitchCase="1">Value - 1</i>
+          <i *ngSwitchCase="3">Value - 3</i>
+          <i *ngSwitchCase="5">Value - 5</i>
+          <i *ngSwitchCase="7">Value - 7</i>
+          <i *ngSwitchDefault>Default value</i>
+        </div>
+      </div>
+      <br />
     </ul>
-    <p appBasicHighlight>My basic directive styling</p>
-    <p appBetterCorrectHighlight="own_para">My better and right directive for header styling</p>
-    <p appBetterCorrectHighlight="own_header">My better and right directive for para styling</p>
-    <p appMouseOnHighlight>My better mouse highlight directive</p>
+    <p appBasicHighlight id="bacic-dirv">My basic directive styling</p>
+    <br />
+    <p appBetterCorrectHighlight="own_header">
+      My better and corcet directive for header styling
+    </p>
+    <br />
+    <p appBetterCorrectHighlight="own_para">
+      My better and correct directive for paragraph styling
+    </p>
+    <br />
+    <p appMouseOnHighlight>
+      My HostListener+ElementRef+Renderer2 mouse highlight directive
+    </p>
+    <br />
+    <p appHostbindingMouseOnHighlight>
+      My HostListener+HostBinding mouse highlight directive
+    </p>
+    <br />
+    <!-- default bidning, two examples defautlColor and highlightColor. We can pass params in 
+    two different ways.  -->
+    <p
+      appHostbindingMouseOnHighlight
+      [defaultColor]="'grey'"
+      highlightColor="yellow"
+    >
+      My HostListener+HostBinding mouse highlight directive with custom colors
+    </p>
+    <br />
   </div>
 </div>

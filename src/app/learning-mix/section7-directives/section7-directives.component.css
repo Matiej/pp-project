@@ -18,3 +18,8 @@
     font-weight: bold;
     color: #c6eeb6;
 }
+
+.host-binding-mouse-on-highlight {
+    background-color: yellowgreen;
+    font-weight: bold;
+}
