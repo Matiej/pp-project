@@ -19,7 +19,7 @@
           <p *ngIf="number % 2 !== 0">{{ number }}</p>
         </li>
       </div>
-      <div *ngIf="!onlyOdd">
+      <div *appUnless="onlyOdd">
         <li
           class="list-group-item"
           *ngFor="let number of numbers"
