@@ -18,7 +18,7 @@ displaingNumbers: string = 'EVEN NUMERS ONLY';
       : 'Show only even numbers';
 
       this.displaingNumbers = !this.onlyOdd
-      ? 'EVEN NUMERS ONLY'
-      : 'ODD NUMERS ONLY';
+      ? 'DISPLAYING EVEN NUMERS ONLY'
+      : 'DISPLAYING ODD NUMERS ONLY';
   }
 }
