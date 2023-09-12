@@ -19,8 +19,6 @@ export class BetterCorrectHighlightDirective implements OnInit {
       'background-color',
       'blue'
     );
-      const stt = this.getStyleClass(this.appBetterCorrectHighlight);
-        console.log(stt)
     this.renderer.addClass(
       this.elRef.nativeElement,
       this.getStyleClass(this.appBetterCorrectHighlight)
