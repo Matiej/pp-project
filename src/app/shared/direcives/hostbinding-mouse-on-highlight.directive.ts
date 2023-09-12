@@ -1,12 +1,9 @@
 import {
   Directive,
-  ElementRef,
-  Host,
   HostBinding,
   HostListener,
   Input,
   OnInit,
-  Renderer2,
 } from '@angular/core';
 
 @Directive({
