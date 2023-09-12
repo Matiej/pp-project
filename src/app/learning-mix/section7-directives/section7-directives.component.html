@@ -32,9 +32,33 @@
         </li>
       </div>
     </ul>
-    <p appBasicHighlight>My basic directive styling</p>
-    <p appBetterCorrectHighlight="own_para">My better and right directive for header styling</p>
-    <p appBetterCorrectHighlight="own_header">My better and right directive for para styling</p>
-    <p appMouseOnHighlight>My better mouse highlight directive</p>
+    <p appBasicHighlight id="bacic-dirv">My basic directive styling</p>
+    <br />
+    <p appBetterCorrectHighlight="own_para">
+      My better and corcet directive for header styling
+    </p>
+    <br />
+    <p appBetterCorrectHighlight="own_header">
+      My better and correct directive for paragraph styling
+    </p>
+    <br />
+    <p appMouseOnHighlight>
+      My HostListener+ElementRef+Renderer2 mouse highlight directive
+    </p>
+    <br />
+    <p appHostbindingMouseOnHighlight>
+      My HostListener+HostBinding mouse highlight directive
+    </p>
+    <br />
+    <!-- default bidning, two examples defautlColor and highlightColor. We can pass params in 
+    two different ways.  -->
+    <p
+      appHostbindingMouseOnHighlight
+      [defaultColor]="'grey'"
+      highlightColor="yellow"
+    >
+      My HostListener+HostBinding mouse highlight directive with custom colors
+    </p>
+    <br />
   </div>
 </div>
