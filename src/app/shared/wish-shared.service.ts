@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BookDetailResponse } from '../book-api/books/book-detail/book-detail-response';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { WishItem } from '../wish-list/wish-item/wish-item-model';
+import { WishItem } from '../wish/wish-list/wish-item/wish-item-model';
 import { PictureSizeUrl } from './picture.size';
-import { WishType } from '../wish-list/wish-item/wish-type';
+import { WishType } from '../wish/wish-list/wish-item/wish-type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WishSharedService {
+
   private _wishlist = new BehaviorSubject<WishItem[]>([]);
   private wishlist$ = new Observable<WishItem[]>();
   private _wishCounter = new BehaviorSubject<number>(0);
@@ -39,8 +40,7 @@ export class WishSharedService {
       const currentWishList: WishItem[] = this._wishlist.getValue();
       currentWishList.push(item);
       this._wishlist.next(currentWishList);
-
-      const currentWishiesNumber = this._wishCounter.value + 1;
+      const currentWishiesNumber = currentWishList.length;
       this.refreshWishCounter(currentWishiesNumber);
     });
   }
@@ -50,6 +50,8 @@ export class WishSharedService {
     return this.wishlist$;
   }
 
+ 
+
   public refreshWishCounter(wishiesNumber: number): void {
     this._wishCounter.next(wishiesNumber);
   }
@@ -57,4 +59,5 @@ export class WishSharedService {
   public getWishiesCounter(): Observable<number> {
     return this.wishCounter$;
   }
+ 
 }

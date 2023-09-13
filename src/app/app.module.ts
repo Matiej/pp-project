@@ -11,9 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { BooksComponent } from './book-api/books/books.component';
 import { BookListComponent } from './book-api/books/book-list/book-list.component';
 import { BookDetailComponent } from './book-api/books/book-detail/book-detail.component';
-import { WishListComponent } from './wish-list/wish-list.component';
-import { WishItemComponent } from './wish-list/wish-item/wish-item.component';
-import { WishEditComponent } from './wish-list/wish-edit/wish-edit.component';
+import { WishItemComponent } from './wish/wish-list/wish-item/wish-item.component';
+import { WishEditComponent } from './wish/wish-edit/wish-edit.component';
 import { OpenlibraryApiService } from './book-api/openlibrary-api/service/openlibrary-api.service';
 import { BookItemComponent } from './book-api/books/book-list/book-item/book-item.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,6 +21,8 @@ import { BooksSerchBarComponent } from './book-api/books/books-serch-bar/books-s
 import { CourseCertComponent } from './course-cert/course-cert.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { SharedModule } from './shared/shared.module';
+import { WishComponent } from './wish/wish.component';
+import { WishListComponent } from './wish/wish-list/wish-list.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { SharedModule } from './shared/shared.module';
     HomeComponent,
     BooksSerchBarComponent,
     CourseCertComponent,
+    WishComponent,
   ],
   imports: [
     BrowserModule,

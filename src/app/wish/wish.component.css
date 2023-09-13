@@ -1,0 +1,19 @@
+.wish-row {
+  text-align: center;
+  margin-top: 10px; /* Adjust as needed */
+}
+
+.mds5 {
+  padding-right: 65px;
+  padding-left: 15px;
+}
+
+.mds7 {
+  padding-right: 15px;
+  padding-left: 55px;
+}
+
+.list-container {
+  height: 100vh;
+  overflow-y: scroll; /* Enable vertical scrolling */
+}

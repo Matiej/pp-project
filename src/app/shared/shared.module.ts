@@ -4,6 +4,7 @@ import { BetterCorrectHighlightDirective } from './direcives/better-correct-high
 import { MouseOnHighlightDirective } from './direcives/mouse-on-highlight.directive';
 import { HostbindingMouseOnHighlightDirective } from './direcives/hostbinding-mouse-on-highlight.directive';
 import { UnlessDirective } from './direcives/unless.directive';
+import { DropdownDirective } from './dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -11,13 +12,14 @@ import { UnlessDirective } from './direcives/unless.directive';
     MouseOnHighlightDirective,
     HostbindingMouseOnHighlightDirective,
     UnlessDirective,
+    DropdownDirective,
   ],
   imports: [CommonModule],
   exports: [
     BetterCorrectHighlightDirective,
     MouseOnHighlightDirective,
     HostbindingMouseOnHighlightDirective,
-    UnlessDirective
+    UnlessDirective,
   ],
 })
 export class SharedModule {}

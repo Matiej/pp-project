@@ -1,5 +1,4 @@
 <div class="container">
-
   <app-books-serch-bar (searchRequest)="onSearchSubmit($event)">
   </app-books-serch-bar>
   <div class="row">
@@ -15,31 +14,32 @@
     >
       <div class="spinner"></div>
     </div>
-  <div class="enable-but-container">
-    <label for="enable_but">Default Books</label>
-    <button
-      id="enable_but"
-      name="enable_but"
-      class="btn btn-primary"
-      (click)="onEnableDefaultBooks()"
-    >
-      {{ enableButtonName }}
-    </button>
-  </div>
-
-  <div class="row books-row" *ngIf="isBooksAvailable">
-    <div class="col-md-5 mds5 list-container">
-      <app-book-list
-        [$booksChild]="$books"
-        (enableBookDetails)="showDetails()"
-        (book)="sendToBooDetailsComponent($event)"
-      ></app-book-list>
+    <div class="enable-but-container">
+      <label for="enable_but">Default Books</label>
+      <button
+        id="enable_but"
+        name="enable_but"
+        class="btn btn-primary"
+        (click)="onEnableDefaultBooks()"
+      >
+        {{ enableButtonName }}
+      </button>
     </div>
-    <div class="col-md-7 mds7" *ngIf="isBookDetails">
-      <app-book-detail
-        (closeDetails)="closeDetails()"
-        [$incomingBookDetailResponse]="$detailsToSend"
-      ></app-book-detail>
+
+    <div class="row books-row" *ngIf="isBooksAvailable">
+      <div class="col-md-5 mds5 list-container">
+        <app-book-list
+          [$booksChild]="$books"
+          (enableBookDetails)="showDetails()"
+          (book)="sendToBooDetailsComponent($event)"
+        ></app-book-list>
+      </div>
+      <div class="col-md-7 mds7" *ngIf="isBookDetails">
+        <app-book-detail
+          (closeDetails)="closeDetails()"
+          [$incomingBookDetailResponse]="$detailsToSend"
+        ></app-book-detail>
+      </div>
     </div>
   </div>
 </div>
