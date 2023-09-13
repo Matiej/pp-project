@@ -16,7 +16,10 @@
     </div>
     <div class="row wish-row">
       <div class="col-md-5 mds5 list-container">
-        <app-wish-list></app-wish-list>
+        <app-wish-list
+          [&childInputWhisItemhList]="$wishItemParentList"
+     
+        ></app-wish-list>
       </div>
       <div class="col-md-7 mds7">
         <div class="row"><p>wish detail here</p></div>
@@ -26,4 +29,5 @@
       </div>
     </div>
   </div>
+ 
 </div>
