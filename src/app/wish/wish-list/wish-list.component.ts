@@ -58,10 +58,6 @@ export class WishListComponent implements OnInit, OnChanges {
     }
   }
 
-  // private showToastMessage(message: string, timeout: number) {
-  //   this.emitToastMessage.next({ message: message, timeout: timeout });
-  // }
-
   private showToastMessage(message: string, timeout: number): void {
     this.toastMessage = message;
     this.showToast = true;
