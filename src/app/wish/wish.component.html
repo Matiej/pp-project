@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row"><p>new wish</p></div>
+
+  <div class="row">
+    <div
+      *ngIf="isSpinner"
+      class="text-center"
+      style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      "
+    >
+      <div class="spinner"></div>
+    </div>
+    <div class="row wish-row">
+      <div class="col-md-5 mds5 list-container">
+        <app-wish-list></app-wish-list>
+      </div>
+      <div class="col-md-7 mds7">
+        <div class="row"><p>wish detail here</p></div>
+        <div class="row">
+          <app-wish-edit></app-wish-edit>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
