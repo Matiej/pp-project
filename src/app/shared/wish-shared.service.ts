@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BookDetailResponse } from '../book-api/books/book-detail/book-detail-response';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { WishItem } from '../wish-list/wish-item/wish-item-model';
+import { WishItem } from '../wish/wish-list/wish-item/wish-item-model';
 import { PictureSizeUrl } from './picture.size';
-import { WishType } from '../wish-list/wish-item/wish-type';
+import { WishType } from '../wish/wish-list/wish-item/wish-type';
 
 @Injectable({
   providedIn: 'root',

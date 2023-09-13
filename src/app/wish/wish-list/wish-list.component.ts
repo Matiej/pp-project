@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
+import { WishSharedService } from 'src/app/shared/wish-shared.service';
 import { WishItem } from './wish-item/wish-item-model';
-import { PictureSizeUrl } from '../shared/picture.size';
-import { WishSharedService } from '../shared/wish-shared.service';
-import { WishType } from './wish-item/wish-type';
-import { TOAST_MESSAGES } from '../constants/toast-messages';
 
 @Component({
   selector: 'app-wish-list',
