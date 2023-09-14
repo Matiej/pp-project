@@ -6,7 +6,7 @@
     </button>
   </div>
   <div class="row">
-    <div class="col-sm-12" style="margin-left: 0px;">
+    <div class="col-sm-12" style="margin-left: 0px">
       <a
         (click)="
           openLargeImage(bookDetailResponse?.book?.coverUrls?.largeSizeCoverurl)
@@ -15,7 +15,8 @@
         <img
           alt="{{ bookDetailResponse?.book?.coverCode }}"
           [src]="bookDetailResponse?.book?.coverUrls?.mediumSizeCoverurl"
-          class="img-responsive" style="cursor: pointer"
+          class="img-responsive"
+          style="cursor: pointer"
         />
       </a>
     </div>
@@ -49,8 +50,10 @@
       </p>
     </div>
     <div class="col-sm-6">
-      <label for="pages">First publish Year:</label>
-      <p>{{ bookDetailResponse?.book?.first_publish_year }}</p>
+      <label for="first_publish_year">First publish Year:</label>
+      <p id="first_publish_year">
+        {{ bookDetailResponse?.book?.first_publish_year }}
+      </p>
     </div>
   </div>
   <div class="row">

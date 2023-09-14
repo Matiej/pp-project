@@ -37,9 +37,9 @@ export class WishListComponent implements OnInit, OnChanges {
 
   private subscribeWishItemList(): void {
     this.$wishItemList.subscribe(
-      (wishItem: WishItem[]) => {
-        if (wishItem.length > 0) {
-          this.wishItemList.push(...wishItem);
+      (wishItems: WishItem[]) => {
+        if (wishItems.length > 0) {
+          this.wishItemList = wishItems;
           this.wishSharedService.refreshWishCounter(this.wishItemList.length);
           // this.onDetailsClick(this.wishItemList[0]) <- add deafult  first item detail show
         }
@@ -54,6 +54,7 @@ export class WishListComponent implements OnInit, OnChanges {
     if (index >= 0 && index < this.wishItemList.length) {
       this.wishItemList.splice(index, 1);
       this.wishSharedService.refreshWishCounter(this.wishItemList.length);
+      this.wishSharedService.refreshWishList(this.wishItemList);
       this.showToastMessage(TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY, 3000);
     }
   }
