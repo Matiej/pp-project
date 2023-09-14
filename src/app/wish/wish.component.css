@@ -17,3 +17,46 @@
   height: 100vh;
   overflow-y: scroll; /* Enable vertical scrolling */
 }
+
+.wish-button {
+  background-color: #3498db; /* Main blue color */
+  border: 2px solid transparent; /* Transparent border to maintain size during hover and active states */
+  color: #ffffff; /* White text */
+  padding: 12px 24px; /* Padding for the button */
+  text-align: center; /* Center the text */
+  text-decoration: none; /* No underline */
+  font-size: 16px; /* Size of the text */
+  margin: 4px 2px; /* Margins around the button */
+  cursor: pointer; /* Cursor changes to a hand when hovering */
+  transition: all 0.3s; /* Smooth transitions for the hover and active states */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.wish-button:hover {
+  background-color: #2980b9; /* A slightly darker blue on hover */
+  border-color: #2980b9; /* Border color matches the background on hover */
+}
+
+.wish-button:active {
+  background-color: #2c3e50; /* A very dark blue for the click/active state */
+  border-color: #a4afbb; /* Border color matches the background on active state */
+  transform: translateY(
+    2px
+  ); /* Gives a "pressing" effect when the button is clicked */
+  color: rgb(236, 125, 125);
+}
+
+/* Make the dropdown menu have the same width as the dropdown-toggle button */
+.dropdown-menu {
+  width: 100%;
+  text-align: center; 
+}
+
+/* Make buttons inside the dropdown menu stretch to the full width */
+.dropdown-menu .btn {
+  width: 90%;
+  border-radius: 2px; /* optional: to remove rounded corners */
+  border: 1px solid #2c3e50;
+  margin: 1px;
+  display: inline-block;
+}
