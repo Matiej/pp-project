@@ -30,15 +30,28 @@
           >
           </textarea>
         </div>
-        <div class="col-sm-4 " style="padding: 35px;">
-          <button type="submit" class="btn btn-primary wish-button">Add</button>
-          <button type="button" class="btn btn-danger wish-button">
-            Delete
-          </button>
-          <button type="button" class="btn btn-warning wish-button">
-            Clear
-          </button>
+
+        <div class="col-sm-4" style="padding: 35px">
+          <div appDropdown class="btn-group">
+            <button
+              class="btn wish-button dropdown-toggle "
+              type="button"
+              id="wish-button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="true"
+            >
+              Options
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="wish-button">
+              <li><button href="#" class="btn btn-primary">Add</button></li>
+              <li><button href="#" class="btn btn-danger">Delete</button></li>
+              <li><button href="#" class="btn btn-warning">Clear</button></li>
+            </ul>
+          </div>
         </div>
+
       </div>
     </form>
     <hr class="custom-hr custom-hr-top" />
