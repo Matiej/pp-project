@@ -1,30 +1,36 @@
 import { Injectable } from '@angular/core';
-import { InMemoryDataBase } from './in-memory-database';
+import { InMemoryWishItemDataBase } from '../db/in-memory-wishItem-database';
 import { WishItem } from '../wish-list/wish-item/wish-item-model';
+import { BehaviorSubject, map, of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InMemoryDatabaseService {
-  private _whisItemDatabase!: InMemoryDataBase;
+  private _whisItemDatabase!: InMemoryWishItemDataBase;
 
   constructor() {
-    this._whisItemDatabase = new InMemoryDataBase();
+    this._whisItemDatabase = new InMemoryWishItemDataBase();
   }
 
   saveWishItem(item: WishItem): WishItem | undefined {
     return this._whisItemDatabase.add(item);
   }
 
-  findById(id: number): WishItem | undefined {
-    return this._whisItemDatabase.get(id.toString());
+  findById(id: number): Observable<WishItem | undefined> {
+    return of(this._whisItemDatabase.get(id.toString()));
   }
 
-  findAll(): WishItem[] {
-    return this._whisItemDatabase.listAll();
+  findAll(): Observable<WishItem[]> {
+    console.log(this._whisItemDatabase.listAll());
+    return of(this._whisItemDatabase.listAll());
   }
 
   removeById(id: number): boolean {
     return this._whisItemDatabase.remove(id.toString());
+  }
+
+  getNumberOfItems(): number {
+    return this._whisItemDatabase.listAll().length;
   }
 }
