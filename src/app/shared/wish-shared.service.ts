@@ -10,9 +10,6 @@ import { InMemoryDatabaseService } from '../wish/service/in-memory-database.serv
   providedIn: 'root',
 })
 export class WishSharedService {
-  private _wishlist = new BehaviorSubject<WishItem[]>([]);
-  private wishlist$ = new Observable<WishItem[]>();
-
   private _wishCounter = new BehaviorSubject<number>(0);
   private wishCounter$ = this._wishCounter.asObservable();
 
@@ -36,28 +33,13 @@ export class WishSharedService {
           bookDetails.book.first_publish_year?.toString()!,
         picUrl
       );
-
-      const currentWishList: WishItem[] = this._wishlist.getValue();
-      console.log('service _whislist_getvale---', this._wishlist.getValue());
-      console.log(
-        'current list in shared service from _whislist_getvale---',
-        currentWishList
-      );
-      currentWishList.push(item);
-      this._wishlist.next(currentWishList);
-      console.log(
-        'this _whislist_getvale after next currentList',
-        this._wishlist.getValue()
-      );
-      const currentWishiesNumber = currentWishList.length;
-      this.refreshWishCounter(currentWishiesNumber);
+      this.databaseService.saveWishItem(item);
+      this.refreshWishCounter(this.databaseService.getNumberOfItems());
     });
   }
 
   public getWishList(): Observable<WishItem[]> {
-    console.log('getWishList');
-    console.log(this._wishlist.getValue());
-    return this._wishlist.asObservable();
+    return this.databaseService.findAll();
   }
 
   public refreshWishCounter(wishiesNumber: number): void {
@@ -68,12 +50,7 @@ export class WishSharedService {
     return this.wishCounter$;
   }
 
-  public refreshWishList(wishItems: WishItem[]): void {
-    console.log(this._wishlist.getValue());
-    console.log("Refreshing wish list", wishItems);
-    this._wishlist.next([]);
-    this._wishlist.next(wishItems);
-    console.log(this._wishlist.getValue());
+  public removeWishItem(wishItemId: number) {
+    this.databaseService.removeById(wishItemId);
   }
-  
 }

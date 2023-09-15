@@ -20,7 +20,7 @@ export class WishItem {
     this.pictureUrl = pictureUrl;
   }
 
-  get id(): number {
+  get id(): number{
     return this._id;
   }
 
