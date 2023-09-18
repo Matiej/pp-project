@@ -1,26 +1,27 @@
 import { PictureSizeUrl } from 'src/app/shared/picture.size';
 import { WishType } from './wish-type';
+import { WishItemDescription } from './wish-item-description';
 
 export class WishItem {
   private _id!: number;
   public name: string;
   public type: WishType;
-  public description: string;
+  public descriptions: WishItemDescription[];
   public pictureUrl: PictureSizeUrl;
 
   constructor(
     name: string,
     type: WishType,
-    description: string,
+    description: WishItemDescription[],
     pictureUrl: PictureSizeUrl
   ) {
     this.name = name;
     this.type = type;
-    this.description = description;
+    this.descriptions = description;
     this.pictureUrl = pictureUrl;
   }
 
-  get id(): number{
+  get id(): number {
     return this._id;
   }
 
