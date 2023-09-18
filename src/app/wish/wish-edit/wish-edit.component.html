@@ -1,7 +1,8 @@
 <div class="row">
+  <h1 class="wish-edit-module-title">{{ editTitle }}</h1>
   <div class="col-xs-12">
     <hr class="custom-hr" />
-    <form>
+    <form  [formGroup]="wishForm">
       <div class="row">
         <div class="col-sm-6 form-group">
           <label for="name-title">Name/Title</label>
@@ -34,7 +35,7 @@
         <div class="col-sm-4" style="padding: 35px">
           <div appDropdown class="btn-group">
             <button
-              class="btn wish-button dropdown-toggle "
+              class="btn wish-button dropdown-toggle"
               type="button"
               id="wish-button"
               data-toggle="dropdown"
@@ -44,14 +45,26 @@
               Options
               <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="wish-button">
+            <!-- <ul class="dropdown-menu" aria-labelledby="wish-button">
               <li><button href="#" class="btn btn-primary">Add</button></li>
-              <li><button href="#" class="btn btn-danger">Delete</button></li>
               <li><button href="#" class="btn btn-warning">Clear</button></li>
+              <li><button href="#" class="btn btn-danger">Delete</button></li>
+            </ul> -->
+
+            <ul class="dropdown-menu" aria-labelledby="wish-button">
+              <li>
+                <button
+                  href="#"
+                  *ngFor="let button of wishEditButtons"
+                  class="{{ button.buttonClass }}"
+                  (click)="onButtonClick(button.buttonClickMethod)"
+                >
+                  {{ button.buttonName }}
+                </button>
+              </li>
             </ul>
           </div>
         </div>
-
       </div>
     </form>
     <hr class="custom-hr custom-hr-top" />

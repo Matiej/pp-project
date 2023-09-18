@@ -1,3 +1,11 @@
 .wish-button {
     margin: 2px;
 }
+
+.wish-edit-module-title {
+    text-align: center;
+    /* font-size: calc((1em + 2em) / 2); Average size between h1 and h2 */
+    color: rgb(39, 43, 30);  
+    text-shadow: 4px 4px 2px rgb(253, 134, 79), -4px -4px 0px rgb(235, 129, 9);
+    font-weight: bold;
+}
