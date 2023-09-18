@@ -51,7 +51,7 @@ export class OpenlibraryApiService {
     let params = new HttpParams()
     .append('q', this.prepareSearchParam(text)
     ).append('limit', limit);
-    console.log(params);
+ 
     const searchResult: Observable<OpenLibrarySearch> =
       this.http.get<OpenLibrarySearch>(this.OPELIBRARY_SEARCH_URL, {
         params: params,

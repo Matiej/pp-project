@@ -26,7 +26,7 @@ export class BetterCorrectHighlightDirective implements OnInit {
   }
 
   private getStyleClass(param: string | undefined): string {
-    console.log(param);
+ 
     switch (param) {
       case this.OWN_PARAGRAPH_PARAM:
         return this.OWN_PARAGRAPH_CSS_NAME;
