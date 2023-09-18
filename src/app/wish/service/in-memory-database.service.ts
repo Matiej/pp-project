@@ -22,7 +22,7 @@ export class InMemoryDatabaseService {
   }
 
   findAll(): Observable<WishItem[]> {
-    console.log(this._whisItemDatabase.listAll());
+ 
     return of(this._whisItemDatabase.listAll());
   }
 

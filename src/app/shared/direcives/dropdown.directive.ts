@@ -8,7 +8,7 @@ export class DropdownDirective {
   constructor(private elRef: ElementRef) {}
 
   @HostListener('document:click', ['$event']) toggleOpen(event: Event) {
-      console.log(event.target)
+   
     this.isButtonOpen = this.elRef.nativeElement.contains(event.target) ? !this.isButtonOpen : false;
 
   }

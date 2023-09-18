@@ -11,6 +11,6 @@ export class CourseCertComponent implements OnInit {
   readonly certTitle: string = 'Angular - The Complete Guide (2023 Edition)';
 
   ngOnInit(): void {
-    console.log(this.certPngSrc);
+    
   }
 }

@@ -15,7 +15,17 @@
     <i class="list-group-item-text">Wish no: -{{ wishNumer + 1 }}-</i>
     <br />
     <h4 class="list-group-item-heading">{{ wishitem?.name }}</h4>
-    <p class="list-group-item-text" style="color: blue;">Type;{{ wishitem?.type }}</p>
-    <p class="list-group-item-text">Description:{{ wishitem?.description }}</p>
+    <p class="list-group-item-text" style="color: blue">
+      Type;{{ wishitem?.type }}
+    </p>
+    <ul *ngIf="wishitem && wishitem.descriptions.length > 0">
+      <li *ngFor="let desc of wishitem.descriptions">
+        <p class="list-group-item-text" style="text-align: left">
+          <span style="font-weight: bold;">{{ desc.name.toLocaleUpperCase() }}: </span>
+          <span>{{ desc.content }}</span>
+        </p>
+      </li>
+   
+    </ul>
   </div>
 </div>

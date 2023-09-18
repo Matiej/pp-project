@@ -25,7 +25,7 @@ export class InMemoryWishItemDataBase {
   }
 
   listAll(): Array<WishItem> {
-    console.log(this.db.values());
+ 
     return Array.from(this.db.values());
   }
 
