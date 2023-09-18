@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { BookDetailResponse } from '../book-api/books/book-detail/book-detail-response';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { WishItem } from '../wish/wish-list/wish-item/wish-item-model';
-import { PictureSizeUrl } from './picture.size';
-import { WishType } from '../wish/wish-list/wish-item/wish-type';
-import { InMemoryDatabaseService } from '../wish/service/in-memory-database.service';
 import { BookDetails } from '../book-api/books/model/book.details.model';
 import { Book } from '../book-api/books/model/book.model';
+import { InMemoryDatabaseService } from '../wish/service/in-memory-database.service';
 import { WishItemDescription } from '../wish/wish-list/wish-item/wish-item-description';
+import { WishItem } from '../wish/wish-list/wish-item/wish-item-model';
+import { WishType } from '../wish/wish-list/wish-item/wish-type';
+import { PictureSizeUrl } from './picture.size';
 
 @Injectable({
   providedIn: 'root',

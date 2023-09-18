@@ -1,5 +1,17 @@
 <div class="container">
-  <div class="row"><p>new wish</p></div>
+  <div class="row">
+    <div class="new-wish-but-container">
+      <!-- <label for="enable_but">Add New Wish</label> -->
+      <button
+        id="enable_but"
+        name="enable_but"
+        class="btn btn-primary"
+        (click)="onAddNewWish()"
+      >
+        Add New Wish
+      </button>
+    </div>
+  </div>
 
   <div class="row">
     <div
@@ -18,16 +30,17 @@
       <div class="col-md-5 mds5 list-container">
         <app-wish-list
           [&childInputWhisItemhList]="$wishItemParentList"
-     
         ></app-wish-list>
       </div>
       <div class="col-md-7 mds7">
         <div class="row"><p>wish detail here</p></div>
         <div class="row">
-          <app-wish-edit></app-wish-edit>
+          <app-wish-edit
+            *ngIf="isNewWish"
+            [childButtons$]="wishEditBottomsForChild$"
+          ></app-wish-edit>
         </div>
       </div>
     </div>
   </div>
- 
 </div>

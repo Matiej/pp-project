@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { WishSharedService } from '../shared/wish-shared.service';
-import { Observable } from 'rxjs';
+import { ButtonDetails } from './wish-edit/wish-edit.component';
 import { WishItem } from './wish-list/wish-item/wish-item-model';
 
 @Component({
@@ -9,15 +10,32 @@ import { WishItem } from './wish-list/wish-item/wish-item-model';
   styleUrls: ['./wish.component.css'],
 })
 export class WishComponent implements OnInit {
+  wishEditBottomsForChild$: Observable<ButtonDetails[]> = new Observable<ButtonDetails[]>();
   $wishItemParentList: Observable<WishItem[]> = new Observable<WishItem[]>();
-
   isSpinner: boolean = false;
   isWishDetail: boolean = false;
   isNewWish: boolean = false;
+  
 
   constructor(private wishSharedService: WishSharedService) {}
 
   ngOnInit(): void {
     this.$wishItemParentList = this.wishSharedService.getWishList();
   }
+
+  onAddNewWish() {
+    this.isNewWish = !this.isNewWish;
+    this.wishEditBottomsForChild$ = of(this.getNewWishItemButtons());
+    }
+
+    private getNewWishItemButtons(): ButtonDetails[] {
+      const add = new ButtonDetails(
+        'ADD', 'btn btn-primary', 'ADD_NEW_WISH_ITEM'
+      );
+      const clean = new ButtonDetails(
+        'CLEAN', 'btn btn-warning', 'CLEAN_WISH_ITEM_FIELDS'
+      )
+
+      return [add, clean]
+    }
 }

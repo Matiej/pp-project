@@ -60,3 +60,10 @@
   margin: 1px;
   display: inline-block;
 }
+
+.new-wish-but-container {
+  margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* To align the label and button to the left */
+}
