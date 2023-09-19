@@ -11,15 +11,12 @@ import { BookItemComponent } from './book-api/books/book-list/book-item/book-ite
 import { BookListComponent } from './book-api/books/book-list/book-list.component';
 import { BooksSerchBarComponent } from './book-api/books/books-serch-bar/books-serch-bar.component';
 import { BooksComponent } from './book-api/books/books.component';
-import { OpenlibraryApiService } from './book-api/openlibrary-api/service/openlibrary-api.service';
 import { CourseCertComponent } from './course-cert/course-cert.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
 import { SharedModule } from './shared/shared.module';
-import { WishSharedService } from './shared/wish-shared.service';
-import { InMemoryDatabaseService } from './wish/service/in-memory-database.service';
 import { WishEditComponent } from './wish/wish-edit/wish-edit.component';
 import { WishItemComponent } from './wish/wish-list/wish-item/wish-item.component';
 import { WishListComponent } from './wish/wish-list/wish-list.component';
@@ -53,7 +50,7 @@ import { WishComponent } from './wish/wish.component';
     NgxExtendedPdfViewerModule,
     SharedModule,
   ],
-  providers: [OpenlibraryApiService, WishSharedService, InMemoryDatabaseService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
