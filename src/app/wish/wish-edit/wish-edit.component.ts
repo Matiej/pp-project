@@ -1,6 +1,20 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
+import { WishSharedService } from 'src/app/shared/wish-shared.service';
+import { WISH_EDIT_BUTTON_METHODS } from '../wish-edit-button-methods-const';
+import { WishItemDescription } from '../wish-list/wish-item/wish-item-description';
+import { WishItem } from '../wish-list/wish-item/wish-item-model';
+import { WishType, getWishType } from '../wish-list/wish-item/wish-type';
 
 export class ButtonDetails {
   buttonName: string;
@@ -24,20 +38,28 @@ export class ButtonDetails {
   styleUrls: ['./wish-edit.component.css', '../wish.component.css'],
 })
 export class WishEditComponent implements OnChanges, OnInit {
- 
   readonly editTitle: string = 'New Wish';
   wishEditButtons: ButtonDetails[] = [];
   @Input()
-  childButtons$: Observable<ButtonDetails[]> = new Observable<ButtonDetails[]>();
+  childButtons$: Observable<ButtonDetails[]> = new Observable<
+    ButtonDetails[]
+  >();
   wishForm!: FormGroup;
+  wishtypes = WishType;
+  showToast: boolean = false;
+  wishEditToastMessage: string = '';
+  @Output() notifyIfWishAdded: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private wishSharedService: WishSharedService
+  ) {}
 
   ngOnInit(): void {
     this.wishForm = this.fb.group({
-      'name-title': ['', Validators.required],  // Assuming it's a required field
-      'type': ['', Validators.required],        // Assuming it's a required field
-      'description': ['']
+      'name-title': ['', Validators.required],
+      type: ['', Validators.required],
+      description: [''],
     });
   }
 
@@ -53,11 +75,12 @@ export class WishEditComponent implements OnChanges, OnInit {
   }
 
   onButtonClick(method: string) {
+    console.log("onButtonClick" , method);
     switch (method) {
-      case 'ADD_NEW_WISH_ITEM':
+      case WISH_EDIT_BUTTON_METHODS.ADD_NEW_WISH_ITEM:
         this.onAddClick();
         break;
-      case 'CLEAN_WISH_ITEM_FIELDS':
+      case WISH_EDIT_BUTTON_METHODS.CLEAN_WISH_ITEM_FIELDS:
         this.onCleanClick();
         break;
       default:
@@ -67,14 +90,46 @@ export class WishEditComponent implements OnChanges, OnInit {
 
   private onAddClick() {
     console.log('onAddClick');
+    console.log(this.wishForm);
     if (this.wishForm.valid) {
-      console.log('form valid to handle');
+      const isSaved: boolean = this.wishSharedService.addNewItemToWishList(
+        this.convertFormToWishItem(this.wishForm)
+      );
+      if (isSaved) {
+        this.notifyIfWishAdded.emit();
+        this.showToastMessage(TOAST_MESSAGES.WISH_ADDED_SUCCESSFULLY, 3000);
+      }
     }
+    this.wishForm.reset();
+  }
+  //todo create shared service for toastmessages
+  private showToastMessage(message: string, timeout: number): void {
+    this.wishEditToastMessage = message;
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+      this.wishEditToastMessage = '';
+    }, timeout);
+  }
+
+  private convertFormToWishItem(form: FormGroup): WishItem {
+    const formData = form.value;
+    const desc: WishItemDescription[] = [
+      new WishItemDescription('DESCRIPTION', formData.description),
+    ];
+ 
+    const wishItem = new WishItem(
+      formData['name-title'],
+      getWishType(formData.type),
+      desc,
+      null
+    );
+    console.log(wishItem);
+    return wishItem;
   }
 
   private onCleanClick() {
-    console.log('onCleanClick');
-
+    this.wishForm.reset();
   }
 
   private subscribeButtonDetails() {
