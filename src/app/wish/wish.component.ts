@@ -39,7 +39,7 @@ export class WishComponent implements OnInit {
     const clean = new ButtonDetails(
       'CLEAN',
       'btn btn-warning',
-      WISH_EDIT_BUTTON_METHODS.ADD_NEW_WISH_ITEM
+      WISH_EDIT_BUTTON_METHODS.CLEAN_WISH_ITEM_FIELDS
     );
 
     return [add, clean];

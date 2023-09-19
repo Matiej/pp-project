@@ -57,14 +57,13 @@
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="wish-button">
-              <li>
+              <li *ngFor="let button of wishEditButtons">
                 <button
                   href="#"
-                  *ngFor="let button of wishEditButtons"
                   [ngClass]="button.buttonClass"
-                  (click)="onButtonClick(button.buttonClickMethod)"
+                  (click)="onButtonClick(button.buttonClickMethod, $event)"
                 >
-                  {{ button.buttonName }}
+                  {{ button.buttonName }} 
                 </button>
               </li>
             </ul>

@@ -70,12 +70,7 @@ export class WishEditComponent implements OnChanges, OnInit {
     }
   }
 
-  setNewWishEditButtons(newWishEditButtons: ButtonDetails[]) {
-    this.wishEditButtons = newWishEditButtons;
-  }
-
-  onButtonClick(method: string) {
-    console.log("onButtonClick" , method);
+  onButtonClick(method: string, event: Event) {
     switch (method) {
       case WISH_EDIT_BUTTON_METHODS.ADD_NEW_WISH_ITEM:
         this.onAddClick();
@@ -89,8 +84,6 @@ export class WishEditComponent implements OnChanges, OnInit {
   }
 
   private onAddClick() {
-    console.log('onAddClick');
-    console.log(this.wishForm);
     if (this.wishForm.valid) {
       const isSaved: boolean = this.wishSharedService.addNewItemToWishList(
         this.convertFormToWishItem(this.wishForm)
@@ -117,7 +110,7 @@ export class WishEditComponent implements OnChanges, OnInit {
     const desc: WishItemDescription[] = [
       new WishItemDescription('DESCRIPTION', formData.description),
     ];
- 
+
     const wishItem = new WishItem(
       formData['name-title'],
       getWishType(formData.type),
