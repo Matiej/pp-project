@@ -8,12 +8,12 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
+import { Observable } from 'rxjs';
+import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
+import { WishSharedService } from 'src/app/shared/wish-shared.service';
+import { BookDetailResponse } from '../book-detail/book-detail-response';
 import { Book } from '../model/book.model';
 import { BooksService } from '../service/books.service';
-import { Observable } from 'rxjs';
-import { BookDetailResponse } from '../book-detail/book-detail-response';
-import { WishSharedService } from 'src/app/shared/wish-shared.service';
-import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 
 @Component({
   selector: 'app-book-list',
@@ -72,7 +72,7 @@ export class BookListComponent implements OnInit, OnChanges {
   onToWishListClick(book: Book): void {
     const response: Observable<BookDetailResponse> =
       this.booksService.searchBookDetailsByCode(book);
-    this.wishSharedService.addToWishList(response)
+    this.wishSharedService.addBookToWishList(response)
     this.showToastMessage(TOAST_MESSAGES.WISH_ADDED_SUCCESSFULLY, 3000);
   }
 
