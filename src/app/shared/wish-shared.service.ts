@@ -18,7 +18,7 @@ export class WishSharedService {
 
   constructor(private databaseService: InMemoryDatabaseService) {}
 
-  public addToWishList(bookDetails: Observable<BookDetailResponse>): void {
+  public addBookToWishList(bookDetails: Observable<BookDetailResponse>): void {
     bookDetails.subscribe((bookDetails: BookDetailResponse) => {
       const picUrl: PictureSizeUrl = new PictureSizeUrl(
         bookDetails.book.coverUrls?.smallSizeCoverurl!,
@@ -37,6 +37,17 @@ export class WishSharedService {
     });
   }
 
+  public addNewItemToWishList(wishitem: WishItem): boolean {
+    const savedWishItem: WishItem | undefined =
+      this.databaseService.saveWishItem(wishitem);
+    if (savedWishItem && savedWishItem.id) {
+      this.refreshWishCounter(this.databaseService.getNumberOfItems());
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   private prepareDescription(
     bookDetails: BookDetails,
     book: Book
@@ -44,15 +55,24 @@ export class WishSharedService {
     const resultArray: WishItemDescription[] = [];
 
     if (bookDetails.description) {
-        resultArray.push(new WishItemDescription('Description', bookDetails.description));
+      resultArray.push(
+        new WishItemDescription('Description', bookDetails.description)
+      );
     }
 
     if (book.author_name && book.author_name.length) {
-        resultArray.push(new WishItemDescription('Authors', book.author_name.join(', ')));
+      resultArray.push(
+        new WishItemDescription('Authors', book.author_name.join(', '))
+      );
     }
 
     if (book.first_publish_year) {
-        resultArray.push(new WishItemDescription('Publish Year', book.first_publish_year.toString()));
+      resultArray.push(
+        new WishItemDescription(
+          'Publish Year',
+          book.first_publish_year.toString()
+        )
+      );
     }
 
     return resultArray;

@@ -36,6 +36,7 @@
         <div class="row"><p>wish detail here</p></div>
         <div class="row">
           <app-wish-edit
+            (notifyIfWishAdded)="refreshAfterNewWishAdd()"
             *ngIf="isNewWish"
             [childButtons$]="wishEditBottomsForChild$"
           ></app-wish-edit>

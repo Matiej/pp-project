@@ -6,10 +6,10 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { WishSharedService } from 'src/app/shared/wish-shared.service';
 import { WishItem } from './wish-item/wish-item-model';
-import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-wish-list',
