@@ -16,6 +16,8 @@ import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 import { UserTaskComponent } from './user-task/user-task.component';
+import { ActiveUserComponent } from './section9-task-user/active-user/active-user.component';
+import { InactiveUserComponent } from './section9-task-user/inactive-user/inactive-user.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section7DirectivesComponent,
     BasicHighlightDirective,
     Section9TaskUserComponent,
+    ActiveUserComponent,
+    InactiveUserComponent,
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, SharedModule],
   exports: [
