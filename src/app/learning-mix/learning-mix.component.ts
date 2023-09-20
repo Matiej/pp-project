@@ -11,7 +11,7 @@ export class LearningMixComponent implements OnInit {
   learningComponentTitle: string =
     'It is Learning component to test and learn.';
   titleStyleClass: string = 'learning-module-title';
-  componentStates: { [key: string]: boolean } = {
+  firsLineComponentStates: { [key: string]: boolean } = {
     app_spinner_test: false,
     app_section5_task: false,
     app_servers: false,
@@ -20,13 +20,17 @@ export class LearningMixComponent implements OnInit {
     app_section7_directives: false,
   };
   mixImageSrc: string = '';
+  secondLineComponentStates: { [key: string]: boolean } = {
+    app_section9_task_user: false,
+  };
 
   ngOnInit(): void {
     this.setRadommixImageSrc();
   }
 
   isComponentActive(name: string): boolean {
-    return this.componentStates[name];
+    return this.firsLineComponentStates[name] 
+    || this.secondLineComponentStates[name];
   }
 
   private setRadommixImageSrc(): void {
@@ -46,10 +50,12 @@ export class LearningMixComponent implements OnInit {
     componentName: string;
     isTurnedOn: boolean;
   }) {
-    if (
-      this.componentStates.hasOwnProperty(boardlButtonClicked.componentName)
-    ) {
-      this.componentStates[boardlButtonClicked.componentName] =
+    if (this.firsLineComponentStates.hasOwnProperty(boardlButtonClicked.componentName)) {
+      this.firsLineComponentStates[boardlButtonClicked.componentName] =
+        boardlButtonClicked.isTurnedOn;
+    }
+    if (this.secondLineComponentStates.hasOwnProperty(boardlButtonClicked.componentName)) {
+      this.secondLineComponentStates[boardlButtonClicked.componentName] =
         boardlButtonClicked.isTurnedOn;
     }
     this.setRadommixImageSrc();
@@ -57,9 +63,18 @@ export class LearningMixComponent implements OnInit {
 
   get firstLinebuttonLabelNames(): ButtonLabelName[] {
     let buttonLabelNames: ButtonLabelName[] = [];
-    Object.keys(this.componentStates).forEach((component) =>
+    Object.keys(this.firsLineComponentStates).forEach((component) =>
       buttonLabelNames.push(getButtonLabel(component))
     );
+    return buttonLabelNames;
+  }
+
+  get secondLineButtonLabelNames(): ButtonLabelName[] {
+    let buttonLabelNames: ButtonLabelName[] = [];
+    Object.keys(this.secondLineComponentStates).forEach((component) =>
+      buttonLabelNames.push(getButtonLabel(component))
+    );
+ 
     return buttonLabelNames;
   }
 }
