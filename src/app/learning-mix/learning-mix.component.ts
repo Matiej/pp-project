@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ButtonLabelName, getButtonLabel } from '../shared/button-name';
 import { ASSETS_PATHS } from '../constants/assets-paths';
+import { ButtonLabelName, getButtonLabel } from '../shared/button-name';
 
 @Component({
   selector: 'app-learning-mix',
@@ -21,7 +21,6 @@ export class LearningMixComponent implements OnInit {
   };
   mixImageSrc: string = '';
 
-
   ngOnInit(): void {
     this.setRadommixImageSrc();
   }
@@ -40,7 +39,7 @@ export class LearningMixComponent implements OnInit {
     const randomIndex: number = Math.round(
       Math.random() * (learningMixImages.length - 1)
     );
-    this. mixImageSrc = learningMixImages[randomIndex];
+    this.mixImageSrc = learningMixImages[randomIndex];
   }
 
   onBoardButtonClick(boardlButtonClicked: {
@@ -53,7 +52,7 @@ export class LearningMixComponent implements OnInit {
       this.componentStates[boardlButtonClicked.componentName] =
         boardlButtonClicked.isTurnedOn;
     }
-     this.setRadommixImageSrc();
+    this.setRadommixImageSrc();
   }
 
   get firstLinebuttonLabelNames(): ButtonLabelName[] {
