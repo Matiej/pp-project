@@ -11,13 +11,13 @@ import { OddComponent } from './section5-task/odd/odd.component';
 import { Section5TaskComponent } from './section5-task/section5-task.component';
 import { BasicHighlightDirective } from './section7-directives/basic-highlight.directive';
 import { Section7DirectivesComponent } from './section7-directives/section7-directives.component';
+import { ActiveUserComponent } from './section9-task-user/active-user/active-user.component';
+import { InactiveUserComponent } from './section9-task-user/inactive-user/inactive-user.component';
 import { Section9TaskUserComponent } from './section9-task-user/section9-task-user.component';
 import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 import { UserTaskComponent } from './user-task/user-task.component';
-import { ActiveUserComponent } from './section9-task-user/active-user/active-user.component';
-import { InactiveUserComponent } from './section9-task-user/inactive-user/inactive-user.component';
 
 @NgModule({
   declarations: [
