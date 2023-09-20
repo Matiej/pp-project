@@ -89,12 +89,13 @@ export class WishEditComponent implements OnChanges, OnInit {
         this.convertFormToWishItem(this.wishForm)
       );
       if (isSaved) {
-        this.notifyIfWishAdded.emit();
+        this.wishSharedService.newWishItemNotifyEmiter.emit();
         this.showToastMessage(TOAST_MESSAGES.WISH_ADDED_SUCCESSFULLY, 3000);
       }
     }
     this.wishForm.reset();
   }
+  
   //todo create shared service for toastmessages
   private showToastMessage(message: string, timeout: number): void {
     this.wishEditToastMessage = message;
