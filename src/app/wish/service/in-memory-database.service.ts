@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { InMemoryWishItemDataBase } from '../db/in-memory-wishItem-database';
 import { WishItem } from '../wish-list/wish-item/wish-item-model';
-import { BehaviorSubject, map, of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

@@ -1,0 +1,16 @@
+<div
+  style="background-color: rgb(231, 164, 164); text-align: center"
+  class="col-md-8 col-md-offset-2"
+>
+  <hr />
+  <h3>INACTIVE USER SECTION</h3>
+  <ul>
+    <li class="list-group-item" *ngFor="let user of inactiveUsers">
+      {{ user.name }} |
+      <a class = "section9-pointer" (click)="onSetToActive(user)" style="color: blue"
+        >SET TO ACTIVE</a
+      >
+    </li>
+  </ul>
+  <hr />
+</div>

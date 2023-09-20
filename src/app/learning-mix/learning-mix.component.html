@@ -1,8 +1,19 @@
 <div>
   <h1 [class]="titleStyleClass">{{ learningComponentTitle }}</h1>
-  <app-buttons-board (boardlButtonClicked)="onBoardButtonClick($event)" 
-  [firstLinebuttonLables]="firstLinebuttonLabelNames">
-  </app-buttons-board>
+  <div class="row">
+    <app-buttons-board
+      (boardlButtonClicked)="onBoardButtonClick($event)"
+      [linebuttonLables]="firstLinebuttonLabelNames"
+    >
+    </app-buttons-board>
+  </div>
+  <div class="row">
+    <app-buttons-board
+      (boardlButtonClicked)="onBoardButtonClick($event)"
+      [linebuttonLables]="secondLineButtonLabelNames"
+    >
+    </app-buttons-board>
+  </div>
 </div>
 
 <div class="task" *ngIf="isComponentActive('app_spinner_test')">
@@ -41,10 +52,16 @@
   <hr />
 </div>
 
-<div class="row justify-content-center" style="margin-top: 3%;">
+<div class="task" *ngIf="isComponentActive('app_section9_task_user')">
+  <hr />
+  <app-section9-task-user></app-section9-task-user>
+  <hr />
+</div>
+
+<div class="row justify-content-center" style="margin-top: 3%">
   <div class="col-auto">
     <a [href]="mixImageSrc" target="_blank">
-      <img [src]="mixImageSrc" class="mix-image">
+      <img [src]="mixImageSrc" class="mix-image" />
     </a>
   </div>
 </div>

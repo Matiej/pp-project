@@ -9,7 +9,7 @@ import { ButtonLabelName, getComponentName } from 'src/app/shared/button-name';
 export class ButtonsBoardComponent {
   spinnerTestButtonLabel: ButtonLabelName = ButtonLabelName.SPINNER_TEST;
   @Input({required: true})
-  firstLinebuttonLables: ButtonLabelName[] = [];
+  linebuttonLables: ButtonLabelName[] = [];
 
   @Output()
   boardlButtonClicked: EventEmitter<{
