@@ -50,7 +50,7 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
     this.$wishItemList.pipe(takeUntil(this.destroy$)).subscribe(
       (wishItems: WishItem[]) => {
         if (wishItems.length > 0) {
-          console.log(wishItems)
+          console.log(wishItems);
           this.wishItemList = wishItems;
           // this.onDetailsClick(this.wishItemList[0]) <- add deafult  first item detail show
         } else {

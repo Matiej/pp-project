@@ -11,6 +11,7 @@ import { WishItem } from './wish-list/wish-item/wish-item-model';
   styleUrls: ['./wish.component.css'],
 })
 export class WishComponent implements OnInit {
+  readonly wishComponentTitle: string = 'Your wishies and findings sector';
   wishEditBottomsForChild$: Observable<ButtonDetails[]> = new Observable<
     ButtonDetails[]
   >();
@@ -18,8 +19,13 @@ export class WishComponent implements OnInit {
   isSpinner: boolean = false;
   isWishDetail: boolean = false;
   isNewWish: boolean = false;
+  
 
-  constructor(private wishSharedService: WishSharedService) {}
+  constructor(private wishSharedService: WishSharedService) {
+    this.wishSharedService.newWishItemNotifyEmiter.subscribe(() => {
+      this.$wishItemParentList = this.wishSharedService.getWishList();
+    });
+  }
 
   ngOnInit(): void {
     this.$wishItemParentList = this.wishSharedService.getWishList();
@@ -43,9 +49,5 @@ export class WishComponent implements OnInit {
     );
 
     return [add, clean];
-  }
-
-  refreshAfterNewWishAdd() {
-    this.$wishItemParentList = this.wishSharedService.getWishList();
   }
 }

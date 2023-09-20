@@ -1,4 +1,5 @@
 <div class="container">
+  <h1 class="wish-module-title">{{ wishComponentTitle }}</h1>
   <div class="row">
     <div class="new-wish-but-container">
       <!-- <label for="enable_but">Add New Wish</label> -->
@@ -27,7 +28,7 @@
       <div class="spinner"></div>
     </div>
     <div class="row wish-row">
-      <div class="col-md-5 mds5 list-container">
+      <div class="col-md-5 mds5">
         <app-wish-list
           [&childInputWhisItemhList]="$wishItemParentList"
         ></app-wish-list>
@@ -36,7 +37,6 @@
         <div class="row"><p>wish detail here</p></div>
         <div class="row">
           <app-wish-edit
-            (notifyIfWishAdded)="refreshAfterNewWishAdd()"
             *ngIf="isNewWish"
             [childButtons$]="wishEditBottomsForChild$"
           ></app-wish-edit>

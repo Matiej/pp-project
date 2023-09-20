@@ -15,7 +15,7 @@ import { PictureSizeUrl } from './picture.size';
 export class WishSharedService {
   private _wishCounter = new BehaviorSubject<number>(0);
   private wishCounter$ = this._wishCounter.asObservable();
-  newWishItemNotifyEmiter: EventEmitter<string> = new EventEmitter();
+  newWishItemNotifyEmiter: EventEmitter<void> = new EventEmitter();
 
   constructor(private databaseService: InMemoryDatabaseService) {}
 
@@ -43,7 +43,6 @@ export class WishSharedService {
       this.databaseService.saveWishItem(wishitem);
     if (savedWishItem && savedWishItem.id) {
       this.refreshWishCounter(this.databaseService.getNumberOfItems());
-      this.newWishItemNotifyEmiter.emit(savedWishItem.id.toString());
       return true;
     } else {
       return false;
