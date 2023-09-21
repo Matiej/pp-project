@@ -46,13 +46,17 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
     this.showToastMessage(TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY, 3000);
   }
 
+  public onDetailsClick(wishItem: WishItem): void {
+    console.log('onDetailsClic', wishItem);
+    this.wishSharedService.onWishDetailsClick(wishItem);
+  }
+
   private subscribeWishItemList(): void {
     this.$wishItemList.pipe(takeUntil(this.destroy$)).subscribe(
       (wishItems: WishItem[]) => {
         if (wishItems.length > 0) {
-          console.log(wishItems);
           this.wishItemList = wishItems;
-          // this.onDetailsClick(this.wishItemList[0]) <- add deafult  first item detail show
+          this.wishSharedService.onWishDetailsClick(this.wishItemList[0]);
         } else {
           this.wishItemList = [];
         }
