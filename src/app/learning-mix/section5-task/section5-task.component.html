@@ -6,15 +6,17 @@
   ></app-game-control>
   <div class="contaier" *ngIf="tickIntrecement !== 0">
     <app-even
-      [evenGameNumber]="tickIntrecement"
+    *ngFor="let number of evenNumbers"
+      [evenGameNumber]="number"
       [evenTextToShow]="gameMessage"
-      *ngIf="tickIntrecement % 2 === 0"
+      
     >
     </app-even>
     <app-odd
-      [oddGameNumber]="tickIntrecement"
+    *ngFor="let number of oddNumbers"
+      [oddGameNumber]="number"
       [oddTextToShow]="gameMessage"
-      *ngIf="tickIntrecement % 2 !== 0"
     ></app-odd>
   </div>
 </div>
+a

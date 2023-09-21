@@ -10,7 +10,7 @@ export class OddComponent {
   gameNumber?: number;
   @Input({ alias: 'oddTextToShow', required: true })
   textToShow?: string;
-
+  
   get textToDiplay(): string {
     if (this.gameNumber && this.textToShow) {
       return this.textToShow + ': ' + this.gameNumber + '.';
