@@ -34,7 +34,9 @@
         ></app-wish-list>
       </div>
       <div class="col-md-7 mds7">
-        <div class="row"><p>wish detail here</p></div>
+        <div class="row" *ngIf="isWishDetail">
+          <app-wish-details></app-wish-details>
+        </div>
         <div class="row">
           <app-wish-edit
             *ngIf="isNewWish"

@@ -9,3 +9,7 @@
     text-shadow: 4px 4px 2px rgb(253, 134, 79), -4px -4px 0px rgb(235, 129, 9);
     font-weight: bold;
 }
+
+.edit-row{
+    background-color: #a7a5a5 !important;
+}
