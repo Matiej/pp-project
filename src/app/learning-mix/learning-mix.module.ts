@@ -5,6 +5,9 @@ import { SharedModule } from '../shared/shared.module';
 import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
 import { ControlButtonComponent } from './buttons-board/control-button/control-button.component';
 import { ClickTaskComponent } from './click-task/click-task.component';
+import { OutstandingTask1Component } from './outstanding-task1/outstanding-task1.component';
+import { SuccessAlertComponent } from './outstanding-task1/success-alert/success-alert.component';
+import { WarningAlertComponent } from './outstanding-task1/warning-alert/warning-alert.component';
 import { EvenComponent } from './section5-task/even/even.component';
 import { GameControlComponent } from './section5-task/game-control/game-control.component';
 import { OddComponent } from './section5-task/odd/odd.component';
@@ -37,6 +40,9 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section9TaskUserComponent,
     ActiveUserComponent,
     InactiveUserComponent,
+    OutstandingTask1Component,
+    WarningAlertComponent,
+    SuccessAlertComponent,
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, SharedModule],
   exports: [
@@ -49,7 +55,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     ControlButtonComponent,
     Section7DirectivesComponent,
     BasicHighlightDirective,
-    Section9TaskUserComponent,
+    Section9TaskUserComponent, OutstandingTask1Component
   ],
   providers: [],
 })

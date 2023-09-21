@@ -58,6 +58,12 @@
   <hr />
 </div>
 
+<div class="task" *ngIf="isComponentActive('app_outstanding_task1')">
+  <hr />
+  <app-outstanding-task1></app-outstanding-task1>
+  <hr />
+</div>
+
 <div class="row justify-content-center" style="margin-top: 3%">
   <div class="col-auto">
     <a [href]="mixImageSrc" target="_blank">

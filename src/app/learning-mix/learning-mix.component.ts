@@ -22,6 +22,7 @@ export class LearningMixComponent implements OnInit {
   mixImageSrc: string = '';
   secondLineComponentStates: { [key: string]: boolean } = {
     app_section9_task_user: false,
+    app_outstanding_task1: false,
   };
 
   ngOnInit(): void {
