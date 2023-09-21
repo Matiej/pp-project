@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { BookDetailResponse } from '../book-api/books/book-detail/book-detail-response';
 import { BookDetails } from '../book-api/books/model/book.details.model';
 import { Book } from '../book-api/books/model/book.model';
@@ -16,6 +16,8 @@ export class WishSharedService {
   private _wishCounter = new BehaviorSubject<number>(0);
   private wishCounter$ = this._wishCounter.asObservable();
   newWishItemNotifyEmiter: EventEmitter<void> = new EventEmitter();
+  private _isWishDetail: EventEmitter<boolean> = new EventEmitter();
+  private _wishItemDetailSend: ReplaySubject<WishItem> = new ReplaySubject(1);
 
   constructor(private databaseService: InMemoryDatabaseService) {}
 
@@ -75,8 +77,21 @@ export class WishSharedService {
         )
       );
     }
-
     return resultArray;
+  }
+
+  public onFirstWishDetails(wishItem: WishItem): void {
+    this.isWishDetail.emit(true);
+    this._wishItemDetailSend.next(wishItem);
+  }
+
+  public onWishDetailsClick(wishItem: WishItem) {
+    this.isWishDetail.emit(true);
+    this._wishItemDetailSend.next(wishItem);
+  }
+
+  public onCloseWishDetailClick() {
+    this._isWishDetail.emit(false);
   }
 
   public getWishList(): Observable<WishItem[]> {
@@ -93,5 +108,13 @@ export class WishSharedService {
 
   public removeWishItem(wishItemId: number) {
     this.databaseService.removeById(wishItemId);
+  }
+
+  public get wishItemDetailSend(): ReplaySubject<WishItem> {
+    return this._wishItemDetailSend;
+  }
+
+  public get isWishDetail(): EventEmitter<boolean> {
+    return this._isWishDetail;
   }
 }

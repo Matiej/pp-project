@@ -19,11 +19,15 @@ export class WishComponent implements OnInit {
   isSpinner: boolean = false;
   isWishDetail: boolean = false;
   isNewWish: boolean = false;
-  
 
   constructor(private wishSharedService: WishSharedService) {
     this.wishSharedService.newWishItemNotifyEmiter.subscribe(() => {
       this.$wishItemParentList = this.wishSharedService.getWishList();
+    });
+
+    wishSharedService.isWishDetail.subscribe((value: boolean) => {
+      console.log(value);
+      this.isWishDetail = value;
     });
   }
 
