@@ -9,6 +9,8 @@ import { GANE_MESSAGES as GAME_MESSAGES } from './game-messages-constat';
 export class Section5TaskComponent implements OnDestroy {
   private _tickIntrecement: number = 0;
   private _intervalId?: number;
+  evenNumbers: number[] = [];
+  oddNumbers: number[] = [];
 
   ngOnDestroy(): void {
     this.clearTickInterval();
@@ -18,6 +20,11 @@ export class Section5TaskComponent implements OnDestroy {
     if (!this._intervalId) {
       this._intervalId = window.setInterval(() => {
         this.intrecmentTick();
+        if(this._tickIntrecement % 2 === 0) {
+        this.evenNumbers.push(this._tickIntrecement);
+        } else {
+          this.oddNumbers.push(this._tickIntrecement);
+        }
       }, 1000);
     }
   }
