@@ -21,7 +21,7 @@ export class WishComponent implements OnInit {
   isNewWish: boolean = false;
 
   constructor(private wishSharedService: WishSharedService) {
-    this.wishSharedService.newWishItemNotifyEmiter.subscribe(() => {
+    this.wishSharedService.changeStateWishItemNotifier.subscribe(() => {
       this.$wishItemParentList = this.wishSharedService.getWishList();
     });
 

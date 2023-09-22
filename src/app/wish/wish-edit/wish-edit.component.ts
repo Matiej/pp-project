@@ -89,7 +89,7 @@ export class WishEditComponent implements OnChanges, OnInit {
         this.convertFormToWishItem(this.wishForm)
       );
       if (isSaved) {
-        this.wishSharedService.newWishItemNotifyEmiter.emit();
+        this.wishSharedService.changeStateWishItemNotifier.emit();
         this.showToastMessage(TOAST_MESSAGES.WISH_ADDED_SUCCESSFULLY, 3000);
       }
     }
