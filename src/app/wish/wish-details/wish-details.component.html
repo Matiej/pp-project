@@ -30,11 +30,37 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sx-12" *ngFor="let wishdet of wishItem?.descriptions">
+    <div class="col-xs-8" *ngFor="let wishdet of wishItem?.descriptions">
       <label for="{{ wishdet.name }}">{{ wishdet.name }}</label>
       <p id="{{ wishdet.name }}">
         {{ wishdet.content }}
       </p>
+    </div>
+    <div class="col-xs-4">
+      <div appDropdown class="btn-group">
+        <button
+          class="btn wish-button dropdown-toggle"
+          type="button"
+          id="wish-detail-button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="true"
+        >
+          Manage Wish Item
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="wish-button">
+          <li>
+            <button
+              href="#"
+              class="btn btn-danger btn-wish-detail"
+              (click)="onRemoveWish()"
+            >
+              Remove
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
