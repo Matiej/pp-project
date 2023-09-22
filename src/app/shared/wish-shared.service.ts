@@ -15,12 +15,12 @@ import { PictureSizeUrl } from './picture.size';
 export class WishSharedService {
   private _wishCounter = new BehaviorSubject<number>(0);
   private wishCounter$ = this._wishCounter.asObservable();
-  newWishItemNotifyEmiter: EventEmitter<void> = new EventEmitter();
+  changeStateWishItemNotifier: EventEmitter<void> = new EventEmitter();
   private _isWishDetail: EventEmitter<boolean> = new EventEmitter();
   private _wishItemDetailSend: ReplaySubject<WishItem | undefined> =
     new ReplaySubject(1);
-  private _wishItenDetailRemove: EventEmitter<number> = new EventEmitter();
-
+  private _removedWishItemNotifier: EventEmitter<void> = new EventEmitter();
+ 
   constructor(private databaseService: InMemoryDatabaseService) {}
 
   public addBookToWishList(bookDetails: Observable<BookDetailResponse>): void {
@@ -82,19 +82,19 @@ export class WishSharedService {
     return resultArray;
   }
 
-  public onFirstWishDetails(wishItem: WishItem): void {
-    this.isWishDetail.emit(true);
-    this._wishItemDetailSend.next(wishItem);
-  }
+  // public onFirstWishDetails(wishItem: WishItem): void {
+  //   this.isWishDetail.emit(true);
+  //   this._wishItemDetailSend.next(wishItem);
+  // }
 
   public onWishDetailsClick(wishItem: WishItem) {
+    console.log('onWishDetailsClick method in sharedService')
     this.isWishDetail.emit(true);
     this._wishItemDetailSend.next(wishItem);
   }
 
   public onCloseWishDetailClick() {
     this._isWishDetail.emit(false);
-    this._wishItemDetailSend.next(undefined);
   }
 
   public getWishList(): Observable<WishItem[]> {
@@ -112,7 +112,9 @@ export class WishSharedService {
   public removeWishItem(wishItemId: number) {
     const isRemoved: boolean = this.databaseService.removeById(wishItemId);
     if(isRemoved) {
-      this._wishItenDetailRemove.emit(wishItemId);
+      console.log('reomved!!   ', wishItemId)
+      this.changeStateWishItemNotifier.emit();
+     
     }
   }
 
@@ -121,11 +123,12 @@ export class WishSharedService {
   }
 
   public get isWishDetail(): EventEmitter<boolean> {
+    console.log('isWishDetail getter called')
     return this._isWishDetail;
   }
 
-  public get wishItenDetailRemove(): EventEmitter<number> {
-    return this._wishItenDetailRemove;
+  public get removedWishItemNotifier(): EventEmitter<void> {
+    return this._removedWishItemNotifier;
   }
 
 }
