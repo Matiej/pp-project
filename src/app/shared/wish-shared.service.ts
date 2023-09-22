@@ -15,9 +15,11 @@ import { PictureSizeUrl } from './picture.size';
 export class WishSharedService {
   private _wishCounter = new BehaviorSubject<number>(0);
   private wishCounter$ = this._wishCounter.asObservable();
-  newWishItemNotifyEmiter: EventEmitter<void> = new EventEmitter();
+  changeStateWishItemNotifier: EventEmitter<void> = new EventEmitter();
   private _isWishDetail: EventEmitter<boolean> = new EventEmitter();
-  private _wishItemDetailSend: ReplaySubject<WishItem> = new ReplaySubject(1);
+  private _wishItemDetailSend: ReplaySubject<WishItem | undefined> =
+    new ReplaySubject(1);
+  private _removedWishItemNotifier: EventEmitter<void> = new EventEmitter();
 
   constructor(private databaseService: InMemoryDatabaseService) {}
 
@@ -80,11 +82,6 @@ export class WishSharedService {
     return resultArray;
   }
 
-  public onFirstWishDetails(wishItem: WishItem): void {
-    this.isWishDetail.emit(true);
-    this._wishItemDetailSend.next(wishItem);
-  }
-
   public onWishDetailsClick(wishItem: WishItem) {
     this.isWishDetail.emit(true);
     this._wishItemDetailSend.next(wishItem);
@@ -107,14 +104,21 @@ export class WishSharedService {
   }
 
   public removeWishItem(wishItemId: number) {
-    this.databaseService.removeById(wishItemId);
+    const isRemoved: boolean = this.databaseService.removeById(wishItemId);
+    if (isRemoved) {
+      this.changeStateWishItemNotifier.emit();
+    }
   }
 
-  public get wishItemDetailSend(): ReplaySubject<WishItem> {
+  public get wishItemDetailSend(): ReplaySubject<WishItem | undefined> {
     return this._wishItemDetailSend;
   }
 
   public get isWishDetail(): EventEmitter<boolean> {
     return this._isWishDetail;
+  }
+
+  public get removedWishItemNotifier(): EventEmitter<void> {
+    return this._removedWishItemNotifier;
   }
 }

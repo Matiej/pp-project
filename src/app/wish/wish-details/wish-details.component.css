@@ -42,3 +42,8 @@
     align-items: center;
     height: 100%; /* or specify a fixed height if you want */
   }
+
+  .btn-wish-detail {
+    margin: 2px;
+    font-size: 11px; /* Size of the text */
+  }

@@ -89,13 +89,13 @@ export class WishEditComponent implements OnChanges, OnInit {
         this.convertFormToWishItem(this.wishForm)
       );
       if (isSaved) {
-        this.wishSharedService.newWishItemNotifyEmiter.emit();
+        this.wishSharedService.changeStateWishItemNotifier.emit();
         this.showToastMessage(TOAST_MESSAGES.WISH_ADDED_SUCCESSFULLY, 3000);
       }
     }
     this.wishForm.reset();
   }
-  
+
   //todo create shared service for toastmessages
   private showToastMessage(message: string, timeout: number): void {
     this.wishEditToastMessage = message;
@@ -118,7 +118,7 @@ export class WishEditComponent implements OnChanges, OnInit {
       desc,
       null
     );
-    console.log(wishItem);
+
     return wishItem;
   }
 
@@ -129,7 +129,6 @@ export class WishEditComponent implements OnChanges, OnInit {
   private subscribeButtonDetails() {
     this.childButtons$.subscribe((wishEditButtons) => {
       this.wishEditButtons = wishEditButtons;
-      console.log(this.wishEditButtons);
     });
   }
 }

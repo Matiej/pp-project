@@ -1,7 +1,5 @@
-import {
-  Component,
-  Input
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { WishSharedService } from '../../../shared/wish-shared.service';
 import { WishItem } from './wish-item-model';
 import { WishType } from './wish-type';
 
@@ -16,5 +14,10 @@ export class WishItemComponent {
   @Input()
   wishNumer: number = 0;
   wishType = WishType;
- 
+
+  constructor(private wishSharedService: WishSharedService) {}
+
+  public onDetailsClick(wishItem: WishItem): void {
+    this.wishSharedService.onWishDetailsClick(wishItem);
+  }
 }

@@ -1,5 +1,9 @@
 <div class="row" style="margin: 2px">
-  <a class="list-group-item clearfix" style="cursor: pointer">
+  <a
+    class="list-group-item clearfix"
+    style="cursor: pointer"
+    (click)="onDetailsClick(wishitem!)"
+  >
     <span
       class="pull-right"
       *ngIf="wishitem?.pictureUrl && wishitem?.pictureUrl?.mediumSizeUrl !== ''"
