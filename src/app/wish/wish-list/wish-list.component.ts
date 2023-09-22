@@ -56,6 +56,9 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
       (wishItems: WishItem[]) => {
         if (wishItems.length > 0) {
           this.wishItemList = wishItems;
+          console.log(
+            'refreshing wish list and sharedService onwishdetailsClisk call'
+          );
           this.wishSharedService.onWishDetailsClick(this.wishItemList[0]);
         } else {
           this.wishItemList = [];
