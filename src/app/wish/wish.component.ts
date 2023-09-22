@@ -26,7 +26,6 @@ export class WishComponent implements OnInit {
     });
 
     wishSharedService.isWishDetail.subscribe((value: boolean) => {
-      console.log(value);
       this.isWishDetail = value;
     });
   }

@@ -30,7 +30,6 @@ export class TaskUserDataBaseService {
   }
 
   findAllByStatus(status: TaskUserStatus): TaskUser[] {
-    console.log(this._userInMemoryDatabase.listAllUsers());
     return this._userInMemoryDatabase
       .listAllUsers()
       .filter((user) => user.status === status);

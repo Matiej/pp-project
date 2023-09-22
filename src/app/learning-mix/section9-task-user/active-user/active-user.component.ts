@@ -13,9 +13,9 @@ export class ActiveUserComponent implements OnInit {
   userChnageStatusNotifications: EventEmitter<void> = new EventEmitter();
 
   constructor(private section9TaskService: Section9TaskService) {
-    section9TaskService.refreshUserComponetnsList.subscribe(()=> {
+    section9TaskService.refreshUserComponetnsList.subscribe(() => {
       this.subScribeUsers();
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -26,13 +26,11 @@ export class ActiveUserComponent implements OnInit {
     user.status = TaskUserStatus.INACTIVE;
     const savedUser = this.section9TaskService.saveUser(user);
     if (savedUser.status === TaskUserStatus.INACTIVE) {
-      console.log('INACTIVE');
       this.section9TaskService.onUserChangeStatusActions();
     }
   }
 
   private subScribeUsers(): void {
-    console.log('subscribing active users');
     this.section9TaskService
       .getTaskUsers(TaskUserStatus.ACTIVE)
       .subscribe((taskUsers: TaskUser[]) => {

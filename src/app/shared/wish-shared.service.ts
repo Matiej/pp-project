@@ -20,7 +20,7 @@ export class WishSharedService {
   private _wishItemDetailSend: ReplaySubject<WishItem | undefined> =
     new ReplaySubject(1);
   private _removedWishItemNotifier: EventEmitter<void> = new EventEmitter();
- 
+
   constructor(private databaseService: InMemoryDatabaseService) {}
 
   public addBookToWishList(bookDetails: Observable<BookDetailResponse>): void {
@@ -82,13 +82,7 @@ export class WishSharedService {
     return resultArray;
   }
 
-  // public onFirstWishDetails(wishItem: WishItem): void {
-  //   this.isWishDetail.emit(true);
-  //   this._wishItemDetailSend.next(wishItem);
-  // }
-
   public onWishDetailsClick(wishItem: WishItem) {
-    console.log('onWishDetailsClick method in sharedService')
     this.isWishDetail.emit(true);
     this._wishItemDetailSend.next(wishItem);
   }
@@ -111,10 +105,8 @@ export class WishSharedService {
 
   public removeWishItem(wishItemId: number) {
     const isRemoved: boolean = this.databaseService.removeById(wishItemId);
-    if(isRemoved) {
-      console.log('reomved!!   ', wishItemId)
+    if (isRemoved) {
       this.changeStateWishItemNotifier.emit();
-     
     }
   }
 
@@ -123,12 +115,10 @@ export class WishSharedService {
   }
 
   public get isWishDetail(): EventEmitter<boolean> {
-    console.log('isWishDetail getter called')
     return this._isWishDetail;
   }
 
   public get removedWishItemNotifier(): EventEmitter<void> {
     return this._removedWishItemNotifier;
   }
-
 }

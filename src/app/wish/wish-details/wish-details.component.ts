@@ -19,20 +19,11 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe((wishItem) => {
         if (wishItem) {
-          console.log('subscirbe wishItemDetailSend wishIs present')
           this.wishItem = wishItem;
         } else {
-          console.log('subscirbe wishItemDetailSend undefined')
           this.wishItem = undefined;
         }
       });
-    // this.wishSharedService.wishItenDetailRemove
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe((wishId: number) => {
-    //     if (this.wishItem && this.wishItem.id === wishId) {
-    //       this.onCloseClick();
-    //     }
-    //   });
   }
 
   openLargeImage(arg0: any) {
