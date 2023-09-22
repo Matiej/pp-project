@@ -9,20 +9,29 @@ import { WishItem } from '../wish-list/wish-item/wish-item-model';
   styleUrls: ['./wish-details.component.css'],
 })
 export class WishDetailsComponent implements OnInit, OnDestroy {
-  wishItem!: WishItem;
+  wishItem: WishItem | undefined;
   private _destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private wishSharedService: WishSharedService) {
-    console.log('WishdetailContructor');
-   }
+  constructor(private wishSharedService: WishSharedService) {}
 
   ngOnInit(): void {
     this.wishSharedService.wishItemDetailSend
-    .pipe(takeUntil(this._destroy$))
-    .subscribe((wishItem) => {
-      console.log('subscribe fir');
-      this.wishItem = wishItem;
-    })
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((wishItem) => {
+        if (wishItem) {
+          this.wishItem = wishItem;
+        } else {
+          this.onCloseClick();
+          this.wishItem = undefined;
+        }
+      });
+      this.wishSharedService.wishItenDetailRemove
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((wishId: number) => {
+        if(this.wishItem && this.wishItem.id === wishId) {
+          this.onCloseClick();
+        }
+      })
   }
 
   openLargeImage(arg0: any) {

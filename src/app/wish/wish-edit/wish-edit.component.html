@@ -1,7 +1,7 @@
 <div class="row edit-row">
   <h1 class="wish-edit-module-title">{{ editTitle }}</h1>
-  <div class="col-xs-12">
-    <hr class="custom-hr" />
+  <hr class="custom-hr" />
+  <div class="col-xs-12" style="margin-left: 5%">
     <form [formGroup]="wishForm">
       <div class="row">
         <div class="col-sm-6 form-group">
@@ -63,7 +63,7 @@
                   [ngClass]="button.buttonClass"
                   (click)="onButtonClick(button.buttonClickMethod, $event)"
                 >
-                  {{ button.buttonName }} 
+                  {{ button.buttonName }}
                 </button>
               </li>
             </ul>
@@ -71,9 +71,10 @@
         </div>
       </div>
     </form>
-    <hr class="custom-hr custom-hr-top" />
+ 
     <div class="success-toast" *ngIf="showToast">
       {{ wishEditToastMessage }}
     </div>
   </div>
+  <hr class="custom-hr custom-hr-top" />
 </div>

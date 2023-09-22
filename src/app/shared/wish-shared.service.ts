@@ -17,7 +17,9 @@ export class WishSharedService {
   private wishCounter$ = this._wishCounter.asObservable();
   newWishItemNotifyEmiter: EventEmitter<void> = new EventEmitter();
   private _isWishDetail: EventEmitter<boolean> = new EventEmitter();
-  private _wishItemDetailSend: ReplaySubject<WishItem> = new ReplaySubject(1);
+  private _wishItemDetailSend: ReplaySubject<WishItem | undefined> =
+    new ReplaySubject(1);
+  private _wishItenDetailRemove: EventEmitter<number> = new EventEmitter();
 
   constructor(private databaseService: InMemoryDatabaseService) {}
 
@@ -92,6 +94,7 @@ export class WishSharedService {
 
   public onCloseWishDetailClick() {
     this._isWishDetail.emit(false);
+    this._wishItemDetailSend.next(undefined);
   }
 
   public getWishList(): Observable<WishItem[]> {
@@ -107,14 +110,22 @@ export class WishSharedService {
   }
 
   public removeWishItem(wishItemId: number) {
-    this.databaseService.removeById(wishItemId);
+    const isRemoved: boolean = this.databaseService.removeById(wishItemId);
+    if(isRemoved) {
+      this._wishItenDetailRemove.emit(wishItemId);
+    }
   }
 
-  public get wishItemDetailSend(): ReplaySubject<WishItem> {
+  public get wishItemDetailSend(): ReplaySubject<WishItem | undefined> {
     return this._wishItemDetailSend;
   }
 
   public get isWishDetail(): EventEmitter<boolean> {
     return this._isWishDetail;
   }
+
+  public get wishItenDetailRemove(): EventEmitter<number> {
+    return this._wishItenDetailRemove;
+  }
+
 }
