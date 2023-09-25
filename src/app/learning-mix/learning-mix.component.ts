@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ASSETS_PATHS } from '../constants/assets-paths';
-import { ButtonDataModel } from '../shared/button-data-model';
 import { ButtonLabelName, getButtonLabel } from '../shared/button-name';
 
 @Component({
@@ -61,10 +60,6 @@ export class LearningMixComponent implements OnInit {
         boardlButtonClicked.isTurnedOn;
     }
     this.setRadommixImageSrc();
-  }
-
-  private prepareFisrtLineButtons(): ButtonDataModel[] {
-    return [];
   }
 
   get firstLinebuttonLabelNames(): ButtonLabelName[] {

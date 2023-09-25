@@ -22,6 +22,7 @@ import { WishItemComponent } from './wish/wish-list/wish-item/wish-item.componen
 import { WishListComponent } from './wish/wish-list/wish-list.component';
 import { WishComponent } from './wish/wish.component';
 import { WishDetailsComponent } from './wish/wish-details/wish-details.component';
+import { AuthorsComponent } from './book-api/authors/authors.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { WishDetailsComponent } from './wish/wish-details/wish-details.component
     CourseCertComponent,
     WishComponent,
     WishDetailsComponent,
+    AuthorsComponent,
   ],
   imports: [
     BrowserModule,

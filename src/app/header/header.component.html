@@ -40,10 +40,23 @@
         <li>
           <a href="#" routerLink="/home" routerLinkActive="active">Home</a>
         </li>
-        <li>
-          <a href="#" routerLink="/books" routerLinkActive="active"
-            >Books-Api</a
-          >
+        <li class="dropdown" appDropdown>
+          <a
+            class="dropdown-toggle"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Open Library <span class="caret"></span>
+          </a>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#" routerLink="/books" routerLinkActive="active"
+                >Search Books</a
+              >
+            </li>
+            <li><a href="#" routerLink="/authors" routerLinkActive="active">Search Authors</a></li>
+          </ul>
         </li>
         <li>
           <a href="#" routerLink="/whish" routerLinkActive="active"
