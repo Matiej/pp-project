@@ -8,6 +8,10 @@ import { ClickTaskComponent } from './click-task/click-task.component';
 import { OutstandingTask1Component } from './outstanding-task1/outstanding-task1.component';
 import { SuccessAlertComponent } from './outstanding-task1/success-alert/success-alert.component';
 import { WarningAlertComponent } from './outstanding-task1/warning-alert/warning-alert.component';
+import { NavoSection11Component } from './section11-routing/navo-section11/navo-section11.component';
+import { Option1Section11Component } from './section11-routing/option1-section11/option1-section11.component';
+import { Option2Section11Component } from './section11-routing/option2-section11/option2-section11.component';
+import { Section11RoutingComponent } from './section11-routing/section11-routing.component';
 import { EvenComponent } from './section5-task/even/even.component';
 import { GameControlComponent } from './section5-task/game-control/game-control.component';
 import { OddComponent } from './section5-task/odd/odd.component';
@@ -43,6 +47,10 @@ import { UserTaskComponent } from './user-task/user-task.component';
     OutstandingTask1Component,
     WarningAlertComponent,
     SuccessAlertComponent,
+    Section11RoutingComponent,
+    NavoSection11Component,
+    Option1Section11Component,
+    Option2Section11Component,
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, SharedModule],
   exports: [
@@ -55,7 +63,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     ControlButtonComponent,
     Section7DirectivesComponent,
     BasicHighlightDirective,
-    Section9TaskUserComponent, OutstandingTask1Component
+    Section9TaskUserComponent, OutstandingTask1Component, Section11RoutingComponent
   ],
   providers: [],
 })

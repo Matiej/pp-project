@@ -37,14 +37,29 @@
       (window:resize)="collapsed = true"
     >
       <ul class="nav navbar-nav">
-        <li  >
-          <a href="#" routerLink="home" routerLinkActive="active">Home</a>
+        <li>
+          <a href="#" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li class="dropdown" appDropdown>
+          <a
+            class="dropdown-toggle"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Open Library <span class="caret"></span>
+          </a>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#" routerLink="/books" routerLinkActive="active"
+                >Search Books</a
+              >
+            </li>
+            <li><a href="#" routerLink="/authors" routerLinkActive="active">Search Authors</a></li>
+          </ul>
         </li>
         <li>
-          <a href="#" routerLink="books" routerLinkActive="active">Books-Api</a>
-        </li>
-        <li>
-          <a href="#" routerLink="whish" routerLinkActive="active"
+          <a href="#" routerLink="/whish" routerLinkActive="active"
             >Your Wishes
             <span class="badge" [class.hide-badge]="wishCounter == 0">{{
               wishCounter
@@ -52,12 +67,12 @@
           </a>
         </li>
         <li>
-          <a href="#" routerLink="learning-mix" routerLinkActive="active"
+          <a href="#" [routerLink]="['/learning-mix']" routerLinkActive="active"
             >Learning-mix</a
           >
         </li>
         <li>
-          <a href="#" routerLink="course-cert" routerLinkActive="active"
+          <a href="#" routerLink="/course-cert" routerLinkActive="active"
             >Course-Cert</a
           >
         </li>
@@ -67,7 +82,7 @@
           <a
             class="btn btn-dark px-1"
             target="_blank"
-            href={{gitHubLink}}
+            href="{{ gitHubLink }}"
             role="button"
           >
             <i class="icon"
@@ -79,7 +94,7 @@
           <a
             class="btn btn-dark px-4"
             target="_blank"
-            href={{linkedInLink}}
+            href="{{ linkedInLink }}"
             role="button"
           >
             <i class="icon"

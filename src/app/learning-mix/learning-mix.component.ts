@@ -23,6 +23,7 @@ export class LearningMixComponent implements OnInit {
   secondLineComponentStates: { [key: string]: boolean } = {
     app_section9_task_user: false,
     app_outstanding_task1: false,
+    app_section11_routing:false,
   };
 
   ngOnInit(): void {
