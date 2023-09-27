@@ -7,7 +7,7 @@ export enum ButtonLabelName {
   SECTION7_DIRECTIVES = 'Sectction7 Directives',
   SECTION9_TASK_USER = 'Section9 Task User',
   OUTSTANDING_TASK1 = 'Oustanding Task1',
-  SECTION11_ROUTING = 'SECTION11_ROUTING',
+  SECTION11_ROUTING = 'Section11 Routing',
 }
 
 export function getComponentName(buttonLabel: ButtonLabelName): string {
