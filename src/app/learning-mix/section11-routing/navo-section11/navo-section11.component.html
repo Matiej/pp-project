@@ -1,1 +1,29 @@
-<p>navo-section11 works!</p>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a
+        class="navbar-brand"
+        href="#"
+        routerLink="/learning-mix"
+        routerLinkActive="active"
+        >Section11</a
+      >
+    </div>
+    <ul class="nav navbar-nav">
+      <li>
+        <a style="cursor: pointer;" routerLinkActive="active" (click)="onOptions1Click()"
+          >Options1</a
+        >
+      </li>
+      <li>
+        <a
+          href="#"
+          routerLink="/learning-mix/sec11/options2"
+          routerLinkActive="active"
+          (click)="onOptions2Click()"
+          >Options2</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
