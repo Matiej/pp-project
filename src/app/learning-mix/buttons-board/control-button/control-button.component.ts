@@ -9,10 +9,8 @@ import { ButtonLabelName } from 'src/app/shared/button-name';
 export class ControlButtonComponent {
   @Input({ required: true })
   controlButtonLabel?: ButtonLabelName;
-
   buttonName: string = 'TurnOn';
   buttonClass: string = 'btn btn-success';
-  isButtonVisible: boolean = false;
 
   @Output()
   controlButtonClicked: EventEmitter<{
