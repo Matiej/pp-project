@@ -5,6 +5,8 @@ import { BookApiComponent } from './book-api/book-api.component';
 import { CourseCertComponent } from './course-cert/course-cert.component';
 import { HomeComponent } from './home/home.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
+import { Option1Section11Component } from './learning-mix/section11-routing/option1-section11/option1-section11.component';
+import { Option2Section11Component } from './learning-mix/section11-routing/option2-section11/option2-section11.component';
 import { WishComponent } from './wish/wish.component';
 
 const routes: Routes = [
@@ -16,6 +18,7 @@ const routes: Routes = [
     path: 'learning-mix',
     component: LearningMixComponent,
   },
+
   {
     path: 'whish',
     component: WishComponent,
@@ -35,6 +38,27 @@ const routes: Routes = [
   {
     path: 'course-cert',
     component: CourseCertComponent,
+  },
+
+  {
+    path: 'learning-mix',
+    component: LearningMixComponent,
+    children: [
+      {
+        path: 'sec11/options1',
+        component: Option1Section11Component,
+      },
+    ],
+  },
+  {
+    path: 'learning-mix',
+    component: LearningMixComponent,
+    children: [
+      {
+        path: 'sec11/options2',
+        component: Option2Section11Component,
+      },
+    ],
   },
 ];
 

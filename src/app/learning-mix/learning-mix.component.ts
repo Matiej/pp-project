@@ -23,16 +23,19 @@ export class LearningMixComponent implements OnInit {
   secondLineComponentStates: { [key: string]: boolean } = {
     app_section9_task_user: false,
     app_outstanding_task1: false,
-    app_section11_routing:false,
+    app_section11_routing: false,
   };
+
+  constructor() {}
 
   ngOnInit(): void {
     this.setRadommixImageSrc();
   }
 
   isComponentActive(name: string): boolean {
-    return this.firsLineComponentStates[name] 
-    || this.secondLineComponentStates[name];
+    return (
+      this.firsLineComponentStates[name] || this.secondLineComponentStates[name]
+    );
   }
 
   private setRadommixImageSrc(): void {
@@ -52,11 +55,19 @@ export class LearningMixComponent implements OnInit {
     componentName: string;
     isTurnedOn: boolean;
   }) {
-    if (this.firsLineComponentStates.hasOwnProperty(boardlButtonClicked.componentName)) {
+    if (
+      this.firsLineComponentStates.hasOwnProperty(
+        boardlButtonClicked.componentName
+      )
+    ) {
       this.firsLineComponentStates[boardlButtonClicked.componentName] =
         boardlButtonClicked.isTurnedOn;
     }
-    if (this.secondLineComponentStates.hasOwnProperty(boardlButtonClicked.componentName)) {
+    if (
+      this.secondLineComponentStates.hasOwnProperty(
+        boardlButtonClicked.componentName
+      )
+    ) {
       this.secondLineComponentStates[boardlButtonClicked.componentName] =
         boardlButtonClicked.isTurnedOn;
     }
@@ -76,7 +87,7 @@ export class LearningMixComponent implements OnInit {
     Object.keys(this.secondLineComponentStates).forEach((component) =>
       buttonLabelNames.push(getButtonLabel(component))
     );
- 
+
     return buttonLabelNames;
   }
 }

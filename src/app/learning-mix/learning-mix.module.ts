@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
 import { ControlButtonComponent } from './buttons-board/control-button/control-button.component';
@@ -52,7 +53,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Option1Section11Component,
     Option2Section11Component,
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, SharedModule],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, SharedModule, AppRoutingModule],
   exports: [
     ServersComponent,
     UserTaskComponent,
