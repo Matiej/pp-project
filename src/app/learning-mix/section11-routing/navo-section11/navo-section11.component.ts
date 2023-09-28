@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonLabelName } from 'src/app/shared/button-name';
 import { LearningMixSharedService } from '../../learning-mix-shared.service';
 
@@ -11,13 +11,15 @@ import { LearningMixSharedService } from '../../learning-mix-shared.service';
 export class NavoSection11Component {
   constructor(
     private router: Router,
-    private sharedLearningService: LearningMixSharedService
+    private sharedLearningService: LearningMixSharedService,
+    private route: ActivatedRoute
   ) {}
 
   onOptions1Click() {
     console.log('onOptions1Click');
     this.sharedLearningService.turnOnSection(ButtonLabelName.SECTION11_ROUTING);
-    this.router.navigate(['learning-mix/sec11/options1']);
+    // this.router.navigate(['learning-mix/sec11/options1']);
+    this.router.navigate(['options1'], { relativeTo: this.route});
   }
 
   onOptions2Click() {
