@@ -18,6 +18,11 @@ import { HomeComponent } from './home/home.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
 import { SharedModule } from './shared/shared.module';
+import { UserDetailsComponent } from './user/user-details/user-details.component';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { UserItemComponent } from './user/user-list/user-item/user-item.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { UserComponent } from './user/user.component';
 import { WishDetailsComponent } from './wish/wish-details/wish-details.component';
 import { WishEditComponent } from './wish/wish-edit/wish-edit.component';
 import { WishItemComponent } from './wish/wish-list/wish-item/wish-item.component';
@@ -43,6 +48,11 @@ import { WishComponent } from './wish/wish.component';
     WishComponent,
     WishDetailsComponent,
     AuthorsComponent,
+    UserComponent,
+    UserItemComponent,
+    UserListComponent,
+    UserDetailsComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,
