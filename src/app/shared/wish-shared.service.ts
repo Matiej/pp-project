@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { BookDetailResponse } from '../book-api/books/book-detail/book-detail-response';
 import { BookDetails } from '../book-api/books/model/book.details.model';
 import { Book } from '../book-api/books/model/book.model';
+import { TOAST_MESSAGES } from '../constants/toast-messages';
 import { InMemoryDatabaseService } from '../wish/service/in-memory-database.service';
 import { WishItemDescription } from '../wish/wish-list/wish-item/wish-item-description';
 import { WishItem } from '../wish/wish-list/wish-item/wish-item-model';
@@ -20,6 +21,7 @@ export class WishSharedService {
   private _wishItemDetailSend: ReplaySubject<WishItem | undefined> =
     new ReplaySubject(1);
   private _removedWishItemNotifier: EventEmitter<void> = new EventEmitter();
+  private _toastMessageNotifier: EventEmitter<string> = new EventEmitter();
 
   constructor(private databaseService: InMemoryDatabaseService) {}
 
@@ -107,6 +109,7 @@ export class WishSharedService {
     const isRemoved: boolean = this.databaseService.removeById(wishItemId);
     if (isRemoved) {
       this.changeStateWishItemNotifier.emit();
+      this._toastMessageNotifier.emit(TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY);
     }
   }
 
@@ -120,5 +123,9 @@ export class WishSharedService {
 
   public get removedWishItemNotifier(): EventEmitter<void> {
     return this._removedWishItemNotifier;
+  }
+
+  public get toastMessageNotifier(): EventEmitter<string> {
+    return this._toastMessageNotifier;
   }
 }

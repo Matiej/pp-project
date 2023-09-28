@@ -7,7 +7,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { WishSharedService } from 'src/app/shared/wish-shared.service';
 import { WishItem } from './wish-item/wish-item-model';
 
@@ -26,7 +25,11 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(private wishSharedService: WishSharedService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.wishSharedService.toastMessageNotifier.subscribe(message => {
+      this.showToastMessage(message, 3000);
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['$wishItemList'] && changes['$wishItemList'].currentValue) {
@@ -38,14 +41,7 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
-  public onRemoveWithItem(wishItem: WishItem): void {
-    this.wishSharedService.removeWishItem(wishItem.id);
-    this.$wishItemList = this.wishSharedService.getWishList();
-    this.subscribeWishItemList();
-    this.showToastMessage(TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY, 3000);
-  }
-
+ 
   private subscribeWishItemList(): void {
     this.$wishItemList.pipe(takeUntil(this.destroy$)).subscribe(
       (wishItems: WishItem[]) => {
