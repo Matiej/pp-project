@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { Option1Section11Component } from './learning-mix/section11-routing/option1-section11/option1-section11.component';
 import { Option2Section11Component } from './learning-mix/section11-routing/option2-section11/option2-section11.component';
+import { UserComponent } from './user/user.component';
 import { WishComponent } from './wish/wish.component';
 
 const routes: Routes = [
@@ -41,11 +42,16 @@ const routes: Routes = [
   },
 
   {
+    path: 'user',
+    component: UserComponent,
+  },
+
+  {
     path: 'learning-mix',
     component: LearningMixComponent,
     children: [
       {
-        path: 'sec11/options1',
+        path: 'options1',
         component: Option1Section11Component,
       },
     ],

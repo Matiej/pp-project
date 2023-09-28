@@ -1,14 +1,14 @@
 <div class="container">
-  <h1 class="wish-module-title">{{ wishComponentTitle }}</h1>
+  <h1 class="user-module-title">{{ userComponentTitle }}</h1>
   <div class="row">
-    <div class="new-wish-but-container">
+    <div class="new-user-but-container">
       <button
         id="enable_but"
         name="enable_but"
         class="btn btn-primary"
-        (click)="onAddNewWish()"
+        (click)="onAddNewUser()"
       >
-        Add New Wish
+        Add New User
       </button>
     </div>
   </div>
@@ -26,21 +26,16 @@
     >
       <div class="spinner"></div>
     </div>
-    <div class="row wish-row">
+    <div class="row user-row">
       <div class="col-md-5 mds5">
-        <app-wish-list
-          [&childInputWhisItemhList]="$wishItemParentList"
-        ></app-wish-list>
+        <app-user-list></app-user-list>
       </div>
       <div class="col-md-7 mds7">
-        <div class="row" *ngIf="isWishDetail">
-          <app-wish-details></app-wish-details>
+        <div class="row" *ngIf="isUseretail">
+          <app-user-details></app-user-details>
         </div>
         <div class="row">
-          <app-wish-edit
-            *ngIf="isNewWish"
-            [childButtons$]="wishEditBottomsForChild$"
-          ></app-wish-edit>
+          <app-user-edit *ngIf="isNewUser"></app-user-edit>
         </div>
       </div>
     </div>

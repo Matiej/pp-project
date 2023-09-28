@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-xs-12" style="text-align: center">
+      <h3 class="user-title">List of users:</h3>
+    </div>
+    <div class="col-xs-12" style="text-align: left; margin-left: 3px">
+      <i>- Number of users: {{ userList.length }} -</i>
+    </div>
+  </div>
+  <div class="row list-container" *ngIf="userList.length > 0">
+    <hr class="custom-hr" />
+    <div *ngFor="let user of userList; let i = index">
+      <div class="col-xs-12">
+        <app-user-item [userItem]="user" [userNumer]="i"> </app-user-item>
+      </div>
+    </div>
+  </div>
+  <div class="remove-toast" *ngIf="showToast">
+    {{ toastMessage }}
+  </div>
+  
+
