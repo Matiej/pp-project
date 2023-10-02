@@ -48,6 +48,15 @@
               <li>
                 <button
                   href="#"
+                  class="btn btn-warning btn-user-detail"
+                  [routerLink]="['/user', user.id, 'edit']"
+                >
+                  Edit
+                </button>
+              </li>
+              <li>
+                <button
+                  href="#"
                   class="btn btn-danger btn-user-detail"
                   (click)="onRemoveWish()"
                 >
