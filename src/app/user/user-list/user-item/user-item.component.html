@@ -2,17 +2,18 @@
   <a
     class="list-group-item clearfix"
     style="cursor: pointer"
+    [routerLink]="['/user', userItem?.id]"
     (click)="onDetailsClick()"
   >
     <div class="row">
       <i class="list-group-item-text">User no: -{{ userNumer + 1 }}-</i>
       <div class="row">
         <div class="col-xs-6">
-          <p class="list-group-item-heading">Name: {{ userItem?.name }}</p>
+          <p class="list-group-item-heading">Name: <b>{{ userItem?.name }}</b></p>
         </div>
         <div class="col-xs-6">
           <p class="list-group-item-heading">
-            Surname: {{ userItem?.lastName }}
+            Surname: <b>{{ userItem?.lastName }}</b>
           </p>
         </div>
       </div>

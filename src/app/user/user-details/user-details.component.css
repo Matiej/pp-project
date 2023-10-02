@@ -1,0 +1,41 @@
+.detail-background {
+  background-color: rgb(247, 247, 247);
+  padding-left: 15%;
+}
+
+.xbutton {
+  /* float: right;
+    margin-right: 5%;
+    margin-left: auto;
+    margin-top: 2px;
+    margin-bottom: 2px; */
+
+  position: absolute;
+  top: 10px; /* adjust these values as needed */
+  right: 10px;
+}
+
+.user-detail-title {
+  color: #0a6e06; /* Dark grey color */
+  text-shadow: 2px 3px 7px #990000; /* Deep red shadow */
+  font-size: 2rem; /* Adjust the size if needed */
+  font-weight: bold; /* Bold font */
+  font-style: italic;
+}
+
+.custom-hr {
+  border: 1px solid rgb(134, 129, 129); /* Adjust as needed */
+  background-color: rgb(153, 153, 153) !important;
+  margin-bottom: 5px;
+  margin-top: 6%;
+}
+
+.detail-row {
+  background-color: #cec6c6 !important;
+  position: relative;
+}
+
+.btn-user-detail {
+  margin: 2px;
+  font-size: 11px; /* Size of the text */
+}

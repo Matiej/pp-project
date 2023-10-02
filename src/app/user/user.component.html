@@ -32,7 +32,8 @@
       </div>
       <div class="col-md-7 mds7">
         <div class="row" *ngIf="isUseretail">
-          <app-user-details></app-user-details>
+          <router-outlet></router-outlet>
+          <!-- I want to use here named outlet, but it doesn't work. Maybe later will find out how -->
         </div>
         <div class="row">
           <app-user-edit *ngIf="isNewUser"></app-user-edit>

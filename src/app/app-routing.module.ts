@@ -7,6 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { Option1Section11Component } from './learning-mix/section11-routing/option1-section11/option1-section11.component';
 import { Option2Section11Component } from './learning-mix/section11-routing/option2-section11/option2-section11.component';
+import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
+import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserComponent } from './user/user.component';
 import { WishComponent } from './wish/wish.component';
 
@@ -44,6 +46,13 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserComponent,
+    children: [{ path: ':id', component: UserDetailsComponent }],
+  },
+  {
+    // this doesnt work for me. Keep it in mind to fix it later when find out how
+    path: 'outelttest',
+    component: NamedOutletTestComponent,
+    outlet: 'outlet1',
   },
 
   {

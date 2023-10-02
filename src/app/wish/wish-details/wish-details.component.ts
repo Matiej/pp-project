@@ -21,7 +21,7 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
         if (wishItem) {
           this.wishItem = wishItem;
         } else {
-          this.wishItem = undefined;
+          this.wishItem = undefined;  
         }
       });
   }

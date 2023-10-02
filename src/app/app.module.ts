@@ -17,6 +17,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
+import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
 import { SharedModule } from './shared/shared.module';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
@@ -53,6 +54,7 @@ import { WishComponent } from './wish/wish.component';
     UserListComponent,
     UserDetailsComponent,
     UserEditComponent,
+    NamedOutletTestComponent,
   ],
   imports: [
     BrowserModule,

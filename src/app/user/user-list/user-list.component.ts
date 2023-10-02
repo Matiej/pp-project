@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
-import { UserSharedService } from '../service/user-shared.service';
+import { UserDatabaseService } from '../service/user-database.service';
 import { User } from '../user-model';
 
 @Component({
@@ -8,16 +9,24 @@ import { User } from '../user-model';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit , OnDestroy{
+  sub!: Subscription;
   userList: User[] = [];
   showToast: boolean = false;
   toastMessage: string = '';
 
-  constructor(private userSharedService: UserSharedService) {}
+  constructor(private userDbService: UserDatabaseService) {}
 
   ngOnInit(): void {
-    this.userList = this.userSharedService.getDefaultUser();
+    this.sub = this.userDbService.findAll().subscribe((data) => {
+      this.userList = data;
+    });
   }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
 
   public onRemoveUser(user: User): void {
     this.showToastMessage(TOAST_MESSAGES.USER_REMOVED_SUCCESSFULLY, 3000);
