@@ -28,6 +28,7 @@ import { WishEditComponent } from './wish/wish-edit/wish-edit.component';
 import { WishItemComponent } from './wish/wish-list/wish-item/wish-item.component';
 import { WishListComponent } from './wish/wish-list/wish-list.component';
 import { WishComponent } from './wish/wish.component';
+import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { WishComponent } from './wish/wish.component';
     UserListComponent,
     UserDetailsComponent,
     UserEditComponent,
+    NamedOutletTestComponent,
   ],
   imports: [
     BrowserModule,
