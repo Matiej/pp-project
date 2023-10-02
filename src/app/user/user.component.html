@@ -36,6 +36,7 @@
           <!-- I want to use here named outlet, but it doesn't work. Maybe later will find out how -->
         </div>
         <div class="row">
+          <router-outlet name='edit'></router-outlet>
           <app-user-edit *ngIf="isNewUser"></app-user-edit>
         </div>
       </div>
