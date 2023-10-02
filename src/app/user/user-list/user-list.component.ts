@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
+import { UserSharedService } from '../service/user-shared.service';
 import { User } from '../user-model';
 
 @Component({
@@ -15,16 +16,25 @@ export class UserListComponent implements OnInit , OnDestroy{
   showToast: boolean = false;
   toastMessage: string = '';
 
-  constructor(private userDbService: UserDatabaseService) {}
+  constructor(private userDbService: UserDatabaseService, 
+    private userSharedService: UserSharedService) {}
 
   ngOnInit(): void {
-    this.sub = this.userDbService.findAll().subscribe((data) => {
-      this.userList = data;
-    });
+    this.subscribeUsers();
+    this.userSharedService.userUpdated.subscribe(()=> {
+      this.subscribeUsers();
+    })
+
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  private subscribeUsers(): void {
+    this.sub = this.userDbService.findAll().subscribe((data) => {
+      this.userList = data;
+    });
   }
 
 
