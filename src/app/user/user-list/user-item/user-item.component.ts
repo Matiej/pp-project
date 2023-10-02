@@ -13,6 +13,8 @@ export class UserItemComponent {
   userNumer: number = 0;
 
   onDetailsClick() {
-    console.log('onDetailsClick');
+    console.log(
+      'onDetailsClick temporary dont need this method, but leave it here for later'
+    );
   }
 }
