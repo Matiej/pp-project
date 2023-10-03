@@ -1,12 +1,10 @@
- 
-
 <div class="row edit-row">
-  <h1 class="user-edit-module-title">{{ userEditTitle }}</h1>
-  <hr class="custom-hr" />
-  <div class="col-xs-12" style="margin-left: 5%">
+  <h3 class="user-edit-module-title">{{ userEditTitle }}</h3>
+  <hr  />
+  <div style="margin-left: 5%">
     <form [formGroup]="userForm">
       <div class="row">
-        <div class="col-sm-6 form-group">
+        <div class="col-xs-5 form-group">
           <label for="name">Name</label>
           <input
             type="text"
@@ -16,7 +14,7 @@
             class="form-control"
           />
         </div>
-        <div class="col-sm-6 form-group">
+        <div class="col-xs-6 form-group">
           <label for="lastName">Lastname</label>
           <input
             type="text"
@@ -28,7 +26,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-3 form-group">
+        <div class="col-xs-3 form-group">
           <label for="birthYear">Year Of Birth</label>
           <input
             type="text"
@@ -38,7 +36,7 @@
             class="form-control"
           />
         </div>
-        <div class="col-sm-6 form-group">
+        <div class="col-xs-5 form-group">
           <label for="email">Email</label>
           <input
             type="text"
@@ -48,32 +46,15 @@
             class="form-control"
           />
         </div>
-        <div class="col-sm-4" style="padding: 35px">
-          <div appDropdown class="btn-group">
-            <button
-              class="btn user-button dropdown-toggle"
-              type="button"
-              id="user-button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="true"
-            >
-              Options
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="user-button">
-              <li>
-                <button
-                  href="#"
-                  class="btn btn-primary"
-                  type="submit"
-                  (click)="onSaveButtonClick()"
-                >
-                  Save
-                </button>
-              </li>
-            </ul>
-          </div>
+        <div class="col-xs-4">
+          <button
+            class="btn btn-success user-edit-button"
+            href="#"
+            type="submit"
+            (click)="onSaveButtonClick()"
+          >
+            Save
+          </button>
         </div>
       </div>
     </form>
@@ -82,5 +63,5 @@
       {{ userEditToastMessage }}
     </div>
   </div>
-  <hr class="custom-hr custom-hr-top" />
+  <hr    />
 </div>
