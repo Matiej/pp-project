@@ -14,7 +14,7 @@ import { User } from '../user-model';
 export class UserEditComponent implements OnInit, OnDestroy {
   showToast: boolean = false;
   userEditToastMessage: string = '';
-
+  allowEdit: boolean = false;
   user?: User;
   paramSubscription?: Subscription;
   userSubscription?: Subscription;
@@ -36,8 +36,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
       birthYear: ['', Validators.required],
     });
 
+    this.route.queryParams.subscribe((queryParams: Params) => {
+      console.log(queryParams['allowEdit']);
+      this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
+    });
+
     this.paramSubscription = this.route.params.subscribe((params: Params) => {
-      console.log(params);
       const userId: string = params['id'];
       if (userId && !Number.isNaN(userId)) {
         this.userDatabaseService

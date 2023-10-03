@@ -8,6 +8,7 @@ import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { Option1Section11Component } from './learning-mix/section11-routing/option1-section11/option1-section11.component';
 import { Option2Section11Component } from './learning-mix/section11-routing/option2-section11/option2-section11.component';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserComponent } from './user/user.component';
@@ -49,7 +50,7 @@ const routes: Routes = [
     component: UserComponent,
     children: [
       { path: ':id', component: UserDetailsComponent },
-      { path: ':id/edit', component: UserEditComponent,   },
+      { path: ':id/edit', component: UserEditComponent },
     ],
   },
 
@@ -80,6 +81,16 @@ const routes: Routes = [
       },
     ],
   },
+
+  {
+    path: 'not-found',
+    component: PageNotFoundComponent,
+  },
+
+  //this one must be alwasys the last one because always redirects to notfound
+  {
+    path: '**', redirectTo: '/not-found'
+  }
 ];
 
 @NgModule({

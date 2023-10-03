@@ -1,4 +1,5 @@
-<div class="row edit-row">
+<h3 *ngIf="!allowEdit">You are not allowed to Edit User</h3>
+<div *ngIf="allowEdit" class="row edit-row">
   <h3 class="user-edit-module-title">{{ userEditTitle }}</h3>
   <hr />
   <div style="margin-left: 5%">

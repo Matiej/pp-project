@@ -41,7 +41,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     console.log('onCloseClick');
   }
 
-  onRemoveWish() {
+  onRemoveUser() {
     console.log('onRemoveWish');
   }
 }

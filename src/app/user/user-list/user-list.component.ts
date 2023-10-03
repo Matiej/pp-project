@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
@@ -17,7 +18,8 @@ export class UserListComponent implements OnInit , OnDestroy{
   toastMessage: string = '';
 
   constructor(private userDbService: UserDatabaseService, 
-    private userSharedService: UserSharedService) {}
+    private userSharedService: UserSharedService,
+    private route: ActivatedRoute,  private router: Router,) {}
 
   ngOnInit(): void {
     this.subscribeUsers();
@@ -34,6 +36,9 @@ export class UserListComponent implements OnInit , OnDestroy{
   private subscribeUsers(): void {
     this.sub = this.userDbService.findAll().subscribe((data) => {
       this.userList = data;
+      if(this.userList.length > 0) {
+        this.router.navigate([this.userList[0].id], { relativeTo: this.route});
+      }
     });
   }
 
