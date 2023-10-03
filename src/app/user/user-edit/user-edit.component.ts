@@ -37,14 +37,15 @@ export class UserEditComponent implements OnInit, OnDestroy {
     });
 
     this.paramSubscription = this.route.params.subscribe((params: Params) => {
+      console.log(params);
       const userId: string = params['id'];
       if (userId && !Number.isNaN(userId)) {
-        console.log(Number.isNaN(userId));
         this.userDatabaseService
           .findById(Number.parseFloat(userId))
           .subscribe((data) => {
             if (data) {
               this.user = data;
+
               this.fillOutForm(data);
             }
           });
@@ -58,17 +59,19 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   onSaveButtonClick() {
-    console.log(this.userForm);
     const formData = this.userForm.value;
+
     let userToSve = new User(
       formData.name,
       formData.lastName,
       formData.email,
-      formData.bithYear
+      formData.birthYear
     );
+
     if (this.user!.id) {
       userToSve.id = this.user!.id;
     }
+
     this.userDatabaseService.saveUser(userToSve);
     this.userSharedSevice.updateUserDataNotify();
   }
@@ -80,6 +83,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       email: user.email,
       birthYear: user.birthYear,
     };
+
     this.userForm.setValue(valueToSet);
   }
 }

@@ -1,27 +1,26 @@
 .user-edit-button {
-    margin-top: 22px;
-    margin-right:10px;
-    display: inline-block;
-    padding: 7px 28px !important;
-    text-align: center;
+  margin-top: 22px;
+  margin-right: 10px;
+  display: inline-block;
+  padding: 7px 28px !important;
+  text-align: center;
 }
 
 .user-edit-module-title {
-    margin-bottom: 6%;
-    text-align: center;
-    /* font-size: calc((1em + 2em) / 2); Average size between h1 and h2 */
-    color: rgb(39, 43, 30);  
-    text-shadow: 4px 4px 2px rgb(161, 2, 2);
-    font-weight: bold;
+  margin-bottom: 6%;
+  text-align: center;
+  /* font-size: calc((1em + 2em) / 2); Average size between h1 and h2 */
+  color: rgb(39, 43, 30);
+  text-shadow: 2px 2px 2px rgb(161, 2, 2);
+  font-weight: bold;
 }
 
-.edit-row{
-    background-color: #e2dfdf !important;
- 
+.edit-row {
+  background-color: #e2dfdf !important;
 }
 
 hr {
-    height: 1px;
-    background-color: #ccc;
-    border: none;
+  height: 1px;
+  background-color: #ccc;
+  border: none;
 }

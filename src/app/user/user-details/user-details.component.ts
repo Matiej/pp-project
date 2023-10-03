@@ -20,12 +20,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // const userId: string = this.route.snapshot.params['id'];
-
     this.paramSubscription = this.route.params.subscribe((params: Params) => {
       const userId: string = params['id'];
       if (userId && !Number.isNaN(userId)) {
-        console.log(Number.isNaN(userId));
         this.userDatabaseService
           .findById(Number.parseFloat(userId))
           .subscribe((data) => {

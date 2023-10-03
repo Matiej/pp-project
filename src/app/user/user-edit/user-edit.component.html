@@ -1,6 +1,6 @@
 <div class="row edit-row">
   <h3 class="user-edit-module-title">{{ userEditTitle }}</h3>
-  <hr  />
+  <hr />
   <div style="margin-left: 5%">
     <form [formGroup]="userForm">
       <div class="row">
@@ -48,9 +48,10 @@
         </div>
         <div class="col-xs-4">
           <button
+            [routerLink]="['/user', user?.id]"
             class="btn btn-success user-edit-button"
             href="#"
-            type="submit"
+            type="button"
             (click)="onSaveButtonClick()"
           >
             Save
@@ -63,5 +64,5 @@
       {{ userEditToastMessage }}
     </div>
   </div>
-  <hr    />
+  <hr />
 </div>
