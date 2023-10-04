@@ -49,6 +49,7 @@ const routes: Routes = [
     path: 'user',
     component: UserComponent,
     children: [
+      { path: 'new', component: UserEditComponent },
       { path: ':id', component: UserDetailsComponent },
       { path: ':id/edit', component: UserEditComponent },
     ],
@@ -89,8 +90,9 @@ const routes: Routes = [
 
   //this one must be alwasys the last one because always redirects to notfound
   {
-    path: '**', redirectTo: '/not-found'
-  }
+    path: '**',
+    redirectTo: '/not-found',
+  },
 ];
 
 @NgModule({

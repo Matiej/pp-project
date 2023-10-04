@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
 import { UserSharedService } from '../service/user-shared.service';
 import { User } from '../user-model';
@@ -12,14 +13,13 @@ import { User } from '../user-model';
   styleUrls: ['./user-edit.component.css', '../user.component.css'],
 })
 export class UserEditComponent implements OnInit, OnDestroy {
-  showToast: boolean = false;
-  userEditToastMessage: string = '';
   allowEdit: boolean = false;
   user?: User;
   paramSubscription?: Subscription;
   userSubscription?: Subscription;
   userForm!: FormGroup;
   userEditTitle: string = 'User Edit Section';
+  buttonName = '';
 
   constructor(
     private fb: FormBuilder,
@@ -29,16 +29,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    console.log('edit component ngoninit');
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.required],
       birthYear: ['', Validators.required],
-    });
-
-    this.route.queryParams.subscribe((queryParams: Params) => {
-      console.log(queryParams['allowEdit']);
-      this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
     });
 
     this.paramSubscription = this.route.params.subscribe((params: Params) => {
@@ -49,11 +45,16 @@ export class UserEditComponent implements OnInit, OnDestroy {
           .subscribe((data) => {
             if (data) {
               this.user = data;
-
               this.fillOutForm(data);
+              console.log(this.userForm);
             }
           });
       }
+    });
+
+    this.route.queryParams.subscribe((queryParams: Params) => {
+      this.editComponentAction(queryParams);
+      this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
     });
   }
 
@@ -62,9 +63,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.paramSubscription?.unsubscribe();
   }
 
-  onSaveButtonClick() {
+  public onButtonClick() {
     const formData = this.userForm.value;
-
+    console.log(formData);
     let userToSve = new User(
       formData.name,
       formData.lastName,
@@ -72,12 +73,16 @@ export class UserEditComponent implements OnInit, OnDestroy {
       formData.birthYear
     );
 
-    if (this.user!.id) {
-      userToSve.id = this.user!.id;
+    if (this.user && this.user.id) {
+      userToSve.id = this.user.id;
     }
 
     this.userDatabaseService.saveUser(userToSve);
     this.userSharedSevice.updateUserDataNotify();
+    this.userSharedSevice.sendToastMessage(
+      TOAST_MESSAGES.USER_ADDED_SUCCESSFULLY,
+      TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
+    );
   }
 
   private fillOutForm(user: User): void {
@@ -89,5 +94,20 @@ export class UserEditComponent implements OnInit, OnDestroy {
     };
 
     this.userForm.setValue(valueToSet);
+  }
+
+  private editComponentAction(queryParams: Params): void {
+    const componentVer: string = queryParams['version'];
+    if ('newComponent' === componentVer) {
+      this.userEditTitle = 'New User Section';
+      this.buttonName = 'Add User';
+    } else {
+      this.userEditTitle = 'User Edit Section';
+      this.buttonName = 'Save Changes';
+    }
+  }
+
+  isButtonDisable(): boolean {
+    return !this.userForm.valid;
   }
 }
