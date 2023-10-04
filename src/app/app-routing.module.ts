@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth-guard.service';
 import { AuthorsComponent } from './book-api/authors/authors.component';
 import { BookApiComponent } from './book-api/book-api.component';
 import { CourseCertComponent } from './course-cert/course-cert.component';
@@ -47,6 +48,7 @@ const routes: Routes = [
 
   {
     path: 'user',
+    canActivate: [AuthGuard],
     component: UserComponent,
     children: [
       { path: 'new', component: UserEditComponent },
