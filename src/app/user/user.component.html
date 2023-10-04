@@ -6,7 +6,11 @@
         id="enable_but"
         name="enable_but"
         class="btn btn-primary"
-        (click)="onAddNewUser()"
+        [routerLink]="['/user', 'new']"
+        [queryParams]="{
+          allowEdit: '1',
+          version: 'newComponent'
+        }"
       >
         Add New User
       </button>
@@ -31,13 +35,12 @@
         <app-user-list></app-user-list>
       </div>
       <div class="col-md-7 mds7">
-        <div class="row" *ngIf="isUseretail">
+        <div class="row">
           <router-outlet></router-outlet>
           <!-- I want to use here named outlet, but it doesn't work. Maybe later will find out how -->
         </div>
-        <div class="row">
-          <router-outlet name='edit'></router-outlet>
-          <app-user-edit *ngIf="isNewUser"></app-user-edit>
+        <div class={{toastMessageClass}} *ngIf="showToast">
+          {{ userToastMessage }}
         </div>
       </div>
     </div>
