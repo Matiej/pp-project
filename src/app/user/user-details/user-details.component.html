@@ -6,11 +6,7 @@
   </div>
   <hr class="custom-hr" />
   <div class="row detail-row">
-    <div class="row">
-      <button (click)="onCloseClick()" class="xbutton btn btn-danger btn-sm">
-        X
-      </button>
-    </div>
+ 
 
     <div class="row">
       <div class="col-xs-12">
@@ -47,11 +43,13 @@
             <ul class="dropdown-menu" aria-labelledby="user-button">
               <li>
                 <button
-             
                   href="#"
                   class="btn btn-warning btn-user-detail"
                   [routerLink]="['/user', user.id, 'edit']"
-                  [queryParams]="{allowEdit: user.id === 1 ? '1' : '0'}"
+                  [queryParams]="{
+                    allowEdit: user.id === 1 ? '1' : '0',
+                    version: 'editComponent'
+                  }"
                 >
                   Edit
                 </button>
@@ -59,6 +57,7 @@
               <li>
                 <button
                   href="#"
+                  [routerLink]="['/user']"
                   class="btn btn-danger btn-user-detail"
                   (click)="onRemoveUser()"
                 >

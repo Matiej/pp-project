@@ -49,21 +49,20 @@
         </div>
         <div class="col-xs-4">
           <button
-            [routerLink]="['/user', user?.id]"
+            [disabled]="isButtonDisable()"
+            [routerLink]="['/user']"
             class="btn btn-success user-edit-button"
             href="#"
             type="button"
-            (click)="onSaveButtonClick()"
+            (click)="onButtonClick()"
           >
-            Save
+            {{ buttonName }}
           </button>
         </div>
       </div>
     </form>
 
-    <div class="success-toast" *ngIf="showToast">
-      {{ userEditToastMessage }}
-    </div>
+ 
   </div>
   <hr />
 </div>
