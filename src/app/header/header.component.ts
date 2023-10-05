@@ -35,6 +35,9 @@ export class HeaderComponent implements OnInit {
   private logginUserActions(isLoggedIn: boolean) {
     if(isLoggedIn) {
       this.isUserLoggedIn = true;
+    } else {
+      this.isUserLoggedIn = false;
     }
+    //later do other stuff
   }
 }

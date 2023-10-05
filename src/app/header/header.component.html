@@ -116,9 +116,8 @@
         </li>
         <li class="dropdown header-neon" appDropdown *ngIf="!isUserLoggedIn">
           <a
-          style="color: rgb(0, 192, 250);"
-            href="#"
-            class="dropdown-toggle "
+            style="color: rgb(0, 192, 250)"
+            class="dropdown-toggle"
             data-toggle="dropdown"
             role="button"
             aria-haspopup="true"
@@ -136,11 +135,15 @@
                 >Register</a
               >
             </li>
-            
           </ul>
         </li>
         <li *ngIf="isUserLoggedIn">
-          <a href="#" routerLink="/logout" routerLinkActive="active" class="header-neon" style="color: rgb(240, 10, 10) !important;"
+          <a
+            href="#"
+            routerLink="/logout"
+            routerLinkActive="active"
+            class="header-neon"
+            style="color: rgb(240, 10, 10) !important"
             >Logout</a
           >
         </li>

@@ -16,4 +16,9 @@ export class SharedAuthService {
     this._loginNotification.emit(true)
  
   }
+
+  public userLoggedOUTotification(): void {
+    this._loginNotification.emit(false)
+ 
+  }
 }
