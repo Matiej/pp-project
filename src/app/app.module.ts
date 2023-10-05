@@ -30,6 +30,8 @@ import { WishItemComponent } from './wish/wish-list/wish-item/wish-item.componen
 import { WishListComponent } from './wish/wish-list/wish-list.component';
 import { WishComponent } from './wish/wish.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     UserEditComponent,
     NamedOutletTestComponent,
     PageNotFoundComponent,
+    LoginComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

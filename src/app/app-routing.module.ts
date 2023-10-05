@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth-guard.service';
+import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
 import { AuthorsComponent } from './book-api/authors/authors.component';
 import { BookApiComponent } from './book-api/book-api.component';
 import { CourseCertComponent } from './course-cert/course-cert.component';
@@ -88,6 +90,14 @@ const routes: Routes = [
   {
     path: 'not-found',
     component: PageNotFoundComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
   },
 
   //this one must be alwasys the last one because always redirects to notfound
