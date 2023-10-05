@@ -65,7 +65,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   public onButtonClick() {
     const formData = this.userForm.value;
-    console.log(formData);
+
     let userToSve = new User(
       formData.name,
       formData.lastName,
