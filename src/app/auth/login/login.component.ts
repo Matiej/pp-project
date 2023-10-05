@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserDatabaseService } from 'src/app/user/service/user-database.service';
 import { User } from 'src/app/user/user-model';
 import { AuthService } from '../auth.service';
+import { SharedAuthService } from '../shared-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,9 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private userDbService: UserDatabaseService
+    private userDbService: UserDatabaseService,
+    private sharedAuthService: SharedAuthService
+
   ) {}
 
   onLogin() {
@@ -23,6 +26,7 @@ export class LoginComponent {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.userDbService.findById(1).subscribe((user?: User) => {
       this.user = user;
+      this.sharedAuthService.userLoggedINNotification();
     });
   }
 

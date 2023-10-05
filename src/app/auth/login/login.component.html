@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row" style="margin: 3%">
+  <div *ngIf="!isLoggedIn" class="row" style="margin: 3%">
     <div class="col-xs-6">
       <h4>You are not logged in. Press button to do it.</h4>
       <i
@@ -44,7 +44,7 @@
             </div>
           </div>
         </div>
-        <div class="row" style="padding: 15px, 15px; margin: 5%;">
+        <div class="row" style="padding: 15px, 15px; margin: 5%">
           <div class="col-xs-12">
             <i class="neon"> {{ getUserStatus() }} </i>
           </div>
