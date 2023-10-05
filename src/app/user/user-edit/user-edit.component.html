@@ -50,7 +50,7 @@
         <div class="col-xs-4">
           <button
             [disabled]="isButtonDisable()"
-            [routerLink]="['/user']"
+            [routerLink]="['/user', user?.id]"
             class="btn btn-success user-edit-button"
             href="#"
             type="button"

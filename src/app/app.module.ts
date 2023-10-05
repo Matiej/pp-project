@@ -5,6 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
 import { AuthorsComponent } from './book-api/authors/authors.component';
 import { BookApiComponent } from './book-api/book-api.component';
 import { BookDetailComponent } from './book-api/books/book-detail/book-detail.component';
@@ -18,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SharedModule } from './shared/shared.module';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
@@ -29,7 +32,6 @@ import { WishEditComponent } from './wish/wish-edit/wish-edit.component';
 import { WishItemComponent } from './wish/wish-list/wish-item/wish-item.component';
 import { WishListComponent } from './wish/wish-list/wish-list.component';
 import { WishComponent } from './wish/wish.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     UserEditComponent,
     NamedOutletTestComponent,
     PageNotFoundComponent,
+    LoginComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +74,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: []
+  exports: [],
 })
 export class AppModule {}

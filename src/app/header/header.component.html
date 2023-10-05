@@ -114,20 +114,38 @@
             /></i>
           </a>
         </li>
-        <li class="dropdown">
+        <li class="dropdown header-neon" appDropdown *ngIf="!isUserLoggedIn">
           <a
-            href="#"
+            style="color: rgb(0, 192, 250)"
             class="dropdown-toggle"
             data-toggle="dropdown"
             role="button"
             aria-haspopup="true"
             aria-expanded="false"
-            >Manage S <span class="caret"></span
+            >A c c o u n t<span class="caret"></span
           ></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Save Data</a></li>
-            <li><a href="#">Fetch Data</a></li>
+            <li>
+              <a href="#" routerLink="/login" routerLinkActive="active"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a href="#" routerLink="/register" routerLinkActive="active"
+                >Register</a
+              >
+            </li>
           </ul>
+        </li>
+        <li *ngIf="isUserLoggedIn">
+          <a
+            href="#"
+            routerLink="/logout"
+            routerLinkActive="active"
+            class="header-neon"
+            style="color: rgb(240, 10, 10) !important"
+            >Logout</a
+          >
         </li>
       </ul>
     </div>

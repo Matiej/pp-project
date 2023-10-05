@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { WishSharedService } from '../shared/wish-shared.service';
+import { SharedAuthService } from '../auth/shared-auth.service';
 import { EXTERNAL_LINKS } from '../constants/external-links';
+import { WishSharedService } from '../shared/wish-shared.service';
 
 @Component({
   selector: 'app-header',
@@ -12,12 +13,31 @@ export class HeaderComponent implements OnInit {
   wishCounter: number = 0;
   gitHubLink: string = EXTERNAL_LINKS.GITHUB_PROJECT_FRONTEND;
   linkedInLink: string = EXTERNAL_LINKS.LINKEDIN_LINK;
+  isUserLoggedIn: boolean = false;
 
-  constructor(private wishSharedService: WishSharedService) {}
+  constructor(
+    private wishSharedService: WishSharedService,
+    private authSharedService: SharedAuthService
+  ) {}
 
   ngOnInit(): void {
     this.wishSharedService.getWishiesCounter().subscribe((wishCounter) => {
-      this.wishCounter = wishCounter; 
+      this.wishCounter = wishCounter;
     });
+
+    this.authSharedService.loginNotification.subscribe(
+      (isLoggedIn: boolean) => {
+        this.logginUserActions(isLoggedIn);
+      }
+    );
+  }
+
+  private logginUserActions(isLoggedIn: boolean) {
+    if(isLoggedIn) {
+      this.isUserLoggedIn = true;
+    } else {
+      this.isUserLoggedIn = false;
+    }
+    //later do other stuff
   }
 }
