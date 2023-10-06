@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth-guard.service';
+import { CanDeactivateGuardService } from './auth/can-deactivate-guard.service';
 import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { AuthorsComponent } from './book-api/authors/authors.component';
@@ -53,9 +54,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: UserComponent,
     children: [
-      { path: 'new', component: UserEditComponent },
+      { path: 'new', component: UserEditComponent , canDeactivate: [CanDeactivateGuardService]},
       { path: ':id', component: UserDetailsComponent },
-      { path: ':id/edit', component: UserEditComponent },
+      { path: ':id/edit', component: UserEditComponent, canDeactivate: [CanDeactivateGuardService] },
     ],
   },
 
