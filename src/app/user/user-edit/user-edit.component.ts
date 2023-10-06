@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { CanComponentDeactivate } from 'src/app/auth/can-deactivate-guard.service';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
 import { UserSharedService } from '../service/user-shared.service';
@@ -12,7 +13,9 @@ import { User } from '../user-model';
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css', '../user.component.css'],
 })
-export class UserEditComponent implements OnInit, OnDestroy {
+export class UserEditComponent
+  implements OnInit, OnDestroy, CanComponentDeactivate
+{
   allowEdit: boolean = false;
   user?: User;
   paramSubscription?: Subscription;
@@ -20,6 +23,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   userForm!: FormGroup;
   userEditTitle: string = 'User Edit Section';
   buttonName = '';
+  changesSaved: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -63,6 +67,51 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.paramSubscription?.unsubscribe();
   }
 
+  canComponentDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
+    console.log('starting canComponentDeactivate in userEdit component');
+    console.log(this.user);
+    console.log('check form ');
+    console.log(this.userForm.value);
+    console.log('finishing canComponentDeactivate ');
+    if (!this.allowEdit) {
+      console.log('allowed Edit trune');
+      return true;
+    }
+    if (this.isAnyUserFiledHasChanged(this.user)) {
+      console.log('should get windows permissions');
+      return confirm('Do you want to discard the changes');
+    } else {
+      console.log('anyUserField true');
+      return true;
+    }
+  }
+
+  private isAnyUserFiledHasChanged(currentUser?: User): boolean {
+    const formData = this.userForm.value;
+    console.log(formData);
+    if (
+      this.user &&
+      (this.user.name !== formData.name ||
+        this.user.email !== formData.email ||
+        this.user.lastName !== formData.last ||
+        this.user.birthYear !== formData.birthYear) &&
+      !this.changesSaved
+    ) {
+      return true;
+    } else if (
+      !this.user &&
+      (formData.name !== '' ||
+        formData.email !== '' ||
+        formData.last !== '' ||
+        formData.birthYear !== '') &&
+      !this.changesSaved
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public onButtonClick() {
     const formData = this.userForm.value;
 
@@ -83,6 +132,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       TOAST_MESSAGES.USER_ADDED_SUCCESSFULLY,
       TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
     );
+    this.changesSaved = true;
   }
 
   private fillOutForm(user: User): void {

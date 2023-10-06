@@ -49,6 +49,7 @@ export class WishEditComponent implements OnChanges, OnInit {
   showToast: boolean = false;
   wishEditToastMessage: string = '';
   @Output() notifyIfWishAdded: EventEmitter<void> = new EventEmitter<void>();
+  wishItem!: WishItem;
 
   constructor(
     private fb: FormBuilder,
@@ -59,7 +60,7 @@ export class WishEditComponent implements OnChanges, OnInit {
     this.wishForm = this.fb.group({
       'name-title': ['', Validators.required],
       type: ['', Validators.required],
-      description: [''],
+      description: ['', Validators.required],
     });
   }
 
