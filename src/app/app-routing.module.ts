@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserComponent } from './user/user.component';
+import { WishEditComponent } from './wish/wish-edit/wish-edit.component';
 import { WishComponent } from './wish/wish.component';
 
 const routes: Routes = [
@@ -29,8 +30,20 @@ const routes: Routes = [
   },
 
   {
-    path: 'whish',
+    path: 'wish',
     component: WishComponent,
+    children: [
+      {
+        path: 'new',
+        component: WishEditComponent,
+        canDeactivate: [CanDeactivateGuardService],
+      },
+      {
+        path: 'edit',
+        component: WishEditComponent,
+        canDeactivate: [CanDeactivateGuardService],
+      },
+    ],
   },
   {
     path: 'books',
@@ -54,9 +67,17 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: UserComponent,
     children: [
-      { path: 'new', component: UserEditComponent , canDeactivate: [CanDeactivateGuardService]},
+      {
+        path: 'new',
+        component: UserEditComponent,
+        canDeactivate: [CanDeactivateGuardService],
+      },
       { path: ':id', component: UserDetailsComponent },
-      { path: ':id/edit', component: UserEditComponent, canDeactivate: [CanDeactivateGuardService] },
+      {
+        path: ':id/edit',
+        component: UserEditComponent,
+        canDeactivate: [CanDeactivateGuardService],
+      },
     ],
   },
 
@@ -102,10 +123,10 @@ const routes: Routes = [
   },
 
   //this one must be alwasys the last one because always redirects to notfound
-  {
-    path: '**',
-    redirectTo: '/not-found',
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: '/not-found',
+  // },
 ];
 
 @NgModule({
