@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { WishSharedService } from '../shared/wish-shared.service';
-import { WISH_EDIT_BUTTON_METHODS } from './wish-edit-button-methods-const';
 import { ButtonDetails } from './wish-edit/wish-edit.component';
 import { WishItem } from './wish-list/wish-item/wish-item-model';
 
@@ -18,39 +18,49 @@ export class WishComponent implements OnInit {
   $wishItemParentList: Observable<WishItem[]> = new Observable<WishItem[]>();
   isSpinner: boolean = false;
   isWishDetail: boolean = false;
-  isNewWish: boolean = false;
+  // isNewWish: boolean = false;
 
-  constructor(private wishSharedService: WishSharedService) {
-    this.wishSharedService.changeStateWishItemNotifier.subscribe(() => {
+  private _changeStateWishItemNotifier: EventEmitter<void> = new EventEmitter();
+  private _isWishDetail: EventEmitter<boolean> = new EventEmitter();
+
+  constructor(
+    private wishSharedService: WishSharedService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+ 
+  ngOnInit(): void {
+    this._changeStateWishItemNotifier =
+      this.wishSharedService.changeStateWishItemNotifier;
+    this._changeStateWishItemNotifier.subscribe(() => {
       this.$wishItemParentList = this.wishSharedService.getWishList();
     });
 
-    wishSharedService.isWishDetail.subscribe((value: boolean) => {
+    this._isWishDetail = this.wishSharedService.isWishDetail;
+    this._isWishDetail.subscribe((value: boolean) => {
       this.isWishDetail = value;
     });
-  }
-
-  ngOnInit(): void {
     this.$wishItemParentList = this.wishSharedService.getWishList();
   }
 
   onAddNewWish() {
-    this.isNewWish = !this.isNewWish;
-    this.wishEditBottomsForChild$ = of(this.getNewWishItemButtons());
+    // this.isNewWish = !this.isNewWish;
+    // this.wishEditBottomsForChild$ = of(this.getNewWishItemButtons());
+    this.router.navigate(['new'], { relativeTo: this.route});
   }
 
-  private getNewWishItemButtons(): ButtonDetails[] {
-    const add = new ButtonDetails(
-      'ADD',
-      'btn btn-primary',
-      WISH_EDIT_BUTTON_METHODS.ADD_NEW_WISH_ITEM
-    );
-    const clean = new ButtonDetails(
-      'CLEAN',
-      'btn btn-warning',
-      WISH_EDIT_BUTTON_METHODS.CLEAN_WISH_ITEM_FIELDS
-    );
+  // private getNewWishItemButtons(): ButtonDetails[] {
+  //   const add = new ButtonDetails(
+  //     'ADD',
+  //     'btn btn-primary',
+  //     WISH_EDIT_BUTTON_METHODS.ADD_NEW_WISH_ITEM
+  //   );
+  //   const clean = new ButtonDetails(
+  //     'CLEAN',
+  //     'btn btn-warning',
+  //     WISH_EDIT_BUTTON_METHODS.CLEAN_WISH_ITEM_FIELDS
+  //   );
 
-    return [add, clean];
-  }
+  //   return [add, clean];
+  // }
 }
