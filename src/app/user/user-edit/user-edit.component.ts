@@ -50,7 +50,6 @@ export class UserEditComponent
             if (data) {
               this.user = data;
               this.fillOutForm(data);
-              console.log(this.userForm);
             }
           });
       }
@@ -68,27 +67,19 @@ export class UserEditComponent
   }
 
   canComponentDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
-    console.log('starting canComponentDeactivate in userEdit component');
-    console.log(this.user);
-    console.log('check form ');
-    console.log(this.userForm.value);
-    console.log('finishing canComponentDeactivate ');
     if (!this.allowEdit) {
-      console.log('allowed Edit trune');
       return true;
     }
     if (this.isAnyUserFiledHasChanged(this.user)) {
-      console.log('should get windows permissions');
       return confirm('Do you want to discard the changes');
     } else {
-      console.log('anyUserField true');
       return true;
     }
   }
 
   private isAnyUserFiledHasChanged(currentUser?: User): boolean {
     const formData = this.userForm.value;
-    console.log(formData);
+
     if (
       this.user &&
       (this.user.name !== formData.name ||

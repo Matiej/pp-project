@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { WishSharedService } from 'src/app/shared/wish-shared.service';
 import { WishItem } from '../wish-list/wish-item/wish-item-model';
@@ -12,7 +13,11 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
   wishItem: WishItem | undefined;
   private _destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private wishSharedService: WishSharedService) {}
+  constructor(
+    private wishSharedService: WishSharedService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.wishSharedService.wishItemDetailSend
@@ -21,14 +26,12 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
         if (wishItem) {
           this.wishItem = wishItem;
         } else {
-          this.wishItem = undefined;  
+          this.wishItem = undefined;
         }
       });
   }
 
-  openLargeImage(arg0: any) {
-    throw new Error('Method not implemented.');
-  }
+  openLargeImage(arg0: any) {}
   onCloseClick() {
     this.wishItem = undefined;
     this.wishSharedService.onCloseWishDetailClick();
@@ -43,6 +46,15 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
     if (this.wishItem) {
       this.wishSharedService.removeWishItem(this.wishItem.id);
       this.onCloseClick();
+    }
+  }
+
+  onEditWish() {
+    if (this.wishItem) {
+      this.router.navigate(['edit', { id: this.wishItem.id }], {
+        relativeTo: this.route,
+      });
+    
     }
   }
 }

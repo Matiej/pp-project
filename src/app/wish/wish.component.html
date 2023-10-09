@@ -37,10 +37,7 @@
           <app-wish-details></app-wish-details>
         </div>
         <div class="row">
-          <app-wish-edit
-            *ngIf="isNewWish"
-            [childButtons$]="wishEditBottomsForChild$"
-          ></app-wish-edit>
+          <router-outlet></router-outlet>
         </div>
       </div>
     </div>
