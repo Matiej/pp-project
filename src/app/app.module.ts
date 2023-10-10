@@ -60,7 +60,7 @@ import { WishComponent } from './wish/wish.component';
     NamedOutletTestComponent,
     PageNotFoundComponent,
     LoginComponent,
-    LogoutComponent,
+    LogoutComponent, 
   ],
   imports: [
     BrowserModule,
@@ -70,7 +70,7 @@ import { WishComponent } from './wish/wish.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgxExtendedPdfViewerModule,
-    SharedModule,
+    SharedModule, 
   ],
   providers: [],
   bootstrap: [AppComponent],

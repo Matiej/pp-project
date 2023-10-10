@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
@@ -23,15 +23,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.paramSubscription = this.route.params.subscribe((params: Params) => {
-      const userId: string = params['id'];
-      if (userId && !Number.isNaN(userId)) {
-        this.userDatabaseService
-          .findById(Number.parseFloat(userId))
-          .subscribe((data) => {
-            this.user = data;
-          });
-      }
+    this.route.data.subscribe(({ user }) => {
+      this.user = user;
     });
   }
 

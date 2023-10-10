@@ -21,9 +21,8 @@ export class LoginComponent {
 
   onLogin() {
     this.authService.login();
- 
+
     this.authService.isAuthenticated().then((auth: boolean) => {
-      console.log(auth);
       this.isLoggedIn = auth;
       if (this.isLoggedIn) {
         this.userDbService.findById(1).subscribe((user?: User) => {

@@ -31,16 +31,18 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
   openLargeImage(arg0: any) {}
   onCloseClick() {
     this.wishItem = undefined;
     this.wishSharedService.onCloseWishDetailClick();
   }
 
-  ngOnDestroy(): void {
-    this._destroy$.next();
-    this._destroy$.complete();
-  }
+
 
   onRemoveWish() {
     if (this.wishItem) {

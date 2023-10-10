@@ -6,7 +6,7 @@ import { WishItem } from '../wish-list/wish-item/wish-item-model';
 @Injectable({
   providedIn: 'root',
 })
-export class InMemoryDatabaseService {
+export class WishDatabaseService {
   private _whisItemDatabase!: InMemoryWishItemDataBase;
 
   constructor() {

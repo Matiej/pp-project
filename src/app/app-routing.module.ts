@@ -13,6 +13,8 @@ import { Option1Section11Component } from './learning-mix/section11-routing/opti
 import { Option2Section11Component } from './learning-mix/section11-routing/option2-section11/option2-section11.component';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+import { userResolver } from './user/service/user.resolver';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserComponent } from './user/user.component';
@@ -72,7 +74,11 @@ const routes: Routes = [
         component: UserEditComponent,
         canDeactivate: [CanDeactivateGuardService],
       },
-      { path: ':id', component: UserDetailsComponent },
+      {
+        path: ':id',
+        component: UserDetailsComponent,
+        resolve: { user: userResolver },
+      },
       {
         path: ':id/edit',
         component: UserEditComponent,
@@ -132,5 +138,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [],
 })
 export class AppRoutingModule {}
