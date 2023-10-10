@@ -12,7 +12,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { CanComponentDeactivate } from 'src/app/auth/can-deactivate-guard.service';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { WishSharedService } from 'src/app/shared/wish-shared.service';
-import { InMemoryDatabaseService } from '../service/in-memory-database.service';
+import { WishDatabaseService } from '../service/wish-database.service';
 import { WISH_EDIT_BUTTON_METHODS } from '../wish-edit-button-methods-const';
 import { WishItemDescription } from '../wish-list/wish-item/wish-item-description';
 import { WishItem } from '../wish-list/wish-item/wish-item-model';
@@ -62,7 +62,7 @@ export class WishEditComponent
   constructor(
     private fb: FormBuilder,
     private wishSharedService: WishSharedService,
-    private inMemoryDBService: InMemoryDatabaseService,
+    private inMemoryDBService: WishDatabaseService,
     private route: ActivatedRoute
   ) {}
 
