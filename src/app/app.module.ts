@@ -15,12 +15,12 @@ import { BookListComponent } from './book-api/books/book-list/book-list.componen
 import { BooksSerchBarComponent } from './book-api/books/books-serch-bar/books-serch-bar.component';
 import { BooksComponent } from './book-api/books/books.component';
 import { CourseCertComponent } from './course-cert/course-cert.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SharedModule } from './shared/shared.module';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
@@ -58,9 +58,10 @@ import { WishComponent } from './wish/wish.component';
     UserDetailsComponent,
     UserEditComponent,
     NamedOutletTestComponent,
-    PageNotFoundComponent,
+
     LoginComponent,
-    LogoutComponent, 
+    LogoutComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +71,7 @@ import { WishComponent } from './wish/wish.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgxExtendedPdfViewerModule,
-    SharedModule, 
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

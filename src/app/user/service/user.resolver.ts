@@ -21,13 +21,13 @@ export const userResolver: ResolveFn<User | null> = (
         if (item) {
           return item;
         } else {
-          console.error('Item not found:', id);
+          console.error('Item not found: ', id);
           return null;
         }
       }),
       take(1),
       catchError((error) => {
-        console.error('Error fetching wish item:', error);
+        console.error('Error fetching wish item: ', error);
         return of(null);
       })
     );

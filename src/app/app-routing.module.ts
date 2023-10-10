@@ -7,13 +7,12 @@ import { LogoutComponent } from './auth/logout/logout.component';
 import { AuthorsComponent } from './book-api/authors/authors.component';
 import { BookApiComponent } from './book-api/book-api.component';
 import { CourseCertComponent } from './course-cert/course-cert.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 import { HomeComponent } from './home/home.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { Option1Section11Component } from './learning-mix/section11-routing/option1-section11/option1-section11.component';
 import { Option2Section11Component } from './learning-mix/section11-routing/option2-section11/option2-section11.component';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
 import { userResolver } from './user/service/user.resolver';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
@@ -116,10 +115,6 @@ const routes: Routes = [
   },
 
   {
-    path: 'not-found',
-    component: PageNotFoundComponent,
-  },
-  {
     path: 'login',
     component: LoginComponent,
   },
@@ -128,11 +123,16 @@ const routes: Routes = [
     component: LogoutComponent,
   },
 
-  //this one must be alwasys the last one because always redirects to notfound
-  // {
-  //   path: '**',
-  //   redirectTo: '/not-found',
-  // },
+  //this one must be alwasys the last one because always redirects to notfound#
+  {
+    path: 'not-found',
+    component: ErrorPageComponent,
+    data: { message: 'Page not found!' },
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found',
+  },
 ];
 
 @NgModule({
