@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { UserSharedService } from './service/user-shared.service';
 
 @Component({
@@ -12,13 +13,12 @@ export class UserComponent implements OnInit, OnDestroy {
   userToastMessage: string = '';
   showToast: boolean = false;
   toastMessageClass: string = 'success-toast';
-  private _toastEmiter: EventEmitter<any> = new EventEmitter();
+  private _toastEmiterSubscription!: Subscription;
 
   constructor(private userSharedService: UserSharedService) {}
 
   ngOnInit(): void {
-    this._toastEmiter = this.userSharedService.toastMessageEmiter;
-    this._toastEmiter.subscribe(
+    this._toastEmiterSubscription = this.userSharedService.toastMessageEmiter.subscribe(
       (toast: { message: string; styleClass: string }) => {
         this.showToastMessage(toast.message, 3000, toast.styleClass);
       }
@@ -26,7 +26,9 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._toastEmiter.unsubscribe();
+    if(this._toastEmiterSubscription) {
+      this._toastEmiterSubscription.unsubscribe();
+    }
   }
 
   private showToastMessage(
