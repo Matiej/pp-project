@@ -4,7 +4,7 @@ import { BookDetailResponse } from '../book-api/books/book-detail/book-detail-re
 import { BookDetails } from '../book-api/books/model/book.details.model';
 import { Book } from '../book-api/books/model/book.model';
 import { TOAST_MESSAGES } from '../constants/toast-messages';
-import { InMemoryDatabaseService } from '../wish/service/in-memory-database.service';
+import { WishDatabaseService } from '../wish/service/wish-database.service';
 import { WishItemDescription } from '../wish/wish-list/wish-item/wish-item-description';
 import { WishItem } from '../wish/wish-list/wish-item/wish-item-model';
 import { WishType } from '../wish/wish-list/wish-item/wish-type';
@@ -23,7 +23,7 @@ export class WishSharedService {
   private _removedWishItemNotifier: EventEmitter<void> = new EventEmitter();
   private _toastMessageNotifier: EventEmitter<string> = new EventEmitter();
 
-  constructor(private databaseService: InMemoryDatabaseService) {}
+  constructor(private databaseService: WishDatabaseService) {}
 
   public addBookToWishList(bookDetails: Observable<BookDetailResponse>): void {
     bookDetails.subscribe((bookDetails: BookDetailResponse) => {

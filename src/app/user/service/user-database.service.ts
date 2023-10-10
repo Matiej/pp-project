@@ -6,13 +6,12 @@ import { User } from '../user-model';
 @Injectable({
   providedIn: 'root',
 })
-export class UserDatabaseService  {
+export class UserDatabaseService {
   private _usermDatabase!: InMemoryUserDataBase;
- 
 
-  constructor( ) {
+  constructor() {
     this._usermDatabase = new InMemoryUserDataBase();
-    console.log('saving user');
+
     const user1: User = new User(
       'Maciek',
       'Wojcik',
@@ -59,7 +58,6 @@ export class UserDatabaseService  {
   }
 
   findAll(): Observable<User[]> {
- 
     return of(this._usermDatabase.listAll());
   }
 
@@ -70,5 +68,4 @@ export class UserDatabaseService  {
   getNumberOfItems(): number {
     return this._usermDatabase.listAll().length;
   }
-  
 }
