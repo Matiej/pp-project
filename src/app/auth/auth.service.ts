@@ -8,12 +8,13 @@ export class AuthService {
 
   constructor() {}
 
-  isAuthenticated(): Promise<boolean>{
+  isAuthenticated(): Promise<boolean> {
     const promise = new Promise<boolean>((resolve, reject) => {
       setTimeout(() => {
-        resolve(this.isLoggedIn), 1000;
-      });
+        resolve(this.isLoggedIn);
+      }, 1000);
     });
+
     return promise;
   }
 
