@@ -16,10 +16,9 @@ export class NavoSection11Component {
   ) {}
 
   onOptions1Click() {
-    console.log('onOptions1Click');
     this.sharedLearningService.turnOnSection(ButtonLabelName.SECTION11_ROUTING);
     // this.router.navigate(['learning-mix/sec11/options1']);
-    this.router.navigate(['options1'], { relativeTo: this.route});
+    this.router.navigate(['options1'], { relativeTo: this.route });
   }
 
   onOptions2Click() {
