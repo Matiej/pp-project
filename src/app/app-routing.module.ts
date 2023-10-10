@@ -23,6 +23,11 @@ import { WishComponent } from './wish/wish.component';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'course-cert',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
     component: HomeComponent,
   },
   {
