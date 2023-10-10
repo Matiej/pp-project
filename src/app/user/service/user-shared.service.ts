@@ -29,7 +29,6 @@ export class UserSharedService {
   }
 
   public sendToastMessage(message: string, styleClass: string): void {
-    console.log(message)
     this._toastMessageEmiter.emit({ message: message, styleClass: styleClass });
   }
 }

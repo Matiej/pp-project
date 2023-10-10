@@ -104,30 +104,10 @@ export class WishEditComponent
     } else {
       return true;
     }
-    // if (
-    //   !this.wishItem &&
-    //   (formData.nameTitle !== '' ||
-    //     formData.description !== '' ||
-    //     formData.type !== '') &&
-    //   !this.changesSaved
-    // ) {
-    //   return confirm('Do you want to discard the changes');
-    // } else if (
-    //   this.wishItem &&
-    //   (formData.nameTitle !== this.wishItem.name ||
-    //     formData.description !== this.wishItem ||
-    //     formData.type !== this.getItemDesc(this.wishItem.descriptions)) &&
-    //   !this.changesSaved
-    // ) {
-    //   return confirm('Do you want to discard the changes');
-    // } else {
-    //   return true;
-    // }
   }
 
   private isAnyWishFieldHasChanged(wishItem: WishItem): boolean {
     const formData = this.wishForm.value;
-
     if (
       !this.wishItem &&
       (formData.nameTitle !== '' ||

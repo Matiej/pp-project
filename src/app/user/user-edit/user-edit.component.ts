@@ -33,7 +33,6 @@ export class UserEditComponent
   ) {}
 
   ngOnInit(): void {
-    console.log('edit component ngoninit');
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -84,7 +83,7 @@ export class UserEditComponent
       this.user &&
       (this.user.name !== formData.name ||
         this.user.email !== formData.email ||
-        this.user.lastName !== formData.last ||
+        this.user.lastName !== formData.lastName ||
         this.user.birthYear !== formData.birthYear) &&
       !this.changesSaved
     ) {
@@ -93,7 +92,7 @@ export class UserEditComponent
       !this.user &&
       (formData.name !== '' ||
         formData.email !== '' ||
-        formData.last !== '' ||
+        formData.lastName !== '' ||
         formData.birthYear !== '') &&
       !this.changesSaved
     ) {

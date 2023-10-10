@@ -10,7 +10,6 @@ import { SharedAuthService } from '../shared-auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-
   user?: User;
   isLoggedIn: boolean = false;
 
@@ -18,19 +17,24 @@ export class LoginComponent {
     private authService: AuthService,
     private userDbService: UserDatabaseService,
     private sharedAuthService: SharedAuthService
-
   ) {}
 
   onLogin() {
     this.authService.login();
-    this.isLoggedIn = this.authService.isLoggedIn;
-    this.userDbService.findById(1).subscribe((user?: User) => {
-      this.user = user;
-      this.sharedAuthService.userLoggedINNotification();
+ 
+    this.authService.isAuthenticated().then((auth: boolean) => {
+      console.log(auth);
+      this.isLoggedIn = auth;
+      if (this.isLoggedIn) {
+        this.userDbService.findById(1).subscribe((user?: User) => {
+          this.user = user;
+          this.sharedAuthService.userLoggedINNotification();
+        });
+      }
     });
   }
 
   getUserStatus(): string {
-    return this.isLoggedIn? 'logged in' : 'not logged in';
-    }
+    return this.isLoggedIn ? 'logged in' : 'not logged in';
+  }
 }
