@@ -45,6 +45,7 @@ export class WishEditComponent
   readonly editTitle: string = 'New Wish';
   private _destroy$: Subject<void> = new Subject<void>();
   wishEditButtons: ButtonDetails[] = [];
+
   @Input()
   childButtons$: Observable<ButtonDetails[]> = new Observable<
     ButtonDetails[]
@@ -187,12 +188,13 @@ export class WishEditComponent
 
   private convertFormToWishItem(form: FormGroup): WishItem {
     const formData = form.value;
+    console.log(formData);
     const desc: WishItemDescription[] = [
-      new WishItemDescription('DESCRIPTION', formData.description),
+      new WishItemDescription('DESCRIPTION:', formData.description),
     ];
 
     const wishItem = new WishItem(
-      formData['name-title'],
+      formData['nameTitle'],
       getWishType(formData.type),
       desc,
       null
@@ -205,12 +207,23 @@ export class WishEditComponent
     this.wishForm.reset();
   }
 
+  isSaveButtonDisabeled(buttonName: string): boolean {
+    if (buttonName === 'SAVE' && this.wishForm.valid) {
+      return false;
+    } else if (buttonName === 'SAVE' && !this.wishForm.valid) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   private getNewWishItemButtons(): ButtonDetails[] {
     const add = new ButtonDetails(
       'SAVE',
       'btn btn-primary',
       WISH_EDIT_BUTTON_METHODS.ADD_NEW_WISH_ITEM
     );
+
     const clean = new ButtonDetails(
       'CLEAN',
       'btn btn-warning',
