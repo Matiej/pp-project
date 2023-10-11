@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
 import { ControlButtonComponent } from './buttons-board/control-button/control-button.component';
 import { ClickTaskComponent } from './click-task/click-task.component';
+import { CustomObservablesComponent } from './custom-observables/custom-observables.component';
 import { OutstandingTask1Component } from './outstanding-task1/outstanding-task1.component';
 import { SuccessAlertComponent } from './outstanding-task1/success-alert/success-alert.component';
 import { WarningAlertComponent } from './outstanding-task1/warning-alert/warning-alert.component';
@@ -52,8 +53,15 @@ import { UserTaskComponent } from './user-task/user-task.component';
     NavoSection11Component,
     Option1Section11Component,
     Option2Section11Component,
+    CustomObservablesComponent,
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, SharedModule, AppRoutingModule],
+  imports: [
+    FormsModule,
+    BrowserModule,
+    ReactiveFormsModule,
+    SharedModule,
+    AppRoutingModule,
+  ],
   exports: [
     ServersComponent,
     UserTaskComponent,
@@ -64,7 +72,10 @@ import { UserTaskComponent } from './user-task/user-task.component';
     ControlButtonComponent,
     Section7DirectivesComponent,
     BasicHighlightDirective,
-    Section9TaskUserComponent, OutstandingTask1Component, Section11RoutingComponent
+    Section9TaskUserComponent,
+    OutstandingTask1Component,
+    Section11RoutingComponent,
+    CustomObservablesComponent,
   ],
   providers: [],
 })

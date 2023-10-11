@@ -1,5 +1,12 @@
 <div>
   <h1 [class]="titleStyleClass">{{ learningComponentTitle }}</h1>
+  <hr />
+  <div class="row">
+    <div class="col-md-12">
+      <p>{{ description }}</p>
+    </div>
+  </div>
+  <hr />
   <div class="row">
     <app-buttons-board
       (boardlButtonClicked)="onBoardButtonClick($event)"
@@ -67,6 +74,12 @@
 <div class="task" *ngIf="isComponentActive('app_section11_routing')">
   <hr />
   <app-section11-routing></app-section11-routing>
+  <hr />
+</div>
+
+<div class="task" *ngIf="isComponentActive('app_custom_observables')">
+  <hr />
+  <app-custom-observables></app-custom-observables>
   <hr />
 </div>
 
