@@ -30,6 +30,11 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-xs-12">
+      <h3>Type: {{ wishItem?.type }}</h3>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-xs-8" *ngFor="let wishdet of wishItem?.descriptions">
       <label for="{{ wishdet.name }}">{{ wishdet.name }}</label>
       <p id="{{ wishdet.name }}">
@@ -51,8 +56,9 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="wish-button">
           <li>
+            <!-- here intentionaly leaft click methods not rounting with edit/id url
+            to show that we can keep like this or like in user section -->
             <button
-              href="#"
               class="btn btn-primary btn-wish-detail"
               (click)="onEditWish()"
             >
@@ -61,7 +67,6 @@
           </li>
           <li>
             <button
-              href="#"
               class="btn btn-danger btn-wish-detail"
               (click)="onRemoveWish()"
             >
@@ -75,4 +80,3 @@
 </div>
 
 <hr class="hr big" />
- 
