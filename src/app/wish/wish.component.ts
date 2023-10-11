@@ -18,10 +18,8 @@ export class WishComponent implements OnInit {
   $wishItemParentList: Observable<WishItem[]> = new Observable<WishItem[]>();
   isSpinner: boolean = false;
   isWishDetail: boolean = false;
-  // isNewWish: boolean = false;
 
   private _changeStateWishItemNotifier: EventEmitter<void> = new EventEmitter();
-  private _isWishDetail: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private wishSharedService: WishSharedService,
@@ -36,11 +34,6 @@ export class WishComponent implements OnInit {
       this.$wishItemParentList = this.wishSharedService.getWishList();
     });
 
-    this._isWishDetail = this.wishSharedService.isWishDetail;
-    this._isWishDetail.subscribe((value: boolean) => {
-      console.log('wishdetail sub from wishComp', value);
-      this.isWishDetail = value;
-    });
     this.$wishItemParentList = this.wishSharedService.getWishList();
   }
 

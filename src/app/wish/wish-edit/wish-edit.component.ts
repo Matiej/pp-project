@@ -119,10 +119,10 @@ export class WishEditComponent
       return true;
     } else if (
       this.wishItem &&
-      (formData.nameTitle !== this.wishItem.name ||
-        formData.type !== this.wishItem.type ||
+      (formData.nameTitle !== wishItem.name ||
+        formData.type !== wishItem.type ||
         formData.description !==
-          this.getItemDesc(this.wishItem.descriptions)) &&
+          this.getItemDesc(wishItem.descriptions)) &&
       !this.changesSaved
     ) {
       return true;
