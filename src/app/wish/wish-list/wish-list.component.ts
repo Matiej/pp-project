@@ -47,7 +47,7 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
       (wishItems: WishItem[]) => {
         if (wishItems.length > 0) {
           this.wishItemList = wishItems;
-          this.wishSharedService.onWishDetailsClick(this.wishItemList[0]);
+          this.showsFirstWishDetails(wishItems);
         } else {
           this.wishItemList = [];
         }
@@ -59,6 +59,9 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
     );
   }
 
+  private showsFirstWishDetails(wishItems: WishItem[]): void {
+    this.wishSharedService.onWishDetailsClick(wishItems[0])
+  }
   private showToastMessage(message: string, timeout: number): void {
     this.toastMessage = message;
     this.showToast = true;
