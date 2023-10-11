@@ -1,0 +1,27 @@
+.start-title {
+  color: #74081a; /* Dark grey color */
+  text-shadow: 3px 4px 8px #312d2d; /* Deep red shadow */
+
+  font-weight: bold; /* Bold font */
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.image-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+ 
+  box-sizing: border-box;
+}
+
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.img-responsive:hover {
+    transform: scale(1.1); /* 10% larger on hover */
+    transition: transform 0.3s ease-in-out;
+  }
