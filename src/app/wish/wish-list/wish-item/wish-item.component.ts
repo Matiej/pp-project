@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { WishSharedService } from '../../../shared/wish-shared.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WishItem } from './wish-item-model';
 import { WishType } from './wish-type';
 
@@ -15,9 +15,9 @@ export class WishItemComponent {
   wishNumer: number = 0;
   wishType = WishType;
 
-  constructor(private wishSharedService: WishSharedService) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   public onDetailsClick(wishItem: WishItem): void {
-    this.wishSharedService.onWishDetailsClick(wishItem);
+    this.router.navigate([wishItem.id], { relativeTo: this.route });
   }
 }

@@ -26,9 +26,9 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private wishSharedService: WishSharedService) {}
 
   ngOnInit(): void {
-    this.wishSharedService.toastMessageNotifier.subscribe(message => {
+    this.wishSharedService.toastMessageNotifier.subscribe((message) => {
       this.showToastMessage(message, 3000);
-    })
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,13 +41,12 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
- 
+
   private subscribeWishItemList(): void {
     this.$wishItemList.pipe(takeUntil(this.destroy$)).subscribe(
       (wishItems: WishItem[]) => {
         if (wishItems.length > 0) {
           this.wishItemList = wishItems;
-          // this.showsFirstWishDetails(wishItems);
         } else {
           this.wishItemList = [];
         }
@@ -59,9 +58,6 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
     );
   }
 
-  private showsFirstWishDetails(wishItems: WishItem[]): void {
-    this.wishSharedService.onWishDetailsClick(wishItems[0])
-  }
   private showToastMessage(message: string, timeout: number): void {
     this.toastMessage = message;
     this.showToast = true;

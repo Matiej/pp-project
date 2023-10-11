@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { WishSharedService } from 'src/app/shared/wish-shared.service';
+import { WishDatabaseService } from '../service/wish-database.service';
 import { WishItem } from '../wish-list/wish-item/wish-item-model';
 
 @Component({
@@ -15,18 +16,22 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private wishSharedService: WishSharedService,
+    private wishDatabaseService: WishDatabaseService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.wishSharedService.wishItemDetailSend
+    this.route.params
       .pipe(takeUntil(this._destroy$))
-      .subscribe((wishItem) => {
-        if (wishItem) {
-          this.wishItem = wishItem;
-        } else {
-          this.wishItem = undefined;
+      .subscribe((params: Params) => {
+        const wishItemID: string = params['id'];
+        if (wishItemID && !Number.isNaN(wishItemID)) {
+          this.wishDatabaseService
+            .findById(Number.parseFloat(wishItemID))
+            .subscribe((data) => {
+              this.wishItem = data;
+            });
         }
       });
   }
@@ -40,7 +45,8 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
 
   onCloseClick() {
     this.wishItem = undefined;
-    this.wishSharedService.onCloseWishDetailClick();
+    this.router.navigate(['wish']);
+ 
   }
 
   onRemoveWish() {
@@ -52,10 +58,7 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
 
   onEditWish() {
     if (this.wishItem) {
-      this.router.navigate(['edit', { id: this.wishItem.id }], {
-        relativeTo: this.route,
-      });
-    
+      this.router.navigate(['/wish', this.wishItem.id, 'edit']);
     }
   }
 }
