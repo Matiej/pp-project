@@ -37,12 +37,11 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
   }
 
   openLargeImage(arg0: any) {}
+
   onCloseClick() {
     this.wishItem = undefined;
     this.wishSharedService.onCloseWishDetailClick();
   }
-
-
 
   onRemoveWish() {
     if (this.wishItem) {

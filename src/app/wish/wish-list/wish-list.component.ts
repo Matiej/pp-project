@@ -47,7 +47,7 @@ export class WishListComponent implements OnInit, OnChanges, OnDestroy {
       (wishItems: WishItem[]) => {
         if (wishItems.length > 0) {
           this.wishItemList = wishItems;
-          this.showsFirstWishDetails(wishItems);
+          // this.showsFirstWishDetails(wishItems);
         } else {
           this.wishItemList = [];
         }

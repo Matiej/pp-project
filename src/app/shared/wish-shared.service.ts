@@ -22,6 +22,7 @@ export class WishSharedService {
     new ReplaySubject(1);
   private _removedWishItemNotifier: EventEmitter<void> = new EventEmitter();
   private _toastMessageNotifier: EventEmitter<string> = new EventEmitter();
+  private _isWishItemDetail: boolean = false;
 
   constructor(private databaseService: WishDatabaseService) {}
 
@@ -85,7 +86,14 @@ export class WishSharedService {
   }
 
   public onWishDetailsClick(wishItem: WishItem) {
-    this.isWishDetail.emit(true);
+    if (this._isWishItemDetail) {
+      this.isWishDetail.emit(false);
+      this._isWishItemDetail = false;
+    } else {
+      this.isWishDetail.emit(true);
+      this._isWishItemDetail = true;
+    }
+
     this._wishItemDetailSend.next(wishItem);
   }
 

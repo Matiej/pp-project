@@ -18,6 +18,7 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserComponent } from './user/user.component';
 import { WishEditComponent } from './wish/wish-edit/wish-edit.component';
+import { WishStartComponent } from './wish/wish-start/wish-start.component';
 import { WishComponent } from './wish/wish.component';
 
 const routes: Routes = [
@@ -39,6 +40,10 @@ const routes: Routes = [
     path: 'wish',
     component: WishComponent,
     children: [
+      {
+        path: '',
+        component: WishStartComponent
+      },
       {
         path: 'new',
         component: WishEditComponent,
