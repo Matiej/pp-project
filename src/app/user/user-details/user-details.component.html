@@ -41,7 +41,6 @@
             <ul class="dropdown-menu" aria-labelledby="user-button">
               <li>
                 <button
-                  href="#"
                   class="btn btn-warning btn-user-detail"
                   [routerLink]="['/user', user.id, 'edit']"
                   [queryParams]="{
@@ -54,7 +53,6 @@
               </li>
               <li>
                 <button
-                  href="#"
                   [routerLink]="['/user']"
                   class="btn btn-danger btn-user-detail"
                   (click)="onRemoveUser()"

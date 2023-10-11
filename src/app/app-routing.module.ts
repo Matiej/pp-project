@@ -7,7 +7,6 @@ import { LogoutComponent } from './auth/logout/logout.component';
 import { AuthorsComponent } from './book-api/authors/authors.component';
 import { BookApiComponent } from './book-api/book-api.component';
 import { CourseCertComponent } from './course-cert/course-cert.component';
-import { ErrorPageComponent } from './error-page/error-page.component';
 import { HomeComponent } from './home/home.component';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { Option1Section11Component } from './learning-mix/section11-routing/option1-section11/option1-section11.component';
@@ -17,7 +16,9 @@ import { userResolver } from './user/service/user.resolver';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserComponent } from './user/user.component';
+import { WishDetailsComponent } from './wish/wish-details/wish-details.component';
 import { WishEditComponent } from './wish/wish-edit/wish-edit.component';
+import { WishStartComponent } from './wish/wish-start/wish-start.component';
 import { WishComponent } from './wish/wish.component';
 
 const routes: Routes = [
@@ -40,14 +41,24 @@ const routes: Routes = [
     component: WishComponent,
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        component: WishStartComponent,
+      },
+
+      {
         path: 'new',
         component: WishEditComponent,
         canDeactivate: [CanDeactivateGuardService],
       },
       {
-        path: 'edit',
+        path: ':id/edit',
         component: WishEditComponent,
         canDeactivate: [CanDeactivateGuardService],
+      },
+      {
+        path: ':id',  pathMatch: 'full',
+        component: WishDetailsComponent,
       },
     ],
   },
@@ -129,15 +140,15 @@ const routes: Routes = [
   },
 
   //this one must be alwasys the last one because always redirects to notfound#
-  {
-    path: 'not-found',
-    component: ErrorPageComponent,
-    data: { message: 'Page not found!' },
-  },
-  {
-    path: '**',
-    redirectTo: '/not-found',
-  },
+  // {
+  //   path: 'not-found',
+  //   component: ErrorPageComponent,
+  //   data: { message: 'Page not found!' },
+  // },
+  // {
+  //   path: '**',
+  //   redirectTo: '/not-found',
+  // },
 ];
 
 @NgModule({

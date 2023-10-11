@@ -59,7 +59,7 @@
             <ul class="dropdown-menu" aria-labelledby="wish-button">
               <li *ngFor="let button of wishEditButtons">
                 <button
-                  href="#"
+                  [disabled]="isSaveButtonDisabeled(button.buttonName)"
                   [ngClass]="button.buttonClass"
                   (click)="onButtonClick(button.buttonClickMethod, $event)"
                 >

@@ -18,17 +18,15 @@ export class WishComponent implements OnInit {
   $wishItemParentList: Observable<WishItem[]> = new Observable<WishItem[]>();
   isSpinner: boolean = false;
   isWishDetail: boolean = false;
-  // isNewWish: boolean = false;
 
   private _changeStateWishItemNotifier: EventEmitter<void> = new EventEmitter();
-  private _isWishDetail: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private wishSharedService: WishSharedService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
- 
+
   ngOnInit(): void {
     this._changeStateWishItemNotifier =
       this.wishSharedService.changeStateWishItemNotifier;
@@ -36,31 +34,10 @@ export class WishComponent implements OnInit {
       this.$wishItemParentList = this.wishSharedService.getWishList();
     });
 
-    this._isWishDetail = this.wishSharedService.isWishDetail;
-    this._isWishDetail.subscribe((value: boolean) => {
-      this.isWishDetail = value;
-    });
     this.$wishItemParentList = this.wishSharedService.getWishList();
   }
 
   onAddNewWish() {
-    // this.isNewWish = !this.isNewWish;
-    // this.wishEditBottomsForChild$ = of(this.getNewWishItemButtons());
-    this.router.navigate(['new'], { relativeTo: this.route});
+    this.router.navigate(['new'], { relativeTo: this.route });
   }
-
-  // private getNewWishItemButtons(): ButtonDetails[] {
-  //   const add = new ButtonDetails(
-  //     'ADD',
-  //     'btn btn-primary',
-  //     WISH_EDIT_BUTTON_METHODS.ADD_NEW_WISH_ITEM
-  //   );
-  //   const clean = new ButtonDetails(
-  //     'CLEAN',
-  //     'btn btn-warning',
-  //     WISH_EDIT_BUTTON_METHODS.CLEAN_WISH_ITEM_FIELDS
-  //   );
-
-  //   return [add, clean];
-  // }
 }

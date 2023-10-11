@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { BookDetailResponse } from '../book-api/books/book-detail/book-detail-response';
 import { BookDetails } from '../book-api/books/model/book.details.model';
 import { Book } from '../book-api/books/model/book.model';
@@ -17,10 +17,6 @@ export class WishSharedService {
   private _wishCounter = new BehaviorSubject<number>(0);
   private wishCounter$ = this._wishCounter.asObservable();
   changeStateWishItemNotifier: EventEmitter<void> = new EventEmitter();
-  private _isWishDetail: EventEmitter<boolean> = new EventEmitter();
-  private _wishItemDetailSend: ReplaySubject<WishItem | undefined> =
-    new ReplaySubject(1);
-  private _removedWishItemNotifier: EventEmitter<void> = new EventEmitter();
   private _toastMessageNotifier: EventEmitter<string> = new EventEmitter();
 
   constructor(private databaseService: WishDatabaseService) {}
@@ -33,6 +29,7 @@ export class WishSharedService {
         bookDetails.book.coverUrls?.largeSizeCoverurl!,
         bookDetails.book.coverCode!
       );
+
       const item: WishItem = new WishItem(
         bookDetails.book.title!,
         WishType.BOOK,
@@ -84,15 +81,6 @@ export class WishSharedService {
     return resultArray;
   }
 
-  public onWishDetailsClick(wishItem: WishItem) {
-    this.isWishDetail.emit(true);
-    this._wishItemDetailSend.next(wishItem);
-  }
-
-  public onCloseWishDetailClick() {
-    this._isWishDetail.emit(false);
-  }
-
   public getWishList(): Observable<WishItem[]> {
     return this.databaseService.findAll();
   }
@@ -111,18 +99,6 @@ export class WishSharedService {
       this.changeStateWishItemNotifier.emit();
       this._toastMessageNotifier.emit(TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY);
     }
-  }
-
-  public get wishItemDetailSend(): ReplaySubject<WishItem | undefined> {
-    return this._wishItemDetailSend;
-  }
-
-  public get isWishDetail(): EventEmitter<boolean> {
-    return this._isWishDetail;
-  }
-
-  public get removedWishItemNotifier(): EventEmitter<void> {
-    return this._removedWishItemNotifier;
   }
 
   public get toastMessageNotifier(): EventEmitter<string> {

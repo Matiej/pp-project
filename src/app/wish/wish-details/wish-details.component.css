@@ -4,13 +4,14 @@
 }
 
 .xbutton {
-  /* float: right;
-  margin-right: 5%;
-  margin-left: auto;
-  margin-top: 2px;
-  margin-bottom: 2px; */
+  cursor: pointer;
+   float: right;
+  margin-right: 3%;
+  /* margin-left: auto; */
+  /* margin-top: 2px; */
+  /* margin-bottom: 2px;  */
 
-  position: absolute;
+  position: relative;
   top: 10px; /* adjust these values as needed */
   right: 10px;
 }

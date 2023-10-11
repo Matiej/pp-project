@@ -10,8 +10,8 @@
       </button>
       <a
         class="navbar-brand"
-        href="#"
-        routerLink="home"
+     
+        routerLink="/home"
         routerLinkActive="active"
       >
         <img
@@ -24,8 +24,8 @@
       </a>
       <a
         class="navbar-brand"
-        href="#"
-        routerLink="home"
+       
+        routerLink="/home"
         routerLinkActive="active"
       >
         pp-Project</a
@@ -38,12 +38,10 @@
     >
       <ul class="nav navbar-nav">
         <li>
-          <a href="#" routerLink="/home" routerLinkActive="active">Home</a>
+          <a routerLink="/home" routerLinkActive="active">Home</a>
         </li>
         <li>
-          <a href="#" routerLink="/course-cert" routerLinkActive="active"
-            >Course-Cert</a
-          >
+          <a routerLink="/course-cert" routerLinkActive="active">Course-Cert</a>
         </li>
         <li class="dropdown" appDropdown>
           <a
@@ -56,19 +54,17 @@
 
           <ul class="dropdown-menu">
             <li>
-              <a href="#" routerLink="/books" routerLinkActive="active"
-                >Search Books</a
-              >
+              <a routerLink="/books" routerLinkActive="active">Search Books</a>
             </li>
             <li>
-              <a href="#" routerLink="/authors" routerLinkActive="active"
+              <a routerLink="/authors" routerLinkActive="active"
                 >Search Authors</a
               >
             </li>
           </ul>
         </li>
         <li>
-          <a href="#" routerLink="/wish" routerLinkActive="active"
+          <a routerLink="/wish" routerLinkActive="active"
             >Your Wishes
             <span class="badge" [class.hide-badge]="wishCounter == 0">{{
               wishCounter
@@ -76,18 +72,16 @@
           </a>
         </li>
         <li>
-          <a href="#" routerLink="/user" routerLinkActive="active">User Data</a>
+          <a routerLink="/user" routerLinkActive="active">User Data</a>
         </li>
 
         <li>
-          <a href="#" [routerLink]="['/learning-mix']" routerLinkActive="active"
+          <a [routerLink]="['/learning-mix']" routerLinkActive="active"
             >Learning-mix</a
           >
         </li>
         <li>
-          <a href="#" routerLink="/outlettest" routerLinkActive="active"
-            >OutletTest</a
-          >
+          <a routerLink="/outlettest" routerLinkActive="active">OutletTest</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -127,20 +121,15 @@
           ></a>
           <ul class="dropdown-menu">
             <li>
-              <a href="#" routerLink="/login" routerLinkActive="active"
-                >Login</a
-              >
+              <a routerLink="/login" routerLinkActive="active">Login</a>
             </li>
             <li>
-              <a href="#" routerLink="/register" routerLinkActive="active"
-                >Register</a
-              >
+              <a routerLink="/register" routerLinkActive="active">Register</a>
             </li>
           </ul>
         </li>
         <li *ngIf="isUserLoggedIn">
           <a
-            href="#"
             routerLink="/logout"
             routerLinkActive="active"
             class="header-neon"

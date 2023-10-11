@@ -6,7 +6,11 @@
 <hr class="custom-hr" />
 <div class="row detail-row">
   <div class="row">
-    <button (click)="onCloseClick()" class="xbutton btn btn-danger btn-sm">
+    <button
+      type="button"
+      (click)="onCloseClick();  "
+      class="xbutton btn btn-danger btn-sm"
+    >
       X
     </button>
   </div>
@@ -27,6 +31,11 @@
   <div class="row">
     <div class="col-xs-12">
       <h1>{{ wishItem?.name }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Type: {{ wishItem?.type }}</h3>
     </div>
   </div>
   <div class="row">
@@ -51,8 +60,9 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="wish-button">
           <li>
+            <!-- here intentionaly leaft click methods not rounting with edit/id url
+            to show that we can keep like this or like in user section -->
             <button
-              href="#"
               class="btn btn-primary btn-wish-detail"
               (click)="onEditWish()"
             >
@@ -61,7 +71,6 @@
           </li>
           <li>
             <button
-              href="#"
               class="btn btn-danger btn-wish-detail"
               (click)="onRemoveWish()"
             >
@@ -75,4 +84,3 @@
 </div>
 
 <hr class="hr big" />
- 

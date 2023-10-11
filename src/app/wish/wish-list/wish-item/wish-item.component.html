@@ -2,7 +2,7 @@
   <a
     class="list-group-item clearfix"
     style="cursor: pointer"
-    (click)="onDetailsClick(wishitem!)"
+      [routerLink]="['/wish', wishitem?.id]"
   >
     <span
       class="pull-right"
