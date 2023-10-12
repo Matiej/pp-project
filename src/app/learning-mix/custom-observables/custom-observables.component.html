@@ -1,0 +1,14 @@
+<ul style="color: blue; font-weight: bolder; text-align: center">
+  <h2>FirstCustom Observable works:</h2>
+  <li *ngFor="let no of myObsArray">
+    <p>
+      {{ no }}
+    </p>
+  </li>
+  <h2 style="color: blueviolet;">SecondObserver counter: {{ secondObsNumber }}</h2>
+  <h2 style="color: red" *ngIf="counterErrorMessage !== ''">
+    {{ counterErrorMessage }}
+  </h2>
+  <h2 style="color: orange;" *ngIf="isCompleted">{{completedMessage}}</h2>
+
+</ul>

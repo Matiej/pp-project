@@ -24,7 +24,10 @@ export class LearningMixComponent implements OnInit {
     app_section9_task_user: false,
     app_outstanding_task1: false,
     app_section11_routing: false,
+    app_custom_observables: false
+
   };
+description: string = 'Description of learning component This component';
 
   constructor() {}
 
