@@ -5,10 +5,20 @@
       {{ no }}
     </p>
   </li>
-  <h2 style="color: blueviolet;">SecondObserver counter: {{ secondObsNumber }}</h2>
+  <h2 style="color: blueviolet">
+    SecondObserver counter: {{ secondObsNumber }}
+  </h2>
   <h2 style="color: red" *ngIf="counterErrorMessage !== ''">
     {{ counterErrorMessage }}
   </h2>
-  <h2 style="color: orange;" *ngIf="isCompleted">{{completedMessage}}</h2>
-
+  <h2 style="color: orange" *ngIf="isCompleted">{{ completedMessage }}</h2>
 </ul>
+<div class="row">
+  <div class="col-xs-6">
+    <button type="button" class="btn btn-primary"
+    (click)="onActivate()">SubjectActivation</button>
+  </div>
+  <div class="col-xs-6">
+    <app-activator *ngIf="isSubjectActivated"></app-activator>
+  </div>
+</div>
