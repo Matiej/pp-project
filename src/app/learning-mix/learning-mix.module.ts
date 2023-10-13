@@ -27,6 +27,7 @@ import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 import { UserTaskComponent } from './user-task/user-task.component';
+import { ActivatorComponent } from './custom-observables/activator/activator.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Option1Section11Component,
     Option2Section11Component,
     CustomObservablesComponent,
+    ActivatorComponent,
   ],
   imports: [
     FormsModule,
