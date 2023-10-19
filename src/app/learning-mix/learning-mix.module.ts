@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
 import { ControlButtonComponent } from './buttons-board/control-button/control-button.component';
 import { ClickTaskComponent } from './click-task/click-task.component';
+import { ActivatorComponent } from './custom-observables/activator/activator.component';
 import { CustomObservablesComponent } from './custom-observables/custom-observables.component';
 import { OutstandingTask1Component } from './outstanding-task1/outstanding-task1.component';
 import { SuccessAlertComponent } from './outstanding-task1/success-alert/success-alert.component';
@@ -14,6 +15,7 @@ import { NavoSection11Component } from './section11-routing/navo-section11/navo-
 import { Option1Section11Component } from './section11-routing/option1-section11/option1-section11.component';
 import { Option2Section11Component } from './section11-routing/option2-section11/option2-section11.component';
 import { Section11RoutingComponent } from './section11-routing/section11-routing.component';
+import { Section15FormsComponent } from './section15-forms/section15-forms.component';
 import { EvenComponent } from './section5-task/even/even.component';
 import { GameControlComponent } from './section5-task/game-control/game-control.component';
 import { OddComponent } from './section5-task/odd/odd.component';
@@ -27,7 +29,8 @@ import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 import { UserTaskComponent } from './user-task/user-task.component';
-import { ActivatorComponent } from './custom-observables/activator/activator.component';
+import { ExampleForm1Component } from './section15-forms/example-form1/example-form1.component';
+import { ExampleFormsViewComponent } from './section15-forms/example-forms-view/example-forms-view.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { ActivatorComponent } from './custom-observables/activator/activator.com
     Option2Section11Component,
     CustomObservablesComponent,
     ActivatorComponent,
+    Section15FormsComponent,
+    ExampleForm1Component,
+    ExampleFormsViewComponent,
   ],
   imports: [
     FormsModule,
@@ -78,6 +84,7 @@ import { ActivatorComponent } from './custom-observables/activator/activator.com
     OutstandingTask1Component,
     Section11RoutingComponent,
     CustomObservablesComponent,
+    Section15FormsComponent
   ],
   providers: [],
 })
