@@ -12,7 +12,14 @@
         placeholder="Enter name"
         ngModel
         required
+        #username="ngModel"
       />
+      <span
+        class="help-block"
+        style="color: red"
+        *ngIf="!username.valid && username.touched"
+        >Please enter a valid value!!</span
+      >
 
       <label for="lastname">LastName</label>
       <input
@@ -35,22 +42,33 @@
           ngModel
           required
           email
+          #email="ngModel"
         />
+        <span
+          class="help-block"
+          *ngIf="!email.valid && email.touched"
+          style="color: red"
+          >Please enter a valid email!!</span
+        >
       </div>
     </div>
   </div>
   <div class="form-group">
     <label for="secret">Secret Questions</label>
-    <select id="secret" name="secret" class="form-control" ngModel required>
-      <option value="pet">Your first Pet?</option>
+    <select
+      id="secret"
+      name="secret"
+      class="form-control"
+      ngModel
+      required
+      [ngModel]="selectedSecret"
+    >
+      <option value="pet" selected>Your first Pet?</option>
       <option value="car">Your first car?</option>
     </select>
   </div>
-  <button
-    [disabled]="isSumbittButtonDisabeled"
-    type="submit"
-    class="btn btn-primary"
-  >
+
+  <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">
     Submit
   </button>
 </form>
