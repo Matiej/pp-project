@@ -31,6 +31,7 @@ import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 import { UserTaskComponent } from './user-task/user-task.component';
 import { ExampleForm1Component } from './section15-forms/example-form1/example-form1.component';
 import { ExampleFormsViewComponent } from './section15-forms/example-forms-view/example-forms-view.component';
+import { ExampleForm2ValidatedComponent } from './section15-forms/example-form2-validated/example-form2-validated.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { ExampleFormsViewComponent } from './section15-forms/example-forms-view/
     Section15FormsComponent,
     ExampleForm1Component,
     ExampleFormsViewComponent,
+    ExampleForm2ValidatedComponent,
   ],
   imports: [
     FormsModule,

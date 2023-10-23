@@ -1,5 +1,5 @@
-<h3>Simple From 1</h3>
-<form>
+<h3>{{formTitle}}</h3>
+<form (ngSubmit)="onSubmitUserForm(userForm) " #userForm="ngForm">
   <div id="user-data">
     <div class="form-group">
       <label for="username">Username</label>
@@ -7,7 +7,9 @@
         type="text"
         class="form-control"
         id="username"
+        name="username"
         placeholder="Enter name"
+        ngModel
       />
       <button class="btn btn-default" type="button">Suggest an Username</button>
       <div class="form-group">
@@ -17,15 +19,15 @@
           class="form-control"
           id="email"
           name="email"
-          placeholder
           placeholder="Enter your email address"
+          ngModel
         />
       </div>
     </div>
   </div>
   <div class="form-group">
     <label for="secret">Secret Questions</label>
-    <select id="secret" name="secret" class="form-control">
+    <select id="secret" name="secret" class="form-control" ngModel>
       <option value="pet">Your first Pet?</option>
       <option value="car">Your first car?</option>
     </select>
