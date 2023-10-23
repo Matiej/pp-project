@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { UserFormModel } from './user.form.model';
 
@@ -11,12 +12,18 @@ export class Section15ShareService {
 
   constructor() {}
 
-  public sendUserFormToView(userFormModel: UserFormModel) {
-    this._userFormSender.next(userFormModel);
+  public sendUserFormToView(userForm: NgForm) {
+    this._userFormSender.next(this.convertFormToUser(userForm));
+  }
 
-    if (userFormModel) {
-      this._isUserCompontent.next(true);
-    }
+  private convertFormToUser(userForm: NgForm): UserFormModel {
+    const form = userForm.value;
+    return {
+      username: form.username,
+      lastname: form.lastname,
+      email: form.email,
+      question: form.secret,
+    };
   }
 
   public get userFormSender(): Subject<UserFormModel> {
