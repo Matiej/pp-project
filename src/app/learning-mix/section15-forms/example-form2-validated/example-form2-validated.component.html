@@ -1,0 +1,56 @@
+<h3>{{ formTitle }}</h3>
+<form (ngSubmit)="onSubmitUserForm()" #userForm="ngForm">
+  <div id="user-data">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        style="margin-bottom: 5px"
+        type="text"
+        class="form-control"
+        id="username"
+        name="username"
+        placeholder="Enter name"
+        ngModel
+        required
+      />
+
+      <label for="lastname">LastName</label>
+      <input
+        type="text"
+        class="form-control"
+        id="lastname"
+        name="lastname"
+        placeholder="Enter lastname"
+        ngModel
+      />
+      <hr />
+      <div class="form-group">
+        <label for="email">Mail Address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Enter your email address"
+          ngModel
+          required
+          email
+        />
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="secret">Secret Questions</label>
+    <select id="secret" name="secret" class="form-control" ngModel required>
+      <option value="pet">Your first Pet?</option>
+      <option value="car">Your first car?</option>
+    </select>
+  </div>
+  <button
+    [disabled]="isSumbittButtonDisabeled"
+    type="submit"
+    class="btn btn-primary"
+  >
+    Submit
+  </button>
+</form>
