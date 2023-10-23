@@ -1,9 +1,12 @@
-<h3>{{ userCardTitle }}</h3>
-<div *ngIf="user">
-  <div class="user-card">
-    <img src="{{ userImage }}" alt="User Image" class="user-image" />
-    <h2>{{ user.username }}</h2>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Secret:</strong> {{ user.question }}</p>
+<div style="margin-left: 15px">
+  <h3>{{ userCardTitle }}</h3>
+  <div *ngIf="users.length > 0">
+    <div class="user-card" *ngFor="let user of users">
+      <img src="{{ userImage }}" alt="User Image" class="user-image" />
+      <h2 *ngIf="!user.lastname">{{ user.username }}</h2>
+      <h2 *ngIf="user.lastname">{{ user.username }} - {{ user.lastname }}</h2>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Secret:</strong> {{ user.question }}</p>
+    </div>
   </div>
 </div>

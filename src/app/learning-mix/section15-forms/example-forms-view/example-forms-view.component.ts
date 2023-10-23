@@ -12,14 +12,14 @@ import { UserFormModel } from '../user.form.model';
 export class ExampleFormsViewComponent implements OnInit, OnDestroy {
   readonly userImage: string = ASSETS_PATHS.USER_IMAGE_ICON;
   private _formSubscription: Subscription = new Subscription();
-  user!: UserFormModel;
+  users: UserFormModel[] = [];
   userCardTitle: string = 'No User details available';
   constructor(private section15Service: Section15ShareService) {}
 
   ngOnInit(): void {
     this.section15Service.userFormSender.subscribe((user: UserFormModel) => {
       this.userCardTitle = 'Submitted User details';
-      this.user = user;
+      this.users.push(user);
     });
   }
 
