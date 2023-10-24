@@ -10,7 +10,7 @@ import { Section15ShareService } from '../section15-share.service';
 export class ExampleForm2ValidatedComponent {
   readonly formTitle: string = 'Example of NgForm formlar with Validation';
   selectedSecret: string;
-
+  questionAswer: string = '';
   @ViewChild('userForm')
   userFrom!: NgForm;
 
@@ -19,9 +19,11 @@ export class ExampleForm2ValidatedComponent {
   }
 
   onSubmitUserForm() {
+    console.log(this.userFrom.value)
     if (this.userFrom.valid) {
       this.section15Service.sendUserFormToView(this.userFrom);
       this.userFrom.reset();
+      this.questionAswer = '';
     }
   }
 }
