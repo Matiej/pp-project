@@ -19,10 +19,10 @@ export class Section15ShareService {
   private convertFormToUser(userForm: NgForm): UserFormModel {
     const form = userForm.value;
     return {
-      username: form.username,
-      lastname: form.lastname,
-      email: form.email,
-      question: form.secret,
+      username: form.userData.username,
+      lastname: form.userData.lastname,
+      email: form.userData.email,
+      question: form.userSecret.secret,
     };
   }
 

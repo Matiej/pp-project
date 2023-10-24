@@ -19,6 +19,7 @@ export class ExampleForm2ValidatedComponent {
   }
 
   onSubmitUserForm() {
+    console.log(this.userFrom.value)
     if (this.userFrom.valid) {
       this.section15Service.sendUserFormToView(this.userFrom);
       this.userFrom.reset();
