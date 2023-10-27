@@ -20,7 +20,10 @@
         *ngIf="!username.valid && username.touched"
         >Please enter a valid value!!</span
       >
-
+      <button class="btn btn-default" type="button" (click)="suggestUserName()">
+        Suggest an Username
+      </button>
+      <hr>
       <label for="lastname">LastName</label>
       <input
         type="text"
@@ -30,6 +33,24 @@
         placeholder="Enter lastname"
         ngModel
       />
+      <hr />
+      <label for="gender">Slect your sex</label>
+      <div
+        class="radio"
+        *ngFor="let gender of genders"
+        style="margin-bottom: 3px"
+      >
+        <label>
+          <input
+            id="gender"
+            type="radio"
+            name="gender"
+            [ngModel]="genders[2]"
+            [value]="gender"
+          />
+          {{ gender }}
+        </label>
+      </div>
       <hr />
       <div class="form-group">
         <label for="email">Mail Address</label>
@@ -62,7 +83,7 @@
         class="form-control"
         ngModel
         required
-        [ngModel]="selectedSecret"
+        [ngModel]="defaultSecretQuestion"
       >
         <option value="pet" selected>Your first Pet?</option>
         <option value="car">Your first car?</option>
