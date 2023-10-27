@@ -1,5 +1,5 @@
-<h3>{{formTitle}}</h3>
-<form (ngSubmit)="onSubmitUserForm(userForm) " #userForm="ngForm">
+<h3>{{ formTitle }}</h3>
+<form (ngSubmit)="onSubmitUserForm(userForm)" #userForm="ngForm">
   <div id="user-data">
     <div class="form-group">
       <label for="username">Username</label>
@@ -9,9 +9,11 @@
         id="username"
         name="username"
         placeholder="Enter name"
-        ngModel
+        [ngModel]="username"
       />
-      <button class="btn btn-default" type="button">Suggest an Username</button>
+      <button class="btn btn-default" type="button" (click)="suggestUserName()">
+        Suggest an Username
+      </button>
       <div class="form-group">
         <label for="email">Mail Address</label>
         <input
