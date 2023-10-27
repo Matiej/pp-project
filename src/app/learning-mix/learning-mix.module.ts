@@ -15,7 +15,11 @@ import { NavoSection11Component } from './section11-routing/navo-section11/navo-
 import { Option1Section11Component } from './section11-routing/option1-section11/option1-section11.component';
 import { Option2Section11Component } from './section11-routing/option2-section11/option2-section11.component';
 import { Section11RoutingComponent } from './section11-routing/section11-routing.component';
+import { ExampleForm1Component } from './section15-forms/example-form1/example-form1.component';
+import { ExampleForm2ValidatedComponent } from './section15-forms/example-form2-validated/example-form2-validated.component';
+import { ExampleFormsViewComponent } from './section15-forms/example-forms-view/example-forms-view.component';
 import { Section15FormsComponent } from './section15-forms/section15-forms.component';
+import { Section15Task6Component } from './section15-task6/section15-task6.component';
 import { EvenComponent } from './section5-task/even/even.component';
 import { GameControlComponent } from './section5-task/game-control/game-control.component';
 import { OddComponent } from './section5-task/odd/odd.component';
@@ -29,9 +33,6 @@ import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 import { UserTaskComponent } from './user-task/user-task.component';
-import { ExampleForm1Component } from './section15-forms/example-form1/example-form1.component';
-import { ExampleFormsViewComponent } from './section15-forms/example-forms-view/example-forms-view.component';
-import { ExampleForm2ValidatedComponent } from './section15-forms/example-form2-validated/example-form2-validated.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { ExampleForm2ValidatedComponent } from './section15-forms/example-form2-
     ExampleForm1Component,
     ExampleFormsViewComponent,
     ExampleForm2ValidatedComponent,
+    Section15Task6Component,
   ],
   imports: [
     FormsModule,
@@ -86,7 +88,8 @@ import { ExampleForm2ValidatedComponent } from './section15-forms/example-form2-
     OutstandingTask1Component,
     Section11RoutingComponent,
     CustomObservablesComponent,
-    Section15FormsComponent
+    Section15FormsComponent,
+    Section15Task6Component
   ],
   providers: [],
 })
