@@ -10,7 +10,7 @@ import { UserFormModel } from '../user.form.model';
   styleUrls: ['./example-forms-view.component.css'],
 })
 export class ExampleFormsViewComponent implements OnInit, OnDestroy {
-  readonly userImage: string = ASSETS_PATHS.USER_IMAGE_ICON;
+  readonly userImagePath: string = ASSETS_PATHS.USER_IMAGE_ICON;
   private _formSubscription: Subscription = new Subscription();
   users: UserFormModel[] = [];
   userCardTitle: string = 'No User details available';
