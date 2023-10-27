@@ -2,7 +2,7 @@
   <h3>{{ userCardTitle }}</h3>
   <div *ngIf="users.length > 0">
     <div class="user-card" *ngFor="let user of users">
-      <img src="{{ userImage }}" alt="User Image" class="user-image" />
+      <img src="{{ userImagePath }}" alt="User Image" class="user-image" />
       <h2 *ngIf="!user.lastname">{{ user.username }}</h2>
       <h2 *ngIf="user.lastname">{{ user.username }}  {{ user.lastname }}</h2>
       <p><strong>Email:</strong> {{ user.email }}</p>
