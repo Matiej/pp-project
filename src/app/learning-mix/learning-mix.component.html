@@ -21,6 +21,13 @@
     >
     </app-buttons-board>
   </div>
+  <div class="row">
+    <app-buttons-board
+      (boardlButtonClicked)="onBoardButtonClick($event)"
+      [linebuttonLables]="thirdLineButtonLabelNames"
+    >
+    </app-buttons-board>
+  </div>
 </div>
 
 <div class="task" *ngIf="isComponentActive('app_spinner_test')">
@@ -92,6 +99,12 @@
 <div class="task" *ngIf="isComponentActive('app_section15_task6')">
   <hr />
   <app-section15-task6></app-section15-task6>
+  <hr />
+</div>
+
+<div class="task" *ngIf="isComponentActive('app_example_reactive_form')">
+  <hr />
+  <app-example-reactive-form></app-example-reactive-form>
   <hr />
 </div>
 
