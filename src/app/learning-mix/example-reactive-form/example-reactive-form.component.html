@@ -23,7 +23,14 @@
         />
       </div>
       <div class="radio" *ngFor="let gender of genders">
-        <label> <input type="radio" [value]="gender" />{{ gender }} </label>
+        <label>
+          <input
+            type="radio"
+            id="genderInput"
+            name="genderInput"
+            [value]="gender"
+          />{{ gender }}
+        </label>
       </div>
       <button type="submit" class="btn btn-success">Submit</button>
     </form>
