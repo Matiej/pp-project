@@ -11,6 +11,9 @@ export class LearningMixComponent implements OnInit {
   learningComponentTitle: string =
     'It is Learning component to test and learn.';
   titleStyleClass: string = 'learning-module-title';
+  mixImageSrc: string = '';
+  description: string = 'Description of learning component This component';
+
   firsLineComponentStates: { [key: string]: boolean } = {
     app_spinner_test: false,
     app_section5_task: false,
@@ -19,16 +22,19 @@ export class LearningMixComponent implements OnInit {
     app_click_task: false,
     app_section7_directives: false,
   };
-  mixImageSrc: string = '';
+
   secondLineComponentStates: { [key: string]: boolean } = {
     app_section9_task_user: false,
     app_outstanding_task1: false,
     app_section11_routing: false,
     app_custom_observables: false,
     app_section15_forms: false,
-    app_section15_task6: false
+    app_section15_task6: false,
   };
-description: string = 'Description of learning component This component';
+
+  thirdLineComponentStates: { [key: string]: boolean } = {
+    app_example_reactive_form: false,
+  };
 
   constructor() {}
 
@@ -38,7 +44,9 @@ description: string = 'Description of learning component This component';
 
   isComponentActive(name: string): boolean {
     return (
-      this.firsLineComponentStates[name] || this.secondLineComponentStates[name]
+      this.firsLineComponentStates[name] ||
+      this.secondLineComponentStates[name] ||
+      this.thirdLineComponentStates[name]
     );
   }
 
@@ -75,6 +83,16 @@ description: string = 'Description of learning component This component';
       this.secondLineComponentStates[boardlButtonClicked.componentName] =
         boardlButtonClicked.isTurnedOn;
     }
+
+    if (
+      this.thirdLineComponentStates.hasOwnProperty(
+        boardlButtonClicked.componentName
+      )
+    ) {
+      this.thirdLineComponentStates[boardlButtonClicked.componentName] =
+        boardlButtonClicked.isTurnedOn;
+    }
+
     this.setRadommixImageSrc();
   }
 
@@ -89,6 +107,14 @@ description: string = 'Description of learning component This component';
   get secondLineButtonLabelNames(): ButtonLabelName[] {
     let buttonLabelNames: ButtonLabelName[] = [];
     Object.keys(this.secondLineComponentStates).forEach((component) =>
+      buttonLabelNames.push(getButtonLabel(component))
+    );
+    return buttonLabelNames;
+  }
+
+  get thirdLineButtonLabelNames(): ButtonLabelName[] {
+    let buttonLabelNames: ButtonLabelName[] = [];
+    Object.keys(this.thirdLineComponentStates).forEach((component) =>
       buttonLabelNames.push(getButtonLabel(component))
     );
 

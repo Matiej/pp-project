@@ -8,6 +8,7 @@ import { ControlButtonComponent } from './buttons-board/control-button/control-b
 import { ClickTaskComponent } from './click-task/click-task.component';
 import { ActivatorComponent } from './custom-observables/activator/activator.component';
 import { CustomObservablesComponent } from './custom-observables/custom-observables.component';
+import { ExampleReactiveFormComponent } from './example-reactive-form/example-reactive-form.component';
 import { OutstandingTask1Component } from './outstanding-task1/outstanding-task1.component';
 import { SuccessAlertComponent } from './outstanding-task1/success-alert/success-alert.component';
 import { WarningAlertComponent } from './outstanding-task1/warning-alert/warning-alert.component';
@@ -66,6 +67,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     ExampleFormsViewComponent,
     ExampleForm2ValidatedComponent,
     Section15Task6Component,
+    ExampleReactiveFormComponent,
   ],
   imports: [
     FormsModule,
@@ -89,7 +91,8 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section11RoutingComponent,
     CustomObservablesComponent,
     Section15FormsComponent,
-    Section15Task6Component
+    Section15Task6Component,
+    ExampleReactiveFormComponent
   ],
   providers: [],
 })
