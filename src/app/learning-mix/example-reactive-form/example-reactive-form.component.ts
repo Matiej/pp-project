@@ -7,6 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./example-reactive-form.component.css'],
 })
 export class ExampleReactiveFormComponent implements OnInit {
+  readonly reactiveFormExampleTitle: string = 'Example Reactive Form';
   genders: string[] = [];
   userForm!: FormGroup;
 
@@ -14,11 +15,19 @@ export class ExampleReactiveFormComponent implements OnInit {
     this.genders = ['male', 'female', 'unknown'];
   }
   ngOnInit(): void {
-     this.userForm = new FormGroup({
-      'usrername': new FormControl(null, Validators.required),
-      'email': new FormControl(null, Validators.required),
-      'genderInput': new FormControl('unknown', Validators.required)
-     });
+    this.userForm = new FormGroup({
+      userData: new FormGroup({
+        username: new FormControl(null, Validators.required),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+      }),
+
+      genderInput: new FormControl('unknown', Validators.required),
+    });
   }
 
+  onSubmit() {
+    console.log(this.userForm);
+  }
+
+  private validate(): void {}
 }
