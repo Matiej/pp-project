@@ -1,38 +1,75 @@
 <div class="container">
+  <h3>{{ reactiveFormExampleTitle }}</h3>
   <div class="row"></div>
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <form>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          class="form-control"
-          placeholder="Enter username"
-        />
+    <form [formGroup]="userForm">
+      <div formGroupName="userData">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            formControlName="username"
+            class="form-control"
+            placeholder="Enter username"
+          />
+          <span
+            class="help-block"
+            style="color: red"
+            *ngIf="
+              !userForm.get('userData.username')!.valid &&
+              userForm.get('userData.username')!.touched
+            "
+            >Please enter a valid username value!!</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            formControlName="email"
+            class="form-control"
+            placeholder="Enter email"
+          />
+          <span
+            class="help-block"
+            style="color: red"
+            *ngIf="
+              !userForm.get('userData.email')!.valid && userForm.get('userData.email')!.touched
+            "
+            >Please enter a valid email value!!</span
+          >
+        </div>
       </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          name="email"
-          class="form-control"
-          placeholder="Enter email"
-        />
-      </div>
+
       <div class="radio" *ngFor="let gender of genders">
         <label>
           <input
             type="radio"
             id="genderInput"
             name="genderInput"
+            formControlName="genderInput"
             [value]="gender"
           />{{ gender }}
         </label>
       </div>
-      <button type="submit" class="btn btn-success">Submit</button>
+      <span
+        class="help-block"
+        style="color: rgb(228, 139, 5)"
+        *ngIf="!userForm!.valid && userForm!.touched"
+        >Please enter a valid data!!</span
+      >
+      <button
+        type="submit"
+        class="btn btn-success"
+        (click)="onSubmit()"
+        [disabled]="!userForm.valid"
+      >
+        Submit
+      </button>
     </form>
   </div>
 </div>
