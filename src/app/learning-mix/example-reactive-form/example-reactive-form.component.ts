@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-example-reactive-form',
@@ -10,6 +10,7 @@ export class ExampleReactiveFormComponent implements OnInit {
   readonly reactiveFormExampleTitle: string = 'Example Reactive Form';
   genders: string[] = [];
   userForm!: FormGroup;
+  readonly forbiddenNames: string[] = ['Maciek', 'Jaro'];
 
   constructor() {
     this.genders = ['male', 'female', 'unknown'];
@@ -17,11 +18,15 @@ export class ExampleReactiveFormComponent implements OnInit {
   ngOnInit(): void {
     this.userForm = new FormGroup({
       userData: new FormGroup({
-        username: new FormControl(null, Validators.required),
+        username: new FormControl(null, [
+          Validators.required,
+          this.forbiddenNamesValidator.bind(this),
+        ]),
         email: new FormControl(null, [Validators.required, Validators.email]),
       }),
 
       genderInput: new FormControl('unknown', Validators.required),
+      hobbiesArray: new FormArray([], Validators.required),
     });
   }
 
@@ -29,5 +34,27 @@ export class ExampleReactiveFormComponent implements OnInit {
     console.log(this.userForm);
   }
 
-  private validate(): void {}
+  onAddHobby() {
+    const control = new FormControl(null, [
+      Validators.required,
+      Validators.minLength(5),
+    ]);
+    (<FormArray>this.userForm.get('hobbiesArray')).push(control);
+  }
+
+  public getHobbiesControls() {
+    return (this.userForm.get('hobbiesArray') as FormArray).controls;
+  }
+
+  forbiddenNamesValidator(control: FormControl): {
+    [s: string]: boolean;
+  } | null {
+    if (this.forbiddenNames.indexOf(control.value) !== -1) {
+      console.log(control.value);
+      console.log('control.value)');
+
+      return { nameIsForbidden: true };
+    }
+    return null;
+  }
 }
