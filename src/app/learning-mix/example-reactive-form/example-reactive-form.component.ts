@@ -70,6 +70,7 @@ export class ExampleReactiveFormComponent implements OnInit {
   forbiddenEmailValidator(
     control: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+    //Usefull when try to get validator from sever and need wait and to async not block other code
     const promise = new Promise<any>((resolve, reject) => {
       //timeout for simulate  task like reaching out to a servr
       setTimeout(() => {
