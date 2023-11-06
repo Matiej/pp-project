@@ -21,8 +21,20 @@
               !userForm.get('userData.username')!.valid &&
               userForm.get('userData.username')!.touched
             "
-            >Please enter a valid username value!!</span
           >
+            <span
+              *ngIf="
+                userForm.get('userData.username')?.errors?.['nameIsForbidden']
+              "
+            >
+              This name is invalid and forbidden!</span
+            >
+            <span
+              *ngIf="userForm.get('userData.username')?.errors?.['required']"
+            >
+              This field is required!</span
+            >
+          </span>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
@@ -41,8 +53,18 @@
               !userForm.get('userData.email')!.valid &&
               userForm.get('userData.email')!.touched
             "
-            >Please enter a valid email value!!</span
           >
+            <span
+              *ngIf="userForm.get('userData.email')?.errors?.['emailIsForbidden']"
+            >
+              This email is invalid and forbbiden!
+            </span>
+            <span
+              *ngIf="userForm.get('userData.email')?.errors?.['required']"
+            >
+              Please enter a valid email value!!
+            </span>
+          </span>
         </div>
       </div>
 
@@ -86,11 +108,11 @@
             [formControlName]="i"
           />
           <span
-          class="help-block"
-          style="color: red"
-          *ngIf="hobbyControl.invalid && hobbyControl.touched"
-          >Min 5 characters required!</span
-        >
+            class="help-block"
+            style="color: red"
+            *ngIf="hobbyControl.invalid && hobbyControl.touched"
+            >Min 5 characters required!</span
+          >
         </div>
       </div>
       <button
