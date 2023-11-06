@@ -50,10 +50,7 @@ export class ExampleReactiveFormComponent implements OnInit {
     [s: string]: boolean;
   } | null {
     if (this.forbiddenNames.indexOf(control.value) !== -1) {
-      console.log(control.value);
-      console.log('control.value)');
-
-      return { nameIsForbidden: true };
+      return { 'nameIsForbidden': true };
     }
     return null;
   }
