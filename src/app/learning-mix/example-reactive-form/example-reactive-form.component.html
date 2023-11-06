@@ -53,8 +53,18 @@
               !userForm.get('userData.email')!.valid &&
               userForm.get('userData.email')!.touched
             "
-            >Please enter a valid email value!!</span
           >
+            <span
+              *ngIf="userForm.get('userData.email')?.errors?.['emailIsForbidden']"
+            >
+              This email is invalid and forbbiden!
+            </span>
+            <span
+              *ngIf="userForm.get('userData.email')?.errors?.['required']"
+            >
+              Please enter a valid email value!!
+            </span>
+          </span>
         </div>
       </div>
 
