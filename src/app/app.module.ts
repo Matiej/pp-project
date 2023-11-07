@@ -33,6 +33,7 @@ import { WishItemComponent } from './wish/wish-list/wish-item/wish-item.componen
 import { WishListComponent } from './wish/wish-list/wish-list.component';
 import { WishComponent } from './wish/wish.component';
 import { WishStartComponent } from './wish/wish-start/wish-start.component';
+import { UserRegisterComponent } from './user/user-register/user-register.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { WishStartComponent } from './wish/wish-start/wish-start.component';
     LogoutComponent,
     ErrorPageComponent,
     WishStartComponent,
+    UserRegisterComponent,
   ],
   imports: [
     BrowserModule,
