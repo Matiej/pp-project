@@ -10,6 +10,7 @@ import { SharedAuthService } from '../shared-auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+
   user?: User;
   isLoggedIn: boolean = false;
 
@@ -32,6 +33,10 @@ export class LoginComponent {
       }
     });
   }
+
+  onRegister() {
+    throw new Error('Method not implemented.');
+    }
 
   getUserStatus(): string {
     return this.isLoggedIn ? 'logged in' : 'not logged in';
