@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from '../user/user-model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,15 @@ export class AuthService {
     return promise;
   }
 
-  login(): void {
-    this.isLoggedIn = true;
+  // login(): void {
+  //   this.isLoggedIn = true;
+  // }
+
+  userLogin(password: string, user: User): void {
+    if (user && user.password === password) {
+      this.isLoggedIn = true;
+    }
+    this.isLoggedIn = false;
   }
 
   logout(): void {

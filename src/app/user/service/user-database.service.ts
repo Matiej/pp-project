@@ -61,6 +61,19 @@ export class UserDatabaseService {
     return of(this._usermDatabase.listAll());
   }
 
+  findByEmail(email: string): Observable<User | undefined> {
+    let user: User | undefined = this._usermDatabase
+      .listAll()
+      .find(callback_user);
+    function callback_user(user: User): boolean {
+      if (user.email === email) {
+        return true;
+      }
+      return false;
+    }
+    return of(user);
+  }
+
   removeById(id: number): boolean {
     return this._usermDatabase.remove(id.toString());
   }
