@@ -4,5 +4,6 @@ export const TOAST_MESSAGES = {
   USER_REMOVED_SUCCESSFULLY: 'User removed successfully!',
   USER_ADDED_SUCCESSFULLY: 'User added successfully!',
   REMOVE_MESSAGE_STYLE: 'remove-toast',
+  USER_REGISTERED_SUCCESSFULLY: 'User registered successfully!',
   SUCCESS_MESSAGE_STYLE: 'success-toast'
 };

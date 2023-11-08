@@ -1,0 +1,324 @@
+<div class="container">
+  <h3 class="register-title">{{ registerFormTitle }}</h3>
+  <div class="row">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubnit()">
+      <div class="form-group" formGroupName="userData">
+        <div class="row" style="margin-bottom: 15px">
+          <div class="col-xs-4">
+            <label for="username">Username</label>
+            <input
+              class="form-control"
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your name..."
+              formControlName="username"
+            />
+            <span
+              class="help-block"
+              style="color: red"
+              *ngIf="
+                !registerForm.get('userData.username')!.valid &&
+                registerForm.get('userData.username')!.touched
+              "
+              >This field is required!</span
+            >
+          </div>
+          <div class="col-xs-4">
+            <label for="surname">Surname</label>
+            <input
+              class="form-control"
+              type="text"
+              id="surname"
+              name="surname"
+              placeholder="Enter your surname..."
+              formControlName="surname"
+            />
+            <span
+              class="help-block"
+              style="color: red"
+              *ngIf="
+                !registerForm.get('userData.surname')!.valid &&
+                registerForm.get('userData.surname')!.touched
+              "
+              >This field is required!</span
+            >
+          </div>
+          <div class="col-xs-4">
+            <label for="birthyear">Birth Year</label>
+            <input
+              class="form-control"
+              type="text"
+              id="birtyear"
+              name="useremail"
+              placeholder="Enter your birthyear"
+              formControlName="birthyear"
+            />
+            <span
+              class="help-block"
+              style="color: red"
+              *ngIf="
+                !registerForm.get('userData.birthyear')!.valid &&
+                registerForm.get('userData.birthyear')!.touched
+              "
+            >
+              <span
+                *ngIf="registerForm.get('userData.birthyear')?.errors?.['maxLength']"
+                >Birth year can't have more than 4 digits</span
+              >
+              <span
+                *ngIf="registerForm.get('userData.birthyear')?.errors?.['pattern']"
+                >Birth year can contain only 4 digits</span
+              >
+              <span
+                *ngIf="registerForm.get('userData.birthyear')?.errors?.['required']"
+                >This field is required!</span
+              >
+            </span>
+          </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 15px">
+          <div class="col-xs-6">
+            <label for="address1">Address Line 1</label>
+            <input
+              class="form-control"
+              type="text"
+              id="address1"
+              name="address1"
+              placeholder="Adress line 1"
+              formControlName="address1"
+            />
+            <span
+              class="help-block"
+              style="color: red"
+              *ngIf="
+                !registerForm.get('userData.address1')!.valid &&
+                registerForm.get('userData.address1')!.touched
+              "
+              >This field is required!</span
+            >
+          </div>
+          <div class="col-xs-6">
+            <label for="address2">Address Line 2</label>
+            <input
+              class="form-control"
+              type="text"
+              id="address2"
+              name="address2"
+              placeholder="Adress line 2"
+              formControlName="address2"
+            />
+            <span
+              class="help-block"
+              style="color: red"
+              *ngIf="
+                !registerForm.get('userData.address2')!.valid &&
+                registerForm.get('userData.address2')!.touched
+              "
+              >This field is required!</span
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <label for="genderSelect">Select you gender</label>
+            <select
+              class="form-control"
+              id="genderSelect"
+              name="genderSelect"
+              formControlName="genderSelect"
+            >
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="other">Other</option>
+              <option value="wontTell">I won't tell</option>
+              <option value="gej">gej</option>
+            </select>
+            <span
+              class="help-block"
+              style="color: red"
+              *ngIf="
+                !registerForm.get('userData.genderSelect')!.valid &&
+                registerForm.get('userData.genderSelect')!.touched
+              "
+            >
+              <span
+                *ngIf="registerForm.get('userData.genderSelect')?.errors?.['required']"
+                >This field is required!</span
+              >
+              <span
+                *ngIf="registerForm.get('userData.genderSelect')?.errors?.['isGenerForbidden']"
+                >Option forbidden, choice antoher!</span
+              >
+            </span>
+          </div>
+          <div class="col-xs-6">
+            <label for="aboutYou">Write something about you</label>
+            <textarea
+              class="form-control"
+              name="aboutYou"
+              id="aboutYou"
+              rows="4"
+              placeholder="Write something about you..."
+              formControlName="aboutYou"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row" style="margin-bottom: 20px">
+          <div class="col-xs-4">
+            <label for="useremail">Email</label>
+            <input
+              class="form-control"
+              type="text"
+              id="useremail"
+              name="useremail"
+              placeholder="Enter you email"
+              formControlName="useremail"
+            />
+            <span
+              class="help-block"
+              style="color: red"
+              *ngIf="
+                !registerForm.get('useremail')!.valid &&
+                registerForm.get('useremail')!.touched
+              "
+            >
+              <span *ngIf="registerForm.get('useremail')?.errors?.['required']"
+                >This field is required!</span
+              >
+              <span *ngIf="registerForm.get('useremail')?.errors?.['email']"
+                >Incorect email format!</span
+              >
+            </span>
+          </div>
+          <div class="col-xs-4">
+            <label for="secretSelect">Select a Secret Question</label>
+            <select
+              class="form-control"
+              id="secretSelect"
+              name="secretSelect"
+              formControlName="secretSelect"
+            >
+              <option value="pet">Your First Pet?</option>
+              <option value="car">Your First Car?</option>
+              <option value="actor">Your Favourite Actor?</option>
+            </select>
+          </div>
+          <span
+            class="help-block"
+            style="color: red"
+            *ngIf="
+              !registerForm.get('secretSelect')!.valid &&
+              registerForm.get('secretSelect')!.touched
+            "
+          >
+            <span *ngIf="registerForm.get('secretSelect')?.errors?.['required']"
+              >This field is required!</span
+            >
+            <span
+              *ngIf="registerForm.get('secretSelect')?.errors?.['isSecretFrobidden']"
+              >Option forbidden, choice antoher!</span
+            >
+          </span>
+          <div class="col-xs-4">
+            <label for="answer">Answer for your secret question</label>
+            <input
+              class="form-control"
+              type="text"
+              id="answer"
+              name="answer"
+              placeholder="Answer for your secret question"
+              formControlName="answer"
+            />
+            <span
+              class="help-block"
+              style="color: red"
+              *ngIf="
+                !registerForm.get('answer')!.valid &&
+                registerForm.get('answer')!.touched
+              "
+              >This field is required!</span
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-4">
+            <input
+              class="form-control"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password..."
+              formControlName="password"
+            />
+            <span
+              class="help-block"
+              style="color: red"
+              *ngIf="
+                !registerForm.get('password')!.valid &&
+                registerForm.get('password')!.touched
+              "
+              >This field is required!</span
+            >
+          </div>
+          <div class="col-xs-4">
+            <input
+              class="form-control"
+              type="password"
+              id="matchpassword"
+              name="matchpassword"
+              placeholder="Repeat password"
+              formControlName="matchpassword"
+            />
+            <span
+              class="help-block"
+              style="color: red"
+              *ngIf="
+                !registerForm.get('matchpassword')!.valid &&
+                registerForm.get('matchpassword')!.touched
+              "
+            >
+              <span
+                *ngIf="registerForm.get('matchpassword')?.errors?.['required']"
+                >This field is required!</span
+              >
+              <span
+                *ngIf="registerForm.get('matchpassword')?.errors?.['passwordNotMatch']"
+                >Password doesn't match!</span
+              ></span
+            >
+          </div>
+          <div class="col-xs-4">
+            <button
+              type="submit"
+              class="btn btn-success"
+              style="width: 200px; color: black"
+              [disabled]="!registerForm.valid"
+            >
+              Submit
+            </button>
+            <!-- [disabled]="!registerForm.valid" -->
+          </div>
+          <div
+            *ngIf="isSpinning"
+            class="text-center"
+            style="
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            "
+          >
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="{{ toastMessageClass }}" *ngIf="showToast">
+    {{ userToastMessage }}
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.register-title {
+    color: #333333; /* Dark grey color */
+    text-shadow: 2px 3px 7px #990000; /* Deep red shadow */
+    font-size: 4rem; /* Adjust the size if needed */
+    font-weight: bold; /* Bold font */
+    font-style: italic;
+    margin: 10%;
+    text-align: center;
+  }
