@@ -48,12 +48,13 @@
             <label for="birthyear">Birth Year</label>
             <input
               class="form-control"
-              type="text"
+              type="number"
               id="birtyear"
               name="useremail"
               placeholder="Enter your birthyear"
               formControlName="birthyear"
             />
+
             <span
               class="help-block"
               style="color: red"
@@ -63,12 +64,8 @@
               "
             >
               <span
-                *ngIf="registerForm.get('userData.birthyear')?.errors?.['maxLength']"
-                >Birth year can't have more than 4 digits</span
-              >
-              <span
                 *ngIf="registerForm.get('userData.birthyear')?.errors?.['pattern']"
-                >Birth year can contain only 4 digits</span
+                >Birth year can contain 4 digits excluding 0</span
               >
               <span
                 *ngIf="registerForm.get('userData.birthyear')?.errors?.['required']"
@@ -295,12 +292,10 @@
             <button
               type="submit"
               class="btn btn-success"
-              style="width: 200px; color: black"
               [disabled]="!registerForm.valid"
             >
               Submit
             </button>
-            <!-- [disabled]="!registerForm.valid" -->
           </div>
           <div
             *ngIf="isSpinning"

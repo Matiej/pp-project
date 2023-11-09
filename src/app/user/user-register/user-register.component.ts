@@ -6,6 +6,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
@@ -30,7 +31,8 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
 
   constructor(
     private userSharedSevice: UserSharedService,
-    private userDatabaseService: UserDatabaseService
+    private userDatabaseService: UserDatabaseService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -179,6 +181,8 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       this.showToast = false;
       this.userToastMessage = '';
       this.toastMessageClass = '';
+
+      this.router.navigate(['user/login']);
     }, timeout);
   }
 }
