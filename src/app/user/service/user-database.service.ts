@@ -18,6 +18,9 @@ export class UserDatabaseService {
       'maciek@usereml.com',
       1979
     );
+    user1.password = 'admin';
+    user1.matchPassword = 'admin';
+
     const user2: User = new User(
       'Anna',
       'Monetta',
