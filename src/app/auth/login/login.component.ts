@@ -31,55 +31,39 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  // onLogin() {
-  //   this.authService.login();
-
-  //   this.authService.isAuthenticated().then((auth: boolean) => {
-  //     this.isLoggedIn = auth;
-  //     if (this.isLoggedIn) {
-  //       this.userDbService.findById(1).subscribe((user?: User) => {
-  //         this.user = user;
-  //         this.sharedAuthService.userLoggedINNotification();
-  //       });
-  //     }
-  //   });
-  // }
-
   ngOnDestroy(): void {
     if (this.loginObservale) {
       this.loginObservale.unsubscribe();
     }
   }
+
   onUserLogin(): void {
     const formData = this.loginForm.value;
     this.loginObservale = this.userDbService
       .findByEmail(formData.email)
       .subscribe(
         (user: User | undefined) => {
+          console.log('user found: ', user);
           if (user) {
             this.authService.userLogin(formData.password, user);
+            this.authService.isAuthenticated().then((auth: boolean) => {
+              this.isLoggedIn = auth;
+              if (this.isLoggedIn) {
+                this.user = user;
+                this.sharedAuthService.userLoggedINNotification();
+              } else {
+                console.error('User is not logged in - wrong password');
+                this.isLoginError = true;
+              }
+            });
           } else {
             console.error('User not found');
             this.isLoginError = true;
           }
-          this.authService.isAuthenticated().then((auth: boolean) => {
-            this.isLoggedIn = auth;
-            if (this.isLoggedIn) {
-              this.user = user;
-              this.sharedAuthService.userLoggedINNotification();
-            } else {
-              console.log('User is not logged in - wrong password');
-              this.isLoginError = true;
-            }
-          });
         },
         (error: Error) => console.error(error),
         () => this.loginForm.reset()
       );
-  }
-
-  onRegister() {
-    throw new Error('Method not implemented.');
   }
 
   getUserStatus(): string {

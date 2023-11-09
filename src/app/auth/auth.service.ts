@@ -19,15 +19,12 @@ export class AuthService {
     return promise;
   }
 
-  // login(): void {
-  //   this.isLoggedIn = true;
-  // }
-
   userLogin(password: string, user: User): void {
     if (user && user.password === password) {
       this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false;
     }
-    this.isLoggedIn = false;
   }
 
   logout(): void {
