@@ -22,6 +22,7 @@ import { ExampleFormsViewComponent } from './section15-forms/example-forms-view/
 import { Section15FormsComponent } from './section15-forms/section15-forms.component';
 import { Section15Task6Component } from './section15-task6/section15-task6.component';
 import { Section15Task7Component } from './section15-task7/section15-task7.component';
+import { Section17PipesComponent } from './section17-pipes/section17-pipes.component';
 import { EvenComponent } from './section5-task/even/even.component';
 import { GameControlComponent } from './section5-task/game-control/game-control.component';
 import { OddComponent } from './section5-task/odd/odd.component';
@@ -70,6 +71,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section15Task6Component,
     ExampleReactiveFormComponent,
     Section15Task7Component,
+    Section17PipesComponent,
   ],
   imports: [
     FormsModule,
@@ -95,7 +97,8 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section15FormsComponent,
     Section15Task6Component,
     ExampleReactiveFormComponent,
-    Section15Task7Component
+    Section15Task7Component,
+    Section17PipesComponent
   ],
   providers: [],
 })

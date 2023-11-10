@@ -12,7 +12,7 @@ export class LearningMixComponent implements OnInit {
     'It is Learning component to test and learn.';
   titleStyleClass: string = 'learning-module-title';
   mixImageSrc: string = '';
-  description: string = 'Description of learning component This component';
+  description: string = 'Description of learning component This component....';
 
   firsLineComponentStates: { [key: string]: boolean } = {
     app_spinner_test: false,
@@ -34,7 +34,8 @@ export class LearningMixComponent implements OnInit {
 
   thirdLineComponentStates: { [key: string]: boolean } = {
     app_example_reactive_form: false,
-    app_section15_task7: false
+    app_section15_task7: false,
+    app_section17_pipes: false
   };
 
   constructor() {}
