@@ -33,7 +33,9 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     private userSharedSevice: UserSharedService,
     private userDatabaseService: UserDatabaseService,
     private router: Router
-  ) {}
+  ) {
+    this.emailExistValidator = this.emailExistValidator.bind(this);
+  }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -54,7 +56,11 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
         ),
         aboutYou: new FormControl(null),
       }),
-      useremail: new FormControl(null, [Validators.required, Validators.email]),
+      useremail: new FormControl(
+        null,
+        [Validators.required, Validators.email],
+        [this.emailExistValidator]
+      ),
       secretSelect: new FormControl(
         'pet',
         [Validators.required],
@@ -126,6 +132,25 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       return { passwordNotMatch: true };
     }
     return null;
+  }
+
+  emailExistValidator(
+    control: AbstractControl
+  ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+    const emialToCheck = control.value;
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        this.userDatabaseService.findByEmail(emialToCheck).subscribe((data) => {
+          console.log('sub, ', data?.email)
+          if (data && data.email == emialToCheck) {
+            resolve({ isEmailExist: true });
+          } else {
+            resolve(null);
+          }
+        });
+      }, 2000);
+    });
+    return promise;
   }
 
   onRegisterSubnit() {
