@@ -141,7 +141,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     const promise = new Promise<any>((resolve, reject) => {
       setTimeout(() => {
         this.userDatabaseService.findByEmail(emialToCheck).subscribe((data) => {
-          console.log('sub, ', data?.email)
+        
           if (data && data.email == emialToCheck) {
             resolve({ isEmailExist: true });
           } else {
