@@ -189,6 +189,11 @@
               <span *ngIf="registerForm.get('useremail')?.errors?.['email']"
                 >Incorect email format!</span
               >
+              <span
+                style="background-color: yellow"
+                *ngIf="registerForm.get('useremail')?.errors?.['isEmailExist']"
+                >Email existst!</span
+              >
             </span>
           </div>
           <div class="col-xs-4">
