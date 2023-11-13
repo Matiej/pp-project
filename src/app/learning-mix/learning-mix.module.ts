@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../app-routing.module';
+import { FilterServerPipe } from '../pipes/filter-server.pipe';
+import { ShortenPipe } from '../pipes/shorten.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
 import { ControlButtonComponent } from './buttons-board/control-button/control-button.component';
@@ -72,7 +74,8 @@ import { UserTaskComponent } from './user-task/user-task.component';
     ExampleReactiveFormComponent,
     Section15Task7Component,
     Section17PipesComponent,
-  ],
+    ShortenPipe, FilterServerPipe,
+   ],
   imports: [
     FormsModule,
     BrowserModule,
@@ -98,7 +101,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section15Task6Component,
     ExampleReactiveFormComponent,
     Section15Task7Component,
-    Section17PipesComponent
+    Section17PipesComponent, ShortenPipe,  FilterServerPipe,
   ],
   providers: [],
 })

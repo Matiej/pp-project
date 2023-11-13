@@ -1,19 +1,38 @@
 <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-        <ul class="list-group">
-          <li
-            class="list-group-item"
-            *ngFor="let server of servers"
-            [ngClass]="getStatusClasses(server)">
-            <span
-              class="badge">
-              {{ server.status }}
-            </span>
-            <strong>{{ server.name }}</strong> | {{ server.instanceType | uppercase }} 
-            | {{ server.started | date }}
-          </li>
-        </ul>
-      </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <label class="control-label" for="stautsFilter">Filter status</label>
+      <input
+        type="text"
+        id="stautsFilter"
+        name="stautsFilter"
+        [(ngModel)]="filteredStatus"
+      />
+      <hr />
+      <label class="control-label" for="instanceFilter">Filter instance</label>
+      <input
+        type="text"
+        id="instanceFilter"
+        name="instanceFilter"
+        [(ngModel)]="instanceFilter"
+      />
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="
+            let server of getFilteredServers()
+              | filterServer : instanceFilter : 'instanceType'
+          "
+          [ngClass]="getStatusClasses(server)"
+        >
+          <span class="badge">
+            {{ server.status }}
+          </span>
+          <strong>{{ server.name | shroten : 15 }}</strong> |
+          {{ server.instanceType | uppercase }} |
+          {{ server.started | date : "yyyy-MM-dd " }}
+        </li>
+      </ul>
     </div>
   </div>
+</div>

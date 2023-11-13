@@ -3,43 +3,57 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-section17-pipes',
   templateUrl: './section17-pipes.component.html',
-  styleUrls: ['./section17-pipes.component.css']
+  styleUrls: ['./section17-pipes.component.css'],
 })
 export class Section17PipesComponent {
-  servers = [
+  filteredStatus: string = '';
+  instanceFilter: string = '';
+  private servers = [
     {
       instanceType: 'Small',
       name: 'Production server',
       status: 'stable',
-      started: new Date(10, 1 , 2019)
+      started: new Date(2019, 10, 1),
     },
     {
       instanceType: 'Large',
       name: 'Data base',
       status: 'offline',
-      started: new Date(10, 2 , 2020)
+      started: new Date(2020, 10, 2),
     },
     {
       instanceType: 'Medium',
       name: 'Development server',
       status: 'stable',
-      started: new Date(12, 3 , 2019)
+      started: new Date(2019, 12, 3),
     },
     {
       instanceType: 'Small',
       name: 'UAT server',
-      status: 'stable',
-      started: new Date(1, 4 , 2019)
+      status: 'critical',
+      started: new Date(2019, 1, 4),
     },
   ];
 
-  getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
+
+  getFilteredServers(): any {
+    if (this.filteredStatus.length < 1) {
+      return this.servers;
+    }
+    return this.servers.filter((server) =>
+      server.status.includes(this.filteredStatus)
+    );
+  }
+  getStatusClasses(server: {
+    instanceType: string;
+    name: string;
+    status: string;
+    started: Date;
+  }) {
     return {
       'list-group-item-success': server.status === 'stable',
       'list-group-item-warning': server.status === 'offline',
-      'list-group-item-danger': server.status === 'critical'
+      'list-group-item-danger': server.status === 'critical',
     };
   }
-
-
 }
