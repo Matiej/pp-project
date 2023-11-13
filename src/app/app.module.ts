@@ -26,14 +26,14 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserItemComponent } from './user/user-list/user-item/user-item.component';
 import { UserListComponent } from './user/user-list/user-list.component';
+import { UserRegisterComponent } from './user/user-register/user-register.component';
 import { UserComponent } from './user/user.component';
 import { WishDetailsComponent } from './wish/wish-details/wish-details.component';
 import { WishEditComponent } from './wish/wish-edit/wish-edit.component';
 import { WishItemComponent } from './wish/wish-list/wish-item/wish-item.component';
 import { WishListComponent } from './wish/wish-list/wish-list.component';
-import { WishComponent } from './wish/wish.component';
 import { WishStartComponent } from './wish/wish-start/wish-start.component';
-import { UserRegisterComponent } from './user/user-register/user-register.component';
+import { WishComponent } from './wish/wish.component';
 
 @NgModule({
   declarations: [
@@ -60,12 +60,12 @@ import { UserRegisterComponent } from './user/user-register/user-register.compon
     UserDetailsComponent,
     UserEditComponent,
     NamedOutletTestComponent,
-
     LoginComponent,
     LogoutComponent,
     ErrorPageComponent,
     WishStartComponent,
     UserRegisterComponent,
+   
   ],
   imports: [
     BrowserModule,
