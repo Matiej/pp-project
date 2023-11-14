@@ -65,7 +65,7 @@ import { WishComponent } from './wish/wish.component';
     ErrorPageComponent,
     WishStartComponent,
     UserRegisterComponent,
-   
+
   ],
   imports: [
     BrowserModule,

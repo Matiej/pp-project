@@ -8,6 +8,11 @@ import { Component } from '@angular/core';
 export class Section17PipesComponent {
   filteredStatus: string = '';
   instanceFilter: string = '';
+  nameFilter: string = '';
+  sortBy: string = 'name';
+  isAcending: boolean = true;
+
+
   private servers = [
     {
       instanceType: 'Small',
@@ -35,6 +40,15 @@ export class Section17PipesComponent {
     },
   ];
 
+  onAddServer() {
+    const server = {
+      instanceType: 'Large',
+      name: 'Data base',
+      status: 'stable',
+      started: new Date(2019, 12, 3),
+    };
+    this.servers.push(server);
+  }
 
   getFilteredServers(): any {
     if (this.filteredStatus.length < 1) {
@@ -56,4 +70,10 @@ export class Section17PipesComponent {
       'list-group-item-danger': server.status === 'critical',
     };
   }
+
+  applicationStatus = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('stable');
+    }, 2000);
+  });
 }
