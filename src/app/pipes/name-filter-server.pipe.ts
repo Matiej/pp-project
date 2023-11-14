@@ -1,9 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterServer',
+  name: 'nameFilterServer',
+  pure: false
 })
-export class FilterServerPipe implements PipeTransform {
+export class NameFilterServerPipe implements PipeTransform {
+
   transform(value: any, filteringString: string, propName: string): any {
     if (value.length === 0 || filteringString === '') {
       return value;
@@ -19,4 +21,5 @@ export class FilterServerPipe implements PipeTransform {
     }
     return resultArray;
   }
+
 }

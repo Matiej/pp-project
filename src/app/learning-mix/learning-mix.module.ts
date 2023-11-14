@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../app-routing.module';
 import { FilterServerPipe } from '../pipes/filter-server.pipe';
+import { NameFilterServerPipe } from '../pipes/name-filter-server.pipe';
 import { ShortenPipe } from '../pipes/shorten.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { ButtonsBoardComponent } from './buttons-board/buttons-board.component';
@@ -75,6 +76,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section15Task7Component,
     Section17PipesComponent,
     ShortenPipe, FilterServerPipe,
+    NameFilterServerPipe,
    ],
   imports: [
     FormsModule,
@@ -101,7 +103,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section15Task6Component,
     ExampleReactiveFormComponent,
     Section15Task7Component,
-    Section17PipesComponent, ShortenPipe,  FilterServerPipe,
+    Section17PipesComponent, ShortenPipe,  FilterServerPipe,NameFilterServerPipe,
   ],
   providers: [],
 })
