@@ -1,9 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <button type="button" class="btn btn-primary" (click)="onAddServer()">
+        Add Random Server
+      </button>
+      <hr />
       <label class="control-label" for="stautsFilter">Filter status</label>
       <input
         type="text"
+        class="form-control"
         id="stautsFilter"
         name="stautsFilter"
         [(ngModel)]="filteredStatus"
@@ -12,16 +17,31 @@
       <label class="control-label" for="instanceFilter">Filter instance</label>
       <input
         type="text"
+        class="form-control"
         id="instanceFilter"
         name="instanceFilter"
         [(ngModel)]="instanceFilter"
       />
+      <hr />
+
+      <label class="control-label" for="nameFilter">Filter Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nameFilter"
+        name="nameFilter"
+        [(ngModel)]="nameFilter"
+      />
+      <span class="help-block" style="color: orange">!ATENTION - PURE set to FALSE. PIPE now gets recalculated. Leads to performance issues.  </span>
+      <hr />
+      <h2 style="color: blue">Application status: {{applicationStatus | async}}</h2>
       <ul class="list-group">
         <li
           class="list-group-item"
           *ngFor="
             let server of getFilteredServers()
               | filterServer : instanceFilter : 'instanceType'
+              | nameFilterServer : nameFilter : 'name'
           "
           [ngClass]="getStatusClasses(server)"
         >
