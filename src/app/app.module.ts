@@ -34,7 +34,6 @@ import { WishItemComponent } from './wish/wish-list/wish-item/wish-item.componen
 import { WishListComponent } from './wish/wish-list/wish-list.component';
 import { WishStartComponent } from './wish/wish-start/wish-start.component';
 import { WishComponent } from './wish/wish.component';
-import { ReversePipe } from './pipes/reverse.pipe';
 
 @NgModule({
   declarations: [
@@ -66,7 +65,7 @@ import { ReversePipe } from './pipes/reverse.pipe';
     ErrorPageComponent,
     WishStartComponent,
     UserRegisterComponent,
-    ReversePipe,
+
   ],
   imports: [
     BrowserModule,
