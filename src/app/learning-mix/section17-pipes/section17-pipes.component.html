@@ -32,9 +32,52 @@
         name="nameFilter"
         [(ngModel)]="nameFilter"
       />
-      <span class="help-block" style="color: orange">!ATENTION - PURE set to FALSE. PIPE now gets recalculated. Leads to performance issues.  </span>
+      <span class="help-block" style="color: orange"
+        >!ATENTION - PURE set to FALSE. PIPE now gets recalculated. Leads to
+        performance issues.
+      </span>
       <hr />
-      <h2 style="color: blue">Application status: {{applicationStatus | async}}</h2>
+      <h2 style="color: blue">
+        Application status: {{ applicationStatus | async }}
+      </h2>
+      <hr />
+      <div class="row">
+        <div class="col col-xs-6">
+          <label for="sorting">Sort by field</label>
+          <select
+            id="sorting"
+            name="sorting"
+            class="form-control"
+            [(ngModel)]="sortBy"
+          >
+            <option value="name">Name</option>
+            <option value="instanceType">Instance Type</option>
+            <option value="status">Status</option>
+            <option value="started">Started date</option>
+          </select>
+        </div>
+        <div class="col col-xs-6">
+          <label>
+            <input
+              type="radio"
+              name="booleanValue"
+              [(ngModel)]="isAcending"
+              [value]="true"
+            />
+            Acending
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="booleanValue"
+              [(ngModel)]="isAcending"
+              [value]="false"
+            />
+            Descending
+          </label>
+        </div>
+      </div>
+      <hr />
       <ul class="list-group">
         <li
           class="list-group-item"
@@ -42,6 +85,7 @@
             let server of getFilteredServers()
               | filterServer : instanceFilter : 'instanceType'
               | nameFilterServer : nameFilter : 'name'
+              | sort : sortBy : isAcending
           "
           [ngClass]="getStatusClasses(server)"
         >
@@ -50,7 +94,7 @@
           </span>
           <strong>{{ server.name | shroten : 15 }}</strong> |
           {{ server.instanceType | uppercase }} |
-          {{ server.started | date : "yyyy-MM-dd " }}
+          {{ server.started | date : "yyyy MM dd " }}
         </li>
       </ul>
     </div>

@@ -9,6 +9,9 @@ export class Section17PipesComponent {
   filteredStatus: string = '';
   instanceFilter: string = '';
   nameFilter: string = '';
+  sortBy: string = 'name';
+  isAcending: boolean = true;
+
 
   private servers = [
     {
