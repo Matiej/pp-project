@@ -35,7 +35,8 @@ export class LearningMixComponent implements OnInit {
   thirdLineComponentStates: { [key: string]: boolean } = {
     app_example_reactive_form: false,
     app_section15_task7: false,
-    app_section17_pipes: false
+    app_section17_pipes: false,
+    app_section18_http_req: false,
   };
 
   constructor() {}
