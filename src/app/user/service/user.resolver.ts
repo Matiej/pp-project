@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import {
-    ActivatedRouteSnapshot,
-    ResolveFn,
-    RouterStateSnapshot,
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
 } from '@angular/router';
 import { Observable, catchError, map, of, take } from 'rxjs';
 import { User } from '../user-model';
@@ -13,7 +13,7 @@ export const userResolver: ResolveFn<User | null> = (
   state: RouterStateSnapshot,
   userDbService: UserDatabaseService = inject(UserDatabaseService)
 ): Observable<User | null> => {
-  console.log('resolving user');
+ 
   const id = route.paramMap.get('id');
   if (id !== null && !isNaN(+id)) {
     return userDbService.findById(+id).pipe(

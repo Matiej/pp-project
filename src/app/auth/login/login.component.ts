@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       .findByEmail(formData.email)
       .subscribe(
         (user: User | undefined) => {
-          console.log('user found: ', user);
           if (user) {
             this.authService.userLogin(formData.password, user);
             this.authService.isAuthenticated().then((auth: boolean) => {

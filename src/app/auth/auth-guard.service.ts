@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
   ): Promise<boolean | UrlTree> {
     try {
       const auth = await this.authService.isAuthenticated();
-      console.log('canActiv rount:', route);
+   
       if (auth) {
         return true;
       } else {
