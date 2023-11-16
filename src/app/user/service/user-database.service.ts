@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
+import { FirebaseUserDatabaseConnService } from '../db/firebase-user-database-conn.service';
 import { InMemoryUserDataBase } from '../db/in-memory-user-database';
 import { User } from '../user-model';
 
@@ -9,7 +10,7 @@ import { User } from '../user-model';
 export class UserDatabaseService {
   private _usermDatabase!: InMemoryUserDataBase;
 
-  constructor() {
+  constructor(private userFirebaseDB: FirebaseUserDatabaseConnService) {
     this._usermDatabase = new InMemoryUserDataBase();
 
     const user1: User = new User(
@@ -50,14 +51,38 @@ export class UserDatabaseService {
     this.saveUser(user3);
     this.saveUser(user4);
     this.saveUser(user5);
+    // this.saveUserFirebase(user5)?.subscribe((data) => {
+    //   console.log('subscribing to save the user. Saved date: ', data);
+    // });
   }
 
   saveUser(item: User): User | undefined {
     return this._usermDatabase.add(item);
   }
 
+  saveUserFirebase(user: User): Observable<User | undefined> | undefined {
+    return this.userFirebaseDB.saveUser(user).pipe(
+      map((savedUser: { [key: string]: User }) => {
+        console.log('firebase user');
+        console.log(savedUser);
+        return undefined;
+      })
+    );
+  }
+
   findById(id: number): Observable<User | undefined> {
     return of(this._usermDatabase.get(id.toString()));
+  }
+
+  findUserById(id: string): Observable<User | undefined> {
+    return this.findAllUsers().pipe(
+      map((users) => {
+      
+        return users.length > 0
+          ? users.find((user) => user.id === id)
+          : undefined;
+      })
+    );
   }
 
   findAll(): Observable<User[]> {
@@ -77,11 +102,27 @@ export class UserDatabaseService {
     return of(user);
   }
 
-  removeById(id: number): boolean {
-    return this._usermDatabase.remove(id.toString());
+  removeById(id: string): boolean {
+    return this._usermDatabase.remove(id);
   }
 
   getNumberOfItems(): number {
     return this._usermDatabase.listAll().length;
+  }
+
+  public findAllUsers(): Observable<User[]> {
+    return this.userFirebaseDB.findAllUsers().pipe(
+      map((response) => {
+        const users: User[] = [];
+        for (const key in response) {
+          if (response.hasOwnProperty(key)) {
+            let user: User = response[key];
+            user.id = key;
+            users.push(user);
+          }
+        }
+        return users;
+      })
+    );
   }
 }

@@ -15,8 +15,8 @@ export const userResolver: ResolveFn<User | null> = (
 ): Observable<User | null> => {
  
   const id = route.paramMap.get('id');
-  if (id !== null && !isNaN(+id)) {
-    return userDbService.findById(+id).pipe(
+  if (id !== null && id !== undefined) {
+    return userDbService.findUserById(id).pipe(
       map((item) => {
         if (item) {
           return item;

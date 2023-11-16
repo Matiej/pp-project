@@ -33,7 +33,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   private subscribeUsers(): void {
-    this.sub = this.userDbService.findAll().subscribe((data) => {
+    this.sub = this.userDbService.findAllUsers().subscribe((data) => {
       this.userList = data;
       if (this.userList.length > 0) {
         this.router.navigate([this.userList[0].id], { relativeTo: this.route });
