@@ -170,7 +170,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     userToSve.answer = formData.answer;
     userToSve.password = formData.password;
     userToSve.matchPassword = formData.matchpassword;
-    console.log(userToSve);
+    
     this.isSpinning = true;
 
     setTimeout(() => {

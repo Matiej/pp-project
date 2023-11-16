@@ -12,7 +12,7 @@ export class Section18HttpReqComponent implements OnInit {
   readonly fireBasePostUrl: string =
     'https://ppproject-35b60-default-rtdb.firebaseio.com/posts.json';
   loadedPosts: PostModel[] = [];
-  isSpinner: boolean = false;
+  isFetchingPosts: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -35,7 +35,7 @@ export class Section18HttpReqComponent implements OnInit {
   }
 
   private fetchPostsFromFirebase() {
-    this.isSpinner = true;
+    this.isFetchingPosts = true;
     this.http
       .get<{ [key: string]: PostModel }>(this.fireBasePostUrl)
       .pipe(
@@ -57,7 +57,7 @@ export class Section18HttpReqComponent implements OnInit {
       )
       .subscribe((fetchedPosts: PostModel[]) => {
         this.loadedPosts = fetchedPosts;
-        this.isSpinner = false;
+        this.isFetchingPosts = false;
       });
   }
 }
