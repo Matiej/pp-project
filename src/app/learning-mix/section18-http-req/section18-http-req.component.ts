@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
+import { PostModel } from './post-model';
 
 @Component({
   selector: 'app-section18-http-req',
@@ -9,19 +11,53 @@ import { Component, OnInit } from '@angular/core';
 export class Section18HttpReqComponent implements OnInit {
   readonly fireBasePostUrl: string =
     'https://ppproject-35b60-default-rtdb.firebaseio.com/posts.json';
-  loadedPosts = [];
+  loadedPosts: PostModel[] = [];
+  isSpinner: boolean = false;
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fetchPostsFromFirebase();
+  }
 
-  onCreatePost(post: { title: string; content: string }) {
+  onCreatePost(post: PostModel): void {
     console.log(post);
-    this.http.post(this.fireBasePostUrl, post).subscribe(response => {
-      console.log(response);
-    });
+    this.http
+      .post<{ name: string }>(this.fireBasePostUrl, post)
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 
   onClearPosts() {}
-  onFetchPosts() {}
+  onFetchPosts() {
+    this.fetchPostsFromFirebase();
+  }
+
+  private fetchPostsFromFirebase() {
+    this.isSpinner = true;
+    this.http
+      .get<{ [key: string]: PostModel }>(this.fireBasePostUrl)
+      .pipe(
+        map((response) => {
+          console.log(response);
+          const posts: PostModel[] = [];
+          for (const key in response) {
+            if (response.hasOwnProperty(key)) {
+              let post = new PostModel(
+                response[key].title,
+                response[key].content
+              );
+              post.id = key;
+              posts.push(post);
+            }
+          }
+          return posts;
+        })
+      )
+      .subscribe((fetchedPosts: PostModel[]) => {
+        this.loadedPosts = fetchedPosts;
+        this.isSpinner = false;
+      });
+  }
 }
