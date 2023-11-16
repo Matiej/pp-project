@@ -188,7 +188,7 @@ export class WishEditComponent
 
   private convertFormToWishItem(form: FormGroup): WishItem {
     const formData = form.value;
-    console.log(formData);
+   
     const desc: WishItemDescription[] = [
       new WishItemDescription('DESCRIPTION:', formData.description),
     ];

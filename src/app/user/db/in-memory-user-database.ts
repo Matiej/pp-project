@@ -3,8 +3,8 @@ export class InMemoryUserDataBase {
   private db: Map<string, User> = new Map();
 
   add(item: User): User | undefined {
-    if (isNaN(item.id) || typeof item.id === 'undefined') {
-      const nextId: number = parseInt(this.getCurrentId()) + 1;
+    if (item.id || typeof item.id === 'undefined') {
+      const nextId: string = (parseInt(this.getCurrentId()) + 1).toString();
       item.id = nextId;
       this.db.set(item.id.toString(), item);
 

@@ -1,5 +1,5 @@
 export class User {
-  private _id!: number;
+  private _id!: string;
   public name: string;
   public lastName: string;
   public email: string;
@@ -27,11 +27,11 @@ export class User {
     this.birthYear = birthYear;
   }
 
-  get id(): number {
+  get id(): string {
     return this._id;
   }
 
-  set id(value: number) {
+  set id(value: string) {
     this._id = value;
   }
 
