@@ -30,29 +30,7 @@ export class UserDatabaseService {
     );
     user2.password = 'admin';
     user2.matchPassword = 'admin';
-    // const user3: User = new User(
-    //   'Stefan',
-    //   'Batory',
-    //   'stefan@usereml.com',
-    //   1985
-    // );
-    // const user4: User = new User(
-    //   'John',
-    //   'Smith',
-    //   'johnsmith@usereml.com',
-    //   1979
-    // );
-    // const user5: User = new User(
-    //   'Angelika',
-    //   'Shmidt',
-    //   'angl@usereml.com',
-    //   1991
-    // );
-    // this.saveUser(user1);
-    // this.saveUser(user2);
-    // this.saveUser(user3);
-    // this.saveUser(user4);
-    // this.saveUser(user5);
+    
     // this.saveUserFirebase(user1)?.subscribe((data) => {
     //   console.log('subscribing to save the user. Saved date: ', data);
     // });
@@ -61,14 +39,11 @@ export class UserDatabaseService {
     // });
   }
 
-  saveUser(item: User): User | undefined {
-    return this._usermDatabase.add(item);
-  }
-
   saveUserFirebase(user: User): Observable<User | undefined> {
     return this.userFirebaseDB.saveUser(user).pipe(
-      switchMap((savedUser: { name: string }) => {
-        return this.findUserById(savedUser.name);
+      switchMap((savedUserID: { name: string }) => {
+        console.log('saving user... : ', savedUserID.name)
+        return this.findUserById(savedUserID.name);
       }),
       catchError((error) => {
         return of(undefined);
@@ -90,11 +65,7 @@ export class UserDatabaseService {
     );
   }
 
-  findAll(): Observable<User[]> {
-    return of(this._usermDatabase.listAll());
-  }
-
-  findByEmail(email: string): Observable<User | undefined> {
+   findByEmail(email: string): Observable<User | undefined> {
     return this.findAllUsers().pipe(
       map((users: User[]) => {
         const user: User | undefined = users.find(callback_user);
@@ -115,7 +86,7 @@ export class UserDatabaseService {
   }
 
   getNumberOfItems(): number {
-    return this._usermDatabase.listAll().length;
+    return this.userFirebaseDB.findAllUsers.length;
   }
 
   public findAllUsers(): Observable<User[]> {
