@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, map, of } from 'rxjs';
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
 import { FirebaseUserDatabaseConnService } from '../db/firebase-user-database-conn.service';
 import { InMemoryUserDataBase } from '../db/in-memory-user-database';
 import { User } from '../user-model';
@@ -28,30 +28,35 @@ export class UserDatabaseService {
       'annamoneta@usereml.com',
       1995
     );
-    const user3: User = new User(
-      'Stefan',
-      'Batory',
-      'stefan@usereml.com',
-      1985
-    );
-    const user4: User = new User(
-      'John',
-      'Smith',
-      'johnsmith@usereml.com',
-      1979
-    );
-    const user5: User = new User(
-      'Angelika',
-      'Shmidt',
-      'angl@usereml.com',
-      1991
-    );
-    this.saveUser(user1);
-    this.saveUser(user2);
-    this.saveUser(user3);
-    this.saveUser(user4);
-    this.saveUser(user5);
-    // this.saveUserFirebase(user5)?.subscribe((data) => {
+    user2.password = 'admin';
+    user2.matchPassword = 'admin';
+    // const user3: User = new User(
+    //   'Stefan',
+    //   'Batory',
+    //   'stefan@usereml.com',
+    //   1985
+    // );
+    // const user4: User = new User(
+    //   'John',
+    //   'Smith',
+    //   'johnsmith@usereml.com',
+    //   1979
+    // );
+    // const user5: User = new User(
+    //   'Angelika',
+    //   'Shmidt',
+    //   'angl@usereml.com',
+    //   1991
+    // );
+    // this.saveUser(user1);
+    // this.saveUser(user2);
+    // this.saveUser(user3);
+    // this.saveUser(user4);
+    // this.saveUser(user5);
+    // this.saveUserFirebase(user1)?.subscribe((data) => {
+    //   console.log('subscribing to save the user. Saved date: ', data);
+    // });
+    // this.saveUserFirebase(user2)?.subscribe((data) => {
     //   console.log('subscribing to save the user. Saved date: ', data);
     // });
   }
@@ -60,12 +65,13 @@ export class UserDatabaseService {
     return this._usermDatabase.add(item);
   }
 
-  saveUserFirebase(user: User): Observable<User | undefined> | undefined {
+  saveUserFirebase(user: User): Observable<User | undefined> {
     return this.userFirebaseDB.saveUser(user).pipe(
-      map((savedUser: { [key: string]: User }) => {
-        console.log('firebase user');
-        console.log(savedUser);
-        return undefined;
+      switchMap((savedUser: { name: string }) => {
+        return this.findUserById(savedUser.name);
+      }),
+      catchError((error) => {
+        return of(undefined);
       })
     );
   }
@@ -77,7 +83,6 @@ export class UserDatabaseService {
   findUserById(id: string): Observable<User | undefined> {
     return this.findAllUsers().pipe(
       map((users) => {
-      
         return users.length > 0
           ? users.find((user) => user.id === id)
           : undefined;
@@ -90,16 +95,19 @@ export class UserDatabaseService {
   }
 
   findByEmail(email: string): Observable<User | undefined> {
-    let user: User | undefined = this._usermDatabase
-      .listAll()
-      .find(callback_user);
-    function callback_user(user: User): boolean {
-      if (user.email === email) {
-        return true;
-      }
-      return false;
-    }
-    return of(user);
+    return this.findAllUsers().pipe(
+      map((users: User[]) => {
+        const user: User | undefined = users.find(callback_user);
+        function callback_user(user: User): boolean {
+          if (user.email === email) {
+            return true;
+          }
+          return false;
+        }
+
+        return user;
+      })
+    );
   }
 
   removeById(id: string): boolean {
@@ -116,13 +124,32 @@ export class UserDatabaseService {
         const users: User[] = [];
         for (const key in response) {
           if (response.hasOwnProperty(key)) {
-            let user: User = response[key];
-            user.id = key;
+            const user = this.convertTouSer(response[key], key);
             users.push(user);
           }
         }
         return users;
       })
     );
+  }
+
+  private convertTouSer(userData: any, key: string): User {
+    const user = new User(
+      userData.name,
+      userData.lastName,
+      userData.email,
+      userData.birthYear
+    );
+    user.id = key;
+    if (userData._password) user.password = userData._password;
+    if (userData._matchPassword) user.matchPassword = userData._matchPassword;
+    if (userData._address1) user.address1 = userData._address1;
+    if (userData._address2) user.address2 = userData._address2;
+    if (userData._gender) user.gender = userData._gender;
+    if (userData._secret) user.secret = userData._secret;
+    if (userData._answer) user.answer = userData._answer;
+    if (userData._about) user.about = userData._about;
+
+    return user;
   }
 }
