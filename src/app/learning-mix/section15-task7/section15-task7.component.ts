@@ -32,7 +32,6 @@ export class Section15Task7Component implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.projectForm);
     this.projectForm.reset();
     this.projectForm.patchValue({
       projectStatusSelect: 'stable',

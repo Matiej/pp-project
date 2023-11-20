@@ -23,7 +23,6 @@ export class Section15Task6Component {
     if (this.subscriptionForm && this.subscriptionForm.valid) {
       this.isSubmitted = true;
       const form = this.subscriptionForm.value;
-      console.log(form);
       this.emailAddress = form.userRegister.email;
       this.password = form.userRegister.pass;
       this.subscription = form.userRegister.subscription;

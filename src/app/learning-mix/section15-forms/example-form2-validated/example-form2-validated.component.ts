@@ -19,7 +19,6 @@ export class ExampleForm2ValidatedComponent {
   constructor(private section15Service: Section15ShareService) {}
 
   suggestUserName() {
-    console.log(this.userFrom);
     this.userFrom.form.patchValue({
       userData: {
         username: 'SupeUserName',

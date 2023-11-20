@@ -40,7 +40,6 @@ export class Section18HttpReqComponent implements OnInit {
       .get<{ [key: string]: PostModel }>(this.fireBasePostUrl)
       .pipe(
         map((response) => {
-          console.log(response);
           const posts: PostModel[] = [];
           for (const key in response) {
             if (response.hasOwnProperty(key)) {
