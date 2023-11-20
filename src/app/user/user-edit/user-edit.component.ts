@@ -42,9 +42,9 @@ export class UserEditComponent
 
     this.paramSubscription = this.route.params.subscribe((params: Params) => {
       const userId: string = params['id'];
-      if (userId && !Number.isNaN(userId)) {
+      if (userId && userId !== undefined) {
         this.userDatabaseService
-          .findById(Number.parseFloat(userId))
+          .findUserById(userId)
           .subscribe((data) => {
             if (data) {
               this.user = data;
