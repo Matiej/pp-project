@@ -43,14 +43,12 @@ export class UserEditComponent
     this.paramSubscription = this.route.params.subscribe((params: Params) => {
       const userId: string = params['id'];
       if (userId && userId !== undefined) {
-        this.userDatabaseService
-          .findUserById(userId)
-          .subscribe((data) => {
-            if (data) {
-              this.user = data;
-              this.fillOutForm(data);
-            }
-          });
+        this.userDatabaseService.findUserById(userId).subscribe((data) => {
+          if (data) {
+            this.user = data;
+            this.fillOutForm(data);
+          }
+        });
       }
     });
 
@@ -116,13 +114,25 @@ export class UserEditComponent
       userToSve.id = this.user.id;
     }
 
-    this.userDatabaseService.saveUser(userToSve);
-    this.userSharedSevice.updateUserDataNotify();
-    this.userSharedSevice.sendToastMessage(
-      TOAST_MESSAGES.USER_ADDED_SUCCESSFULLY,
-      TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
-    );
-    this.changesSaved = true;
+    this.userDatabaseService
+      .saveUserFirebase(userToSve)
+      .subscribe((user: User | undefined) => {
+        if (user) {
+          this.userSharedSevice.updateUserDataNotify();
+          this.userSharedSevice.sendToastMessage(
+            TOAST_MESSAGES.USER_ADDED_SUCCESSFULLY,
+            TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
+          );
+          this.changesSaved = true;
+        } else {
+          this.userSharedSevice.updateUserDataNotify();
+          this.userSharedSevice.sendToastMessage(
+            TOAST_MESSAGES.ERROR_ADDING_USER,
+            TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+          );
+          this.changesSaved = false;
+        }
+      });
   }
 
   private fillOutForm(user: User): void {
