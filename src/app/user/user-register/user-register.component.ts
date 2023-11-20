@@ -141,7 +141,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     const promise = new Promise<any>((resolve, reject) => {
       setTimeout(() => {
         this.userDatabaseService.findByEmail(emialToCheck).subscribe((data) => {
-        
           if (data && data.email == emialToCheck) {
             resolve({ isEmailExist: true });
           } else {
@@ -170,28 +169,38 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     userToSve.answer = formData.answer;
     userToSve.password = formData.password;
     userToSve.matchPassword = formData.matchpassword;
-    
+
     this.isSpinning = true;
 
-    setTimeout(() => {
-      this.userDatabaseService.saveUser(userToSve);
-      this.userSharedSevice.updateUserDataNotify();
-
-      this.isSaved = true;
-      this.isSpinning = false;
-      this.registerForm.reset();
-      this.registerForm.patchValue({
-        userData: {
-          petSelect: 'car',
-        },
-        genderSelect: 'other',
+    this.userDatabaseService
+      .saveUserFirebase(userToSve)
+      .subscribe((user: User | undefined) => {
+        if (user) {
+          this.isSaved = true;
+          this.registerForm.reset();
+          this.registerForm.patchValue({
+            userData: {
+              petSelect: 'car',
+            },
+            genderSelect: 'other',
+          });
+          this.userSharedSevice.updateUserDataNotify();
+          this.isSpinning = false;
+          this.showToastMessage(
+            TOAST_MESSAGES.USER_REGISTERED_SUCCESSFULLY,
+            2500,
+            TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
+          );
+        } else {
+          this.isSaved = false;
+          this.isSpinning = false;
+          this.showToastMessage(
+            TOAST_MESSAGES.USER_REGISTERED_ERROR,
+            2500,
+            TOAST_MESSAGES.ERROR_ADDING_USER
+          );
+        }
       });
-      this.showToastMessage(
-        TOAST_MESSAGES.USER_REGISTERED_SUCCESSFULLY,
-        2500,
-        TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
-      );
-    }, 2500);
   }
 
   private showToastMessage(
