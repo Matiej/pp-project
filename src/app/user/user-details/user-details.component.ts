@@ -38,7 +38,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       this.userSharedService.updateUserDataNotify();
       this.userSharedService.sendToastMessage(
         TOAST_MESSAGES.USER_REMOVED_SUCCESSFULLY,
-        TOAST_MESSAGES.REMOVE_MESSAGE_STYLE
+        TOAST_MESSAGES.DANGER_MESSAGE_STYLE
       );
     }
   }
