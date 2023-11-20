@@ -201,11 +201,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
           );
         }
       });
-
-    // setTimeout(() => {
-    //   // this.userDatabaseService.saveUser(userToSve);
-    //   this.userSharedSevice.updateUserDataNotify();
-    // }, 2500);
   }
 
   private showToastMessage(
