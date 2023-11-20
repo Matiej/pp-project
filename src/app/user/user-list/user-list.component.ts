@@ -13,6 +13,7 @@ import { User } from '../user-model';
 export class UserListComponent implements OnInit, OnDestroy {
   sub!: Subscription;
   userList: User[] = [];
+  isFetching: boolean = false;
 
   constructor(
     private userDbService: UserDatabaseService,
@@ -33,11 +34,13 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   private subscribeUsers(): void {
+    this.isFetching = true;
     this.sub = this.userDbService.findAllUsers().subscribe((data) => {
       this.userList = data;
       if (this.userList.length > 0) {
         this.router.navigate([this.userList[0].id], { relativeTo: this.route });
       }
+      this.isFetching = false;
     });
   }
 }
