@@ -1,7 +1,12 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { map } from 'rxjs';
+import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { PostModel } from './post-model';
 
 @Component({
@@ -14,6 +19,9 @@ export class Section18HttpReqComponent implements OnInit {
     'https://ppproject-35b60-default-rtdb.firebaseio.com/posts.json';
   loadedPosts: PostModel[] = [];
   isFetchingPosts: boolean = false;
+  postToastMessage: string = '';
+  showToast: boolean = false;
+  toastMessageClass: string = 'success-toast';
 
   constructor(private http: HttpClient) {}
 
@@ -74,9 +82,35 @@ export class Section18HttpReqComponent implements OnInit {
           return posts;
         })
       )
-      .subscribe((fetchedPosts: PostModel[]) => {
-        this.loadedPosts = fetchedPosts;
-        this.isFetchingPosts = false;
-      });
+      .subscribe(
+        (fetchedPosts: PostModel[]) => {
+          this.loadedPosts = fetchedPosts;
+          this.isFetchingPosts = false;
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Error while fetching posts: ', error.message);
+          this.isFetchingPosts = false;
+          this.showToastMessage(
+            TOAST_MESSAGES.FETCHING_POSTS_ERROR + ' --- ' + error.error.error,
+            4000,
+            TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+          );
+        }
+      );
+  }
+
+  private showToastMessage(
+    message: string,
+    timeout: number,
+    messageStyle: string
+  ): void {
+    this.postToastMessage = message;
+    this.showToast = true;
+    this.toastMessageClass = messageStyle;
+    setTimeout(() => {
+      this.showToast = false;
+      this.postToastMessage = '';
+      this.toastMessageClass = '';
+    }, timeout);
   }
 }
