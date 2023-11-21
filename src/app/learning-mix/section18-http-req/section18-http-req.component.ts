@@ -32,9 +32,8 @@ export class Section18HttpReqComponent implements OnInit {
   onCreatePost(form: NgForm): void {
     const post: PostModel = form.value;
     console.log(post);
-    this.http
-      .post<{ name: string }>(this.fireBasePostUrl, post)
-      .subscribe((response) => {
+    this.http.post<{ name: string }>(this.fireBasePostUrl, post).subscribe(
+      (response) => {
         console.log(response);
         this.fetchPostsFromFirebase();
         form.resetForm();
@@ -49,25 +48,25 @@ export class Section18HttpReqComponent implements OnInit {
         );
         form.resetForm();
       }
-      );
+    );
   }
 
   onClearPosts() {
     this.isFetchingPosts = true;
-    this.http.delete(this.fireBasePostUrl).subscribe(() => {
-      this.isFetchingPosts = false;
-      this.fetchPostsFromFirebase();
-    },
-    (error: HttpErrorResponse) => {
-      console.error('Error while deleting posts: ', error.message);
-      this.isFetchingPosts = false;
-      this.showToastMessage(
-        TOAST_MESSAGES.DELETING_POSTS_ERROR + ' --- ' + error.error.error,
-        4000,
-        TOAST_MESSAGES.DANGER_MESSAGE_STYLE
-      );
-    }
-    
+    this.http.delete(this.fireBasePostUrl).subscribe(
+      () => {
+        this.isFetchingPosts = false;
+        this.fetchPostsFromFirebase();
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error while deleting posts: ', error.message);
+        this.isFetchingPosts = false;
+        this.showToastMessage(
+          TOAST_MESSAGES.DELETING_POSTS_ERROR + ' --- ' + error.error.error,
+          4000,
+          TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+        );
+      }
     );
   }
 
@@ -78,20 +77,20 @@ export class Section18HttpReqComponent implements OnInit {
   onDeleteSinglePost(post: PostModel) {
     this.isFetchingPosts = true;
     let params = new HttpParams().append('name', post.id!);
-    this.http.delete(this.fireBasePostUrl, { params: params }).subscribe(() => {
-      this.fetchPostsFromFirebase();
-      this.isFetchingPosts = false;
-    },
-    (error: HttpErrorResponse) => {
-      console.error('Error while deleting post: ' + post.id, error.message);
-      this.isFetchingPosts = false;
-      this.showToastMessage(
-        TOAST_MESSAGES.DELETING_POSTS_ERROR + ' --- ' + error.error.error,
-        4000,
-        TOAST_MESSAGES.DANGER_MESSAGE_STYLE
-      );
-    }
-    
+    this.http.delete(this.fireBasePostUrl, { params: params }).subscribe(
+      () => {
+        this.fetchPostsFromFirebase();
+        this.isFetchingPosts = false;
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error while deleting post: ' + post.id, error.message);
+        this.isFetchingPosts = false;
+        this.showToastMessage(
+          TOAST_MESSAGES.DELETING_POSTS_ERROR + ' --- ' + error.error.error,
+          4000,
+          TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+        );
+      }
     );
   }
 
