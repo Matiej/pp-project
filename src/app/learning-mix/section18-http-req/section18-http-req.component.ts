@@ -47,6 +47,7 @@ export class Section18HttpReqComponent implements OnInit {
           4000,
           TOAST_MESSAGES.DANGER_MESSAGE_STYLE
         );
+        form.resetForm();
       }
       );
   }
