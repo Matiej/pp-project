@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { map } from 'rxjs';
 import { PostModel } from './post-model';
 
@@ -20,13 +21,17 @@ export class Section18HttpReqComponent implements OnInit {
     this.fetchPostsFromFirebase();
   }
 
-  onCreatePost(post: PostModel): void {
+  onCreatePost(form: NgForm): void {
+    const post: PostModel = form.value;
     console.log(post);
     this.http
       .post<{ name: string }>(this.fireBasePostUrl, post)
       .subscribe((response) => {
         console.log(response);
+        this.fetchPostsFromFirebase();
       });
+      form.resetForm();
+      
   }
 
   onClearPosts() {}

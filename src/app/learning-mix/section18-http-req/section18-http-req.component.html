@@ -1,9 +1,7 @@
 <div class="container">
-
-
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
-      <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
+      <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm)">
         <div class="form-group">
           <label for="title">Title</label>
           <input
@@ -54,30 +52,31 @@
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <div
-      *ngIf="isFetchingPosts"
-      class="text-center"
-      style="
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      "
-    >
-      <div class="spinner"></div>
-    </div>
+        *ngIf="isFetchingPosts"
+        class="text-center"
+        style="
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        "
+      >
+        <div class="spinner"></div>
+      </div>
       <p *ngIf="loadedPosts.length < 1">No posts available!</p>
       <dl class="list-group" *ngIf="loadedPosts.length > 0"></dl>
-      <div class="list-group-item" *ngFor="let post of loadedPosts; let i = index">
-        <dt >
+      <div
+        class="list-group-item"
+        *ngFor="let post of loadedPosts; let i = index"
+      >
+        <dt>
           <i>-{{ i + 1 }}-</i>
         </dt>
         <dt>Title:</dt>
         <dd>{{ post.title }}</dd>
         <dt>Content:</dt>
         <dd>{{ post.content }}</dd>
-  
       </div>
     </div>
   </div>
-
 </div>
