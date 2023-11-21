@@ -37,8 +37,18 @@ export class Section18HttpReqComponent implements OnInit {
       .subscribe((response) => {
         console.log(response);
         this.fetchPostsFromFirebase();
-      });
-    form.resetForm();
+        form.resetForm();
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error while saving posts: ' + post.id, error.message);
+        this.isFetchingPosts = false;
+        this.showToastMessage(
+          TOAST_MESSAGES.SAVING_POST_ERROR + ' --- ' + error.error.error,
+          4000,
+          TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+        );
+      }
+      );
   }
 
   onClearPosts() {
@@ -46,7 +56,18 @@ export class Section18HttpReqComponent implements OnInit {
     this.http.delete(this.fireBasePostUrl).subscribe(() => {
       this.isFetchingPosts = false;
       this.fetchPostsFromFirebase();
-    });
+    },
+    (error: HttpErrorResponse) => {
+      console.error('Error while deleting posts: ', error.message);
+      this.isFetchingPosts = false;
+      this.showToastMessage(
+        TOAST_MESSAGES.DELETING_POSTS_ERROR + ' --- ' + error.error.error,
+        4000,
+        TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+      );
+    }
+    
+    );
   }
 
   onFetchPosts() {
@@ -59,7 +80,18 @@ export class Section18HttpReqComponent implements OnInit {
     this.http.delete(this.fireBasePostUrl, { params: params }).subscribe(() => {
       this.fetchPostsFromFirebase();
       this.isFetchingPosts = false;
-    });
+    },
+    (error: HttpErrorResponse) => {
+      console.error('Error while deleting post: ' + post.id, error.message);
+      this.isFetchingPosts = false;
+      this.showToastMessage(
+        TOAST_MESSAGES.DELETING_POSTS_ERROR + ' --- ' + error.error.error,
+        4000,
+        TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+      );
+    }
+    
+    );
   }
 
   private fetchPostsFromFirebase() {

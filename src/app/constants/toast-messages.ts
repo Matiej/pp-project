@@ -8,5 +8,7 @@ export const TOAST_MESSAGES = {
   USER_REGISTERED_SUCCESSFULLY: 'User registered successfully!',
   USER_REGISTERED_ERROR: 'User registering error!',
   SUCCESS_MESSAGE_STYLE: 'success-toast',
-  FETCHING_POSTS_ERROR: 'Fetching posts error Occurred!'
+  FETCHING_POSTS_ERROR: 'Fetching posts error Occurred!',
+  SAVING_POST_ERROR: 'Saving post error Occurred!',
+  DELETING_POSTS_ERROR: 'Deleting posts error Occurred!'
 };
