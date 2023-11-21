@@ -76,6 +76,8 @@
         <dd>{{ post.title }}</dd>
         <dt>Content:</dt>
         <dd>{{ post.content }}</dd>
+        <hr>
+        <button class="btn btn-danger" (click)="onDeleteSinglePost(post)">Delete</button>
       </div>
     </div>
   </div>

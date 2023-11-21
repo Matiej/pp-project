@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { map } from 'rxjs';
@@ -30,13 +30,28 @@ export class Section18HttpReqComponent implements OnInit {
         console.log(response);
         this.fetchPostsFromFirebase();
       });
-      form.resetForm();
-      
+    form.resetForm();
   }
 
-  onClearPosts() {}
+  onClearPosts() {
+    this.isFetchingPosts = true;
+    this.http.delete(this.fireBasePostUrl).subscribe(() => {
+      this.isFetchingPosts = false;
+      this.fetchPostsFromFirebase();
+    });
+  }
+
   onFetchPosts() {
     this.fetchPostsFromFirebase();
+  }
+
+  onDeleteSinglePost(post: PostModel) {
+    this.isFetchingPosts = true;
+    let params = new HttpParams().append('name', post.id!);
+    this.http.delete(this.fireBasePostUrl, { params: params }).subscribe(() => {
+      this.fetchPostsFromFirebase();
+      this.isFetchingPosts = false;
+    });
   }
 
   private fetchPostsFromFirebase() {
