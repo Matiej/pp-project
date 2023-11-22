@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -41,6 +42,7 @@ export class UserEditComponent
     });
 
     this.paramSubscription = this.route.params.subscribe((params: Params) => {
+      // this.userSharedSevice.spinnerEmitter.emit(true);
       const userId: string = params['id'];
       if (userId && userId !== undefined) {
         this.userDatabaseService.findUserById(userId).subscribe((data) => {
@@ -48,6 +50,7 @@ export class UserEditComponent
             this.user = data;
             this.fillOutForm(data);
           }
+          // this.userSharedSevice.spinnerEmitter.emit(false);
         });
       }
     });
@@ -101,38 +104,51 @@ export class UserEditComponent
   }
 
   public onButtonClick() {
+    this.userSharedSevice.spinnerEmitter.emit(true);
     const formData = this.userForm.value;
-
     let userToSve = new User(
       formData.name,
       formData.lastName,
       formData.email,
-      formData.birthYear
+      formData.birthYear,
+      true
     );
 
     if (this.user && this.user.id) {
       userToSve.id = this.user.id;
     }
 
-    this.userDatabaseService
-      .saveUserFirebase(userToSve)
-      .subscribe((user: User | undefined) => {
+    this.userDatabaseService.saveUserFirebase(userToSve).subscribe(
+      (user: User | undefined) => {
         if (user) {
           this.userSharedSevice.updateUserDataNotify();
           this.userSharedSevice.sendToastMessage(
             TOAST_MESSAGES.USER_ADDED_SUCCESSFULLY,
-            TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
+            TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE,
+            3000
           );
           this.changesSaved = true;
+          this.userSharedSevice.spinnerEmitter.emit(false);
         } else {
           this.userSharedSevice.updateUserDataNotify();
           this.userSharedSevice.sendToastMessage(
             TOAST_MESSAGES.ERROR_ADDING_USER,
-            TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+            TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
+            4000
           );
           this.changesSaved = false;
+          this.userSharedSevice.spinnerEmitter.emit(false);
         }
-      });
+      },
+      (error: HttpErrorResponse) => {
+        this.userSharedSevice.spinnerEmitter.emit(false);
+        this.userSharedSevice.sendToastMessage(
+          TOAST_MESSAGES.ERROR_USER_REMOVING + '---' + error.error.error,
+          TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
+          4000
+        );
+      }
+    );
   }
 
   private fillOutForm(user: User): void {

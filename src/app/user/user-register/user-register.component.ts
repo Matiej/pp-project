@@ -54,6 +54,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
           [Validators.required],
           [this.allowedGenderValidator]
         ),
+        editRadio: new FormControl('Uneditable'),
         aboutYou: new FormControl(null),
       }),
       useremail: new FormControl(
@@ -158,7 +159,8 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       formData.userData.username,
       formData.userData.surname,
       formData.userData.useremail,
-      formData.userData.birthyear
+      formData.userData.birthyear,
+      formData.editRadio === 'Editable' ? true : false
     );
 
     userToSve.address1 = formData.userData.address1;
@@ -181,6 +183,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
           this.registerForm.patchValue({
             userData: {
               petSelect: 'car',
+              editRadoi: 'Uneditable',
             },
             genderSelect: 'other',
           });

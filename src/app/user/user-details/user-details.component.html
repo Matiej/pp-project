@@ -44,7 +44,7 @@
                   class="btn btn-warning btn-user-detail"
                   [routerLink]="['/user', user.id, 'edit']"
                   [queryParams]="{
-                    allowEdit: user.id === '1' ? '1' : '0',
+                    allowEdit: user.editable ? '1' : '0',
                     version: 'editComponent'
                   }"
                 >

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -34,12 +35,34 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   onRemoveUser() {
-    if (this.userDatabaseService.removeById(this.user!.id)) {
-      this.userSharedService.updateUserDataNotify();
-      this.userSharedService.sendToastMessage(
-        TOAST_MESSAGES.USER_REMOVED_SUCCESSFULLY,
-        TOAST_MESSAGES.DANGER_MESSAGE_STYLE
-      );
-    }
+    this.userSharedService.spinnerEmitter.emit(true);
+    this.userDatabaseService.removeById(this.user!.id).subscribe(
+      (isRemoved: boolean) => {
+        if (isRemoved) {
+          this.userSharedService.updateUserDataNotify();
+          this.userSharedService.spinnerEmitter.emit(false);
+          this.userSharedService.sendToastMessage(
+            TOAST_MESSAGES.USER_REMOVED_SUCCESSFULLY,
+            TOAST_MESSAGES.DANGER_MESSAGE_STYLE,
+            3000
+          );
+        } else {
+          this.userSharedService.spinnerEmitter.emit(false);
+          this.userSharedService.sendToastMessage(
+            TOAST_MESSAGES.ERROR_USER_REMOVING,
+            TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
+            4000
+          );
+        }
+      },
+      (error: HttpErrorResponse) => {
+        this.userSharedService.spinnerEmitter.emit(false);
+        this.userSharedService.sendToastMessage(
+          TOAST_MESSAGES.ERROR_USER_REMOVING + '---' + error.error.error,
+          TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
+          4000
+        );
+      }
+    );
   }
 }
