@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../user-model';
@@ -12,11 +12,20 @@ export class FirebaseUserDatabaseConnService {
 
   constructor(private http: HttpClient) {}
 
-  public saveUser(user: User): Observable<any> {
+  public saveUser(user: User): Observable<{name: string}> {
     return this.http.post<{ name: string }>(this.fireBaseUsertUrl, user);
   }
 
   public findAllUsers(): Observable<{ [key: string]: User }> {
     return this.http.get<{ [key: string]: User }>(this.fireBaseUsertUrl);
+  }
+
+  public deleteAllUsers(): Observable<boolean> {
+    return this.http.delete<boolean>(this.fireBaseUsertUrl);
+  }
+
+  public deleteUserById(userID: string): Observable<boolean> {
+    let params = new HttpParams().append('name', userID);
+    return this.http.delete<boolean>(this.fireBaseUsertUrl, { params: params });
   }
 }

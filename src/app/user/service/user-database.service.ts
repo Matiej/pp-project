@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of, switchMap } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 import { FirebaseUserDatabaseConnService } from '../db/firebase-user-database-conn.service';
 import { InMemoryUserDataBase } from '../db/in-memory-user-database';
 import { User } from '../user-model';
@@ -17,7 +17,7 @@ export class UserDatabaseService {
       'Maciek',
       'Wojcik',
       'maciek@usereml.com',
-      1979
+      1979, false
     );
     user1.password = 'admin';
     user1.matchPassword = 'admin';
@@ -26,36 +26,33 @@ export class UserDatabaseService {
       'Anna',
       'Monetta',
       'annamoneta@usereml.com',
-      1995
+      1995, true
     );
     user2.password = 'admin';
     user2.matchPassword = 'admin';
-    
-    // this.saveUserFirebase(user1)?.subscribe((data) => {
-    //   console.log('subscribing to save the user. Saved date: ', data);
-    // });
-    // this.saveUserFirebase(user2)?.subscribe((data) => {
-    //   console.log('subscribing to save the user. Saved date: ', data);
-    // });
+
+    this.saveUserFirebase(user1)?.subscribe((data) => {
+      console.log('subscribing to save the user. Saved date: ', data);
+    });
+    this.saveUserFirebase(user2)?.subscribe((data) => {
+      console.log('subscribing to save the user. Saved date: ', data);
+    });
   }
 
-  saveUserFirebase(user: User): Observable<User | undefined> {
+  public saveUserFirebase(user: User): Observable<User | undefined> {
     return this.userFirebaseDB.saveUser(user).pipe(
       switchMap((savedUserID: { name: string }) => {
-        console.log('saving user... : ', savedUserID.name)
-        return this.findUserById(savedUserID.name);
-      }),
-      catchError((error) => {
-        return of(undefined);
+        console.log('saving user... : ', savedUserID.name);
+
+        const savedUser: Observable<User | undefined> = this.findUserById(
+          savedUserID.name
+        );
+        return savedUser;
       })
     );
   }
 
-  findById(id: number): Observable<User | undefined> {
-    return of(this._usermDatabase.get(id.toString()));
-  }
-
-  findUserById(id: string): Observable<User | undefined> {
+  public findUserById(id: string): Observable<User | undefined> {
     return this.findAllUsers().pipe(
       map((users) => {
         return users.length > 0
@@ -65,7 +62,7 @@ export class UserDatabaseService {
     );
   }
 
-   findByEmail(email: string): Observable<User | undefined> {
+  public findByEmail(email: string): Observable<User | undefined> {
     return this.findAllUsers().pipe(
       map((users: User[]) => {
         const user: User | undefined = users.find(callback_user);
@@ -81,11 +78,11 @@ export class UserDatabaseService {
     );
   }
 
-  removeById(id: string): boolean {
-    return this._usermDatabase.remove(id);
+  public removeById(id: string): Observable<boolean> {
+    return this.userFirebaseDB.deleteUserById(id);
   }
 
-  getNumberOfItems(): number {
+  public getNumberOfItems(): number {
     return this.userFirebaseDB.findAllUsers.length;
   }
 
@@ -109,7 +106,8 @@ export class UserDatabaseService {
       userData.name,
       userData.lastName,
       userData.email,
-      userData.birthYear
+      userData.birthYear,
+      userData.editRadio
     );
     user.id = key;
     if (userData._password) user.password = userData._password;
