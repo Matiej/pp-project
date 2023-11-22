@@ -17,7 +17,8 @@ export class UserDatabaseService {
       'Maciek',
       'Wojcik',
       'maciek@usereml.com',
-      1979, false
+      1979,
+      false
     );
     user1.password = 'admin';
     user1.matchPassword = 'admin';
@@ -26,17 +27,18 @@ export class UserDatabaseService {
       'Anna',
       'Monetta',
       'annamoneta@usereml.com',
-      1995, true
+      1995,
+      true
     );
     user2.password = 'admin';
     user2.matchPassword = 'admin';
 
-    this.saveUserFirebase(user1)?.subscribe((data) => {
-      console.log('subscribing to save the user. Saved date: ', data);
-    });
-    this.saveUserFirebase(user2)?.subscribe((data) => {
-      console.log('subscribing to save the user. Saved date: ', data);
-    });
+    // this.saveUserFirebase(user1)?.subscribe((data) => {
+    //   console.log('subscribing to save the user. Saved date: ', data);
+    // });
+    // this.saveUserFirebase(user2)?.subscribe((data) => {
+    //   console.log('subscribing to save the user. Saved date: ', data);
+    // });
   }
 
   public saveUserFirebase(user: User): Observable<User | undefined> {
@@ -107,7 +109,7 @@ export class UserDatabaseService {
       userData.lastName,
       userData.email,
       userData.birthYear,
-      userData.editRadio
+      userData.editable
     );
     user.id = key;
     if (userData._password) user.password = userData._password;

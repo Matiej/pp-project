@@ -9,7 +9,9 @@ export class UserSharedService {
   private _toastMessageEmiter: EventEmitter<{
     message: string;
     styleClass: string;
+    timeout: number
   }> = new EventEmitter();
+  private _spinnerEmitter: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private userDatabaseService: UserDatabaseService) {}
 
@@ -24,11 +26,19 @@ export class UserSharedService {
   public get toastMessageEmiter(): EventEmitter<{
     message: string;
     styleClass: string;
+    timeout: number;
   }> {
     return this._toastMessageEmiter;
   }
 
-  public sendToastMessage(message: string, styleClass: string): void {
-    this._toastMessageEmiter.emit({ message: message, styleClass: styleClass });
+  public sendToastMessage(message: string, styleClass: string, timeout: number): void {
+    this._toastMessageEmiter.emit({ message: message, styleClass: styleClass, timeout });
+  }
+
+  public get spinnerEmitter(): EventEmitter<boolean> {
+    return this._spinnerEmitter;
+  }
+  public set spinnerEmitter(value: EventEmitter<boolean>) {
+    this._spinnerEmitter = value;
   }
 }
