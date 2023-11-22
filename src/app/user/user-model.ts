@@ -4,7 +4,7 @@ export class User {
   public lastName: string;
   public email: string;
   public birthYear: number;
-
+  public editable: boolean;
   private _password!: string;
   private _matchPassword!: string;
   private _address1!: string;
@@ -19,12 +19,14 @@ export class User {
     name: string,
     lastName: string,
     email: string,
-    birthYear: number
+    birthYear: number,
+    editable: boolean
   ) {
     this.name = name;
     this.lastName = lastName;
     this.email = email;
     this.birthYear = birthYear;
+    this.editable = editable;
   }
 
   get id(): string {
