@@ -118,7 +118,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xs-6">
+          <div class="col-xs-4">
             <label for="genderSelect">Select you gender</label>
             <select
               class="form-control"
@@ -150,6 +150,36 @@
               >
             </span>
           </div>
+
+          <div class="col-xs-2">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="editRadio"
+                id="editRadio1"
+                value="Editable"
+                formControlName="editRadio"
+              />
+              <label class="form-check-label" for="exampleRadios1">
+                Editable
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="editRadio"
+                id="editRadio2"
+                value="Uneditable"
+                formControlName="editRadio"
+              />
+              <label class="form-check-label" for="exampleRadios2">
+                Uneditable
+              </label>
+            </div>
+          </div>
+
           <div class="col-xs-6">
             <label for="aboutYou">Write something about you</label>
             <textarea
