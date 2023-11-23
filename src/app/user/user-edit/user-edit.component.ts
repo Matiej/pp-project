@@ -40,17 +40,19 @@ export class UserEditComponent
       email: ['', Validators.required],
       birthYear: ['', Validators.required],
     });
+ 
 
     this.paramSubscription = this.route.params.subscribe((params: Params) => {
-      // this.userSharedSevice.spinnerEmitter.emit(true);
       const userId: string = params['id'];
       if (userId && userId !== undefined) {
+        this.userSharedSevice.showSpinner(true);
         this.userDatabaseService.findUserById(userId).subscribe((data) => {
           if (data) {
             this.user = data;
             this.fillOutForm(data);
+            this.userSharedSevice.showSpinner(false);
           }
-          // this.userSharedSevice.spinnerEmitter.emit(false);
+          this.userSharedSevice.showSpinner(false);
         });
       }
     });
@@ -104,7 +106,7 @@ export class UserEditComponent
   }
 
   public onButtonClick() {
-    this.userSharedSevice.spinnerEmitter.emit(true);
+    this.userSharedSevice.showSpinner(true);
     const formData = this.userForm.value;
     let userToSve = new User(
       formData.name,
@@ -123,12 +125,12 @@ export class UserEditComponent
         if (user) {
           this.userSharedSevice.updateUserDataNotify();
           this.userSharedSevice.sendToastMessage(
-            TOAST_MESSAGES.USER_ADDED_SUCCESSFULLY,
+            TOAST_MESSAGES.USER_SAVED_SUCCESSFULLY,
             TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE,
             3000
           );
           this.changesSaved = true;
-          this.userSharedSevice.spinnerEmitter.emit(false);
+          this.userSharedSevice.showSpinner(false);
         } else {
           this.userSharedSevice.updateUserDataNotify();
           this.userSharedSevice.sendToastMessage(
@@ -137,11 +139,11 @@ export class UserEditComponent
             4000
           );
           this.changesSaved = false;
-          this.userSharedSevice.spinnerEmitter.emit(false);
+          this.userSharedSevice.showSpinner(false);
         }
       },
       (error: HttpErrorResponse) => {
-        this.userSharedSevice.spinnerEmitter.emit(false);
+        this.userSharedSevice.showSpinner(false);
         this.userSharedSevice.sendToastMessage(
           TOAST_MESSAGES.ERROR_USER_REMOVING + '---' + error.error.error,
           TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
