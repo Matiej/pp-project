@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -18,7 +18,7 @@ import { User } from '../user-model';
   templateUrl: './user-register.component.html',
   styleUrls: ['./user-register.component.css'],
 })
-export class UserRegisterComponent implements OnInit, OnDestroy {
+export class UserRegisterComponent implements OnInit  {
   isSaved: boolean = false;
   readonly registerFormTitle: string = 'Register your account';
   registerForm!: FormGroup;
@@ -28,12 +28,13 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   toastMessageClass: string = '';
   showToast: boolean = false;
   userToastMessage: string = '';
-
+ 
   constructor(
     private userSharedSevice: UserSharedService,
     private userDatabaseService: UserDatabaseService,
     private router: Router
   ) {
+    //is necessary because fuction is out of scoop for this
     this.emailExistValidator = this.emailExistValidator.bind(this);
   }
 
@@ -74,10 +75,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
         this.matchPasswordValidator.bind(this),
       ]),
     });
-  }
-
-  ngOnDestroy(): void {
-    // throw new Error('Method not implemented.');
   }
 
   canComponentDeactivate(): boolean | Observable<boolean> | Promise<boolean> {

@@ -35,19 +35,19 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   onRemoveUser() {
-    this.userSharedService.spinnerEmitter.emit(true);
+    this.userSharedService.showSpinner(true);
     this.userDatabaseService.removeById(this.user!.id).subscribe(
       (isRemoved: boolean) => {
         if (isRemoved) {
           this.userSharedService.updateUserDataNotify();
-          this.userSharedService.spinnerEmitter.emit(false);
+          this.userSharedService.showSpinner(false);
           this.userSharedService.sendToastMessage(
             TOAST_MESSAGES.USER_REMOVED_SUCCESSFULLY,
             TOAST_MESSAGES.DANGER_MESSAGE_STYLE,
             3000
           );
         } else {
-          this.userSharedService.spinnerEmitter.emit(false);
+          this.userSharedService.showSpinner(false);
           this.userSharedService.sendToastMessage(
             TOAST_MESSAGES.ERROR_USER_REMOVING,
             TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
@@ -56,7 +56,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         }
       },
       (error: HttpErrorResponse) => {
-        this.userSharedService.spinnerEmitter.emit(false);
+        this.userSharedService.showSpinner(false);
         this.userSharedService.sendToastMessage(
           TOAST_MESSAGES.ERROR_USER_REMOVING + '---' + error.error.error,
           TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,

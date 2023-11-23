@@ -15,7 +15,6 @@ import { User } from '../user-model';
 export class UserListComponent implements OnInit, OnDestroy {
   sub!: Subscription;
   userList: User[] = [];
-  isFetching: boolean = false;
 
   constructor(
     private userDbService: UserDatabaseService,
@@ -36,7 +35,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   private subscribeUsers(): void {
-    this.isFetching = true;
+    this.userSharedService.showSpinner(true)
+
     this.sub = this.userDbService.findAllUsers().subscribe(
       (data) => {
         this.userList = data;
@@ -44,13 +44,17 @@ export class UserListComponent implements OnInit, OnDestroy {
           this.router.navigate([this.userList[0].id], {
             relativeTo: this.route,
           });
+
+          this.userSharedService.showSpinner(false);
         }
-        this.isFetching = false;
+        this.userSharedService.showSpinner(false);
       },
       (error: HttpErrorResponse) => {
-        this.userSharedService.spinnerEmitter.emit(false);
+        this.userSharedService.showSpinner(false);
         this.userSharedService.sendToastMessage(
-          TOAST_MESSAGES.ERROR_USER_REMOVING + '---' + error.error.error,
+          TOAST_MESSAGES.ERROR_USER_REMOVING +
+            '--- Server error: ' +
+            error.error.error,
           TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
           4000
         );
