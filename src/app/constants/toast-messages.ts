@@ -3,7 +3,7 @@ export const TOAST_MESSAGES = {
   WISH_REMOVED_SUCCESSFULLY: 'Wish removed successfully!',
   USER_REMOVED_SUCCESSFULLY: 'User removed successfully!',
   ERROR_USER_REMOVING: 'An ERROR occurred while deleting a user!',
-  USER_ADDED_SUCCESSFULLY: 'User added successfully!',
+  USER_SAVED_SUCCESSFULLY: 'User saved successfully!',
   LOGGED_SUCCESSFULLY: 'Logged successfully!',
   WRONG_USERNAME_OR_PASS: 'Wrong username or password!',
   ERROR_LOGGING: 'Error logging',
