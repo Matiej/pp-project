@@ -85,7 +85,7 @@
         <button
           class="btn btn-primary btn-lg"
           type="button"
-          style="width: 200px;  "
+          style="width: 200px"
           [routerLink]="['/user', 'register']"
         >
           Register
@@ -132,5 +132,20 @@
         </div>
       </div>
     </div>
+  </div>
+  <div
+    *ngIf="isSpinning"
+    class="text-center"
+    style="
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    "
+  >
+    <div class="spinner"></div>
+  </div>
+  <div class="{{ toastMessageClass }}" *ngIf="showToast">
+    {{ userToastMessage }}
   </div>
 </div>
