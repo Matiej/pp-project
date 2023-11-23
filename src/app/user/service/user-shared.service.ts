@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UserDatabaseService } from './user-database.service';
 
 @Injectable({
@@ -9,9 +10,9 @@ export class UserSharedService {
   private _toastMessageEmiter: EventEmitter<{
     message: string;
     styleClass: string;
-    timeout: number
+    timeout: number;
   }> = new EventEmitter();
-  private _spinnerEmitter: EventEmitter<boolean> = new EventEmitter();
+  private _spinnerSub = new BehaviorSubject<boolean>(false);
 
   constructor(private userDatabaseService: UserDatabaseService) {}
 
@@ -31,14 +32,23 @@ export class UserSharedService {
     return this._toastMessageEmiter;
   }
 
-  public sendToastMessage(message: string, styleClass: string, timeout: number): void {
-    this._toastMessageEmiter.emit({ message: message, styleClass: styleClass, timeout });
+  public sendToastMessage(
+    message: string,
+    styleClass: string,
+    timeout: number
+  ): void {
+    this._toastMessageEmiter.emit({
+      message: message,
+      styleClass: styleClass,
+      timeout,
+    });
   }
 
-  public get spinnerEmitter(): EventEmitter<boolean> {
-    return this._spinnerEmitter;
+  get spinnerState(): Observable<boolean> {
+    return this._spinnerSub.asObservable();
   }
-  public set spinnerEmitter(value: EventEmitter<boolean>) {
-    this._spinnerEmitter = value;
+
+  public showSpinner(show: boolean) {
+    this._spinnerSub.next(show);
   }
 }
