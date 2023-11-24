@@ -43,7 +43,6 @@ export class UserDatabaseService {
   }
 
   public updateUserFirebase(user: User): Observable<User | undefined> {
- 
     return this.userFirebaseDB.updateUserById(user).pipe(
       map((response: HttpResponse<any>) => {
         if (response.status === 200) {
@@ -68,12 +67,14 @@ export class UserDatabaseService {
     );
   }
 
-  public findUserById(id: string): Observable<User | undefined> {
-    return this.findAllUsers().pipe(
-      map((users) => {
-        return users.length > 0
-          ? users.find((user) => user.id === id)
-          : undefined;
+  public findUserById(userID: string): Observable<User | undefined> {
+    return this.userFirebaseDB.findUserById(userID).pipe(
+      map((response) => {
+        if (response.status === 200) {
+          return this.convertTouSer(response.body, userID);
+        } else {
+          return undefined;
+        }
       })
     );
   }
