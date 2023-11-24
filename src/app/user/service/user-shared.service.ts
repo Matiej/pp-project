@@ -1,6 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserDatabaseService } from './user-database.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,7 @@ export class UserSharedService {
   }> = new EventEmitter();
   private _spinnerSub = new BehaviorSubject<boolean>(false);
 
-  constructor(private userDatabaseService: UserDatabaseService) {}
+  constructor() {}
 
   public get userUpdated(): EventEmitter<void> {
     return this._userUpdated;

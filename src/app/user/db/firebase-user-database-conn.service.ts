@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../user-model';
@@ -8,11 +8,13 @@ import { User } from '../user-model';
 })
 export class FirebaseUserDatabaseConnService {
   readonly fireBaseUsertUrl: string =
-    'https://ppproject-35b60-default-rtdb.firebaseio.com/users.json';
+    'https://anopproject-default-rtdb.europe-west1.firebasedatabase.app/users.json';
+  readonly fireBaseUsertBasicUrl: string =
+    'https://anopproject-default-rtdb.europe-west1.firebasedatabase.app/users/';
 
   constructor(private http: HttpClient) {}
 
-  public saveUser(user: User): Observable<{name: string}> {
+  public saveUser(user: User): Observable<{ name: string }> {
     return this.http.post<{ name: string }>(this.fireBaseUsertUrl, user);
   }
 
@@ -24,8 +26,25 @@ export class FirebaseUserDatabaseConnService {
     return this.http.delete<boolean>(this.fireBaseUsertUrl);
   }
 
-  public deleteUserById(userID: string): Observable<boolean> {
-    let params = new HttpParams().append('name', userID);
-    return this.http.delete<boolean>(this.fireBaseUsertUrl, { params: params });
+  public deleteUserById(userID: string): Observable<HttpResponse<any>> {
+    const partUrl = userID + '.json';
+    return this.http.delete<HttpResponse<any>>(
+      this.fireBaseUsertBasicUrl + partUrl,
+      { observe: 'response' }
+    );
+  }
+
+  public updateUserById(user: User): Observable<HttpResponse<any>> {
+    const updateUrl = this.fireBaseUsertBasicUrl + user.id + '.json';
+    return this.http.put<HttpResponse<any>>(updateUrl, user, {
+      observe: 'response',
+    });
+  }
+
+  public findUserById(userId: string): Observable<HttpResponse<any>> {
+    const userByIdUrl = this.fireBaseUsertBasicUrl + userId + '.json';
+    return this.http.get<HttpResponse<any>>(userByIdUrl, {
+      observe: 'response',
+    });
   }
 }
