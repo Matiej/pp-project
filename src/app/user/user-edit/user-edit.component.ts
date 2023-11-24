@@ -40,7 +40,6 @@ export class UserEditComponent
       email: ['', Validators.required],
       birthYear: ['', Validators.required],
     });
- 
 
     this.paramSubscription = this.route.params.subscribe((params: Params) => {
       const userId: string = params['id'];
@@ -115,12 +114,27 @@ export class UserEditComponent
       formData.birthYear,
       true
     );
+    this.changesSaved = true;
 
     if (this.user && this.user.id) {
-      userToSve.id = this.user.id;
-    }
+      const userToUpdate = this.mergeUpdatedUser(userToSve, this.user);
 
-    this.userDatabaseService.saveUserFirebase(userToSve).subscribe(
+      this.subUser(this.userDatabaseService.updateUserFirebase(userToUpdate));
+    } else {
+      this.subUser(this.userDatabaseService.saveUserFirebase(userToSve));
+    }
+  }
+
+  private mergeUpdatedUser(dataToUpdate: User, currentUser: User): User {
+    currentUser.name = dataToUpdate.name;
+    currentUser.email = dataToUpdate.email;
+    currentUser.lastName = dataToUpdate.lastName;
+    currentUser.birthYear = dataToUpdate.birthYear;
+    return currentUser;
+  }
+
+  private subUser(userSub: Observable<User | undefined>): void {
+    userSub.subscribe(
       (user: User | undefined) => {
         if (user) {
           this.userSharedSevice.updateUserDataNotify();
@@ -129,21 +143,24 @@ export class UserEditComponent
             TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE,
             3000
           );
-          this.changesSaved = true;
+
           this.userSharedSevice.showSpinner(false);
         } else {
           this.userSharedSevice.updateUserDataNotify();
+          this.userSharedSevice.updateUserDataNotify();
+
           this.userSharedSevice.sendToastMessage(
             TOAST_MESSAGES.ERROR_ADDING_USER,
             TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
             4000
           );
-          this.changesSaved = false;
+
           this.userSharedSevice.showSpinner(false);
         }
       },
       (error: HttpErrorResponse) => {
         this.userSharedSevice.showSpinner(false);
+        this.userSharedSevice.updateUserDataNotify();
         this.userSharedSevice.sendToastMessage(
           TOAST_MESSAGES.ERROR_USER_REMOVING + '---' + error.error.error,
           TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
