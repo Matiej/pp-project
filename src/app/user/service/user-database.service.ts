@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, switchMap } from 'rxjs';
 import { FirebaseUserDatabaseConnService } from '../db/firebase-user-database-conn.service';
@@ -41,6 +42,18 @@ export class UserDatabaseService {
     // });
   }
 
+  public updateUserFirebase(user: User): Observable<User | undefined> {
+    return this.userFirebaseDB.updateUserById(user).pipe(
+      map((response: HttpResponse<any>) => {
+        if (response.status === 200) {
+          return this.convertTouSer(response.body, user.id);
+        } else {
+          return undefined;
+        }
+      })
+    );
+  }
+
   public saveUserFirebase(user: User): Observable<User | undefined> {
     return this.userFirebaseDB.saveUser(user).pipe(
       switchMap((savedUserID: { name: string }) => {
@@ -54,12 +67,14 @@ export class UserDatabaseService {
     );
   }
 
-  public findUserById(id: string): Observable<User | undefined> {
-    return this.findAllUsers().pipe(
-      map((users) => {
-        return users.length > 0
-          ? users.find((user) => user.id === id)
-          : undefined;
+  public findUserById(userID: string): Observable<User | undefined> {
+    return this.userFirebaseDB.findUserById(userID).pipe(
+      map((response) => {
+        if (response.status === 200) {
+          return this.convertTouSer(response.body, userID);
+        } else {
+          return undefined;
+        }
       })
     );
   }
@@ -80,8 +95,12 @@ export class UserDatabaseService {
     );
   }
 
-  public removeById(id: string): Observable<boolean> {
-    return this.userFirebaseDB.deleteUserById(id);
+  public removeById(id: string): Observable<number> {
+    return this.userFirebaseDB.deleteUserById(id).pipe(
+      map((response) => {
+        return response.status;
+      })
+    );
   }
 
   public getNumberOfItems(): number {

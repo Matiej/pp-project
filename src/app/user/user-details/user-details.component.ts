@@ -37,8 +37,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   onRemoveUser() {
     this.userSharedService.showSpinner(true);
     this.userDatabaseService.removeById(this.user!.id).subscribe(
-      (isRemoved: boolean) => {
-        if (isRemoved) {
+      (statusCode: number) => {
+     
+        if (statusCode===200) {
           this.userSharedService.updateUserDataNotify();
           this.userSharedService.showSpinner(false);
           this.userSharedService.sendToastMessage(
@@ -48,6 +49,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
           );
         } else {
           this.userSharedService.showSpinner(false);
+          this.userSharedService.updateUserDataNotify();
           this.userSharedService.sendToastMessage(
             TOAST_MESSAGES.ERROR_USER_REMOVING,
             TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
@@ -57,6 +59,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       },
       (error: HttpErrorResponse) => {
         this.userSharedService.showSpinner(false);
+        this.userSharedService.updateUserDataNotify();
         this.userSharedService.sendToastMessage(
           TOAST_MESSAGES.ERROR_USER_REMOVING + '---' + error.error.error,
           TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
