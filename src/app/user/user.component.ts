@@ -20,9 +20,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userSharedService.spinnerState.subscribe((spinnerState: boolean) => {
-      console.log('old state: ', this.isSpinner);
       this.isSpinner = spinnerState;
-      console.log('new state: ', spinnerState);
     });
     this._toastEmiterSubscription =
       this.userSharedService.toastMessageEmiter.subscribe(
