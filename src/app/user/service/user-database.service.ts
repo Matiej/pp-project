@@ -43,7 +43,7 @@ export class UserDatabaseService {
   }
 
   public updateUserFirebase(user: User): Observable<User | undefined> {
-    console.log('user updated,  ', user);
+ 
     return this.userFirebaseDB.updateUserById(user).pipe(
       map((response: HttpResponse<any>) => {
         if (response.status === 200) {
