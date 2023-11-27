@@ -18,7 +18,7 @@ import { User } from '../user-model';
   templateUrl: './user-register.component.html',
   styleUrls: ['./user-register.component.css'],
 })
-export class UserRegisterComponent implements OnInit  {
+export class UserRegisterComponent implements OnInit {
   isSaved: boolean = false;
   readonly registerFormTitle: string = 'Register your account';
   registerForm!: FormGroup;
@@ -28,7 +28,7 @@ export class UserRegisterComponent implements OnInit  {
   toastMessageClass: string = '';
   showToast: boolean = false;
   userToastMessage: string = '';
- 
+
   constructor(
     private userSharedSevice: UserSharedService,
     private userDatabaseService: UserDatabaseService,
@@ -152,12 +152,13 @@ export class UserRegisterComponent implements OnInit  {
 
   onRegisterSubnit() {
     const formData = this.registerForm.value;
+
     let userToSve = new User(
       formData.userData.username,
       formData.userData.surname,
-      formData.userData.useremail,
+      formData.useremail,
       formData.userData.birthyear,
-      formData.editRadio === 'Editable' ? true : false
+      formData.userData.editRadio === 'Editable' ? true : false
     );
 
     userToSve.address1 = formData.userData.address1;

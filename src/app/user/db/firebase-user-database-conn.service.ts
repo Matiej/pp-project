@@ -8,9 +8,9 @@ import { User } from '../user-model';
 })
 export class FirebaseUserDatabaseConnService {
   readonly fireBaseUsertUrl: string =
-    'https://anopproject-default-rtdb.europe-west1.firebasedatabase.app/users.json';
+    'https://ppproject-35b60-default-rtdb.firebaseio.com/users.json';
   readonly fireBaseUsertBasicUrl: string =
-    'https://anopproject-default-rtdb.europe-west1.firebasedatabase.app/users/';
+    'https://ppproject-35b60-default-rtdb.firebaseio.com/users/';
 
   constructor(private http: HttpClient) {}
 
