@@ -2,17 +2,13 @@ import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, switchMap } from 'rxjs';
 import { FirebaseUserDatabaseConnService } from '../db/firebase-user-database-conn.service';
-import { InMemoryUserDataBase } from '../db/in-memory-user-database';
 import { User } from '../user-model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserDatabaseService {
-  private _usermDatabase!: InMemoryUserDataBase;
-
-  constructor(private userFirebaseDB: FirebaseUserDatabaseConnService) {
-    this._usermDatabase = new InMemoryUserDataBase();
+   constructor(private userFirebaseDB: FirebaseUserDatabaseConnService) {
 
     const user1: User = new User(
       'Maciek',
