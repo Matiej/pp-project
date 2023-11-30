@@ -19,6 +19,7 @@ import { CourseCertComponent } from './course-cert/course-cert.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
+import { LoginInterceptorService } from './interceptors/login--interceptor.service';
 import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
@@ -81,6 +82,10 @@ import { WishComponent } from './wish/wish.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
+      multi: true,
+    },    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoginInterceptorService,
       multi: true,
     },
   ],
