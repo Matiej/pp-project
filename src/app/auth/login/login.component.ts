@@ -43,6 +43,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  onUserFireBaseLogin(): void {
+    const formData = this.loginForm.value;
+    this.authService.signUpFireBaseUser(formData.email, formData.password).subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error: HttpErrorResponse) => {
+        console.warn(error);
+      }
+    );
+  }
+
   onUserLogin(): void {
     this.isSpinning = true;
     const formData = this.loginForm.value;
@@ -90,7 +102,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         (error: HttpErrorResponse) => {
           this.showToastMessage(
-            TOAST_MESSAGES.ERROR_LOGGING + ' --- Server error: ' + error.error.error,
+            TOAST_MESSAGES.ERROR_LOGGING +
+              ' --- Server error: ' +
+              error.error.error,
             4000,
             TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE
           );
