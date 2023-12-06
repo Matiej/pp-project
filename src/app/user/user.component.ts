@@ -9,25 +9,24 @@ import { UserSharedService } from './service/user-shared.service';
 })
 export class UserComponent implements OnInit, OnDestroy {
   readonly userComponentTitle: string = 'User Section';
-  isSpinner: boolean = false;
+
   userToastMessage: string = '';
   showToast: boolean = false;
   toastMessageClass: string = 'success-toast';
   private _toastEmiterSubscription!: Subscription;
-  private _spinSubscription!: Subscription;
+ 
 
   constructor(private userSharedService: UserSharedService) {}
 
   ngOnInit(): void {
-    this.userSharedService.spinnerState.subscribe((spinnerState: boolean) => {
-      this.isSpinner = spinnerState;
-    });
     this._toastEmiterSubscription =
       this.userSharedService.toastMessageEmiter.subscribe(
         (toast: { message: string; styleClass: string; timeout: number }) => {
           this.showToastMessage(toast.message, toast.timeout, toast.styleClass);
         }
       );
+
+ 
   }
 
   ngOnDestroy(): void {
@@ -35,9 +34,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this._toastEmiterSubscription.unsubscribe();
     }
 
-    if (this._spinSubscription) {
-      this._spinSubscription.unsubscribe();
-    }
+ 
   }
 
   private showToastMessage(
