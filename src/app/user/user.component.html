@@ -1,4 +1,3 @@
-
 <div class="container">
   <h1 class="user-module-title">{{ userComponentTitle }}</h1>
   <div class="row">
@@ -19,18 +18,6 @@
   </div>
 
   <div class="row">
-    <div
-      *ngIf="isSpinner"
-      class="text-center"
-      style="
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      "
-    >
-      <div class="spinner"></div>
-    </div>
     <div class="row user-row">
       <div class="col-md-5 mds5">
         <app-user-list></app-user-list>
@@ -46,11 +33,17 @@
       </div>
     </div>
   </div>
-  <div
-  *ngIf="isSpinner"
-  class="text-center"
-  style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%)"
->
-  <div class="spinner"></div>
-</div>
+
+  <!-- <div
+    *ngIf="isSpinner"
+    class="text-center"
+    style="
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    "
+  >
+    <div class="spinner"></div>
+  </div> -->
 </div>

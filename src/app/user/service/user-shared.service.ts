@@ -12,6 +12,7 @@ export class UserSharedService {
     timeout: number;
   }> = new EventEmitter();
   private _spinnerSub = new BehaviorSubject<boolean>(false);
+  isSpinning!: boolean ;
 
   constructor() {}
 
@@ -47,7 +48,17 @@ export class UserSharedService {
     return this._spinnerSub.asObservable();
   }
 
+  checSpinnerState(): Promise<boolean> {
+    console.log('checSpinnerState' , this.isSpinning)
+    const spinning = new Promise<boolean>((resolve, reject) => {
+      resolve(this.isSpinning);
+    });
+    return spinning;
+  }
+
   public showSpinner(show: boolean) {
+    console.log('showSpinner', show);
+    this.isSpinning = show;
     this._spinnerSub.next(show);
   }
 }

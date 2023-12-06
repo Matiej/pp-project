@@ -25,7 +25,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscribeUsers();
-    this.userSharedService.userUpdated.subscribe(() => {
+
+    this.sub = this.userSharedService.userUpdated.subscribe(() => {
       this.subscribeUsers();
     });
   }
@@ -35,8 +36,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   private subscribeUsers(): void {
-    this.userSharedService.showSpinner(true)
-
     this.sub = this.userDbService.findAllUsers().subscribe(
       (data) => {
         this.userList = data;
@@ -44,15 +43,11 @@ export class UserListComponent implements OnInit, OnDestroy {
           this.router.navigate([this.userList[0].id], {
             relativeTo: this.route,
           });
-
-          this.userSharedService.showSpinner(false);
         }
-        this.userSharedService.showSpinner(false);
       },
       (error: HttpErrorResponse) => {
-        this.userSharedService.showSpinner(false);
         this.userSharedService.sendToastMessage(
-          TOAST_MESSAGES.ERROR_USER_REMOVING +
+          TOAST_MESSAGES.ERROR_USER_FETCHING +
             '--- Server error: ' +
             error.error.error,
           TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,

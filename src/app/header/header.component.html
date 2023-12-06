@@ -8,12 +8,7 @@
       >
         <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
       </button>
-      <a
-        class="navbar-brand"
-     
-        routerLink="/home"
-        routerLinkActive="active"
-      >
+      <a class="navbar-brand" routerLink="/home" routerLinkActive="active">
         <img
           src="/assets/logo.png"
           class="me-2"
@@ -22,12 +17,7 @@
           loading="lazy"
         />
       </a>
-      <a
-        class="navbar-brand"
-       
-        routerLink="/home"
-        routerLinkActive="active"
-      >
+      <a class="navbar-brand" routerLink="/home" routerLinkActive="active">
         pp-Project</a
       >
     </div>
@@ -124,7 +114,9 @@
               <a routerLink="/login" routerLinkActive="active">Login</a>
             </li>
             <li>
-              <a [routerLink]="['/user', 'register']" routerLinkActive="active">Register</a>
+              <a [routerLink]="['/user', 'register']" routerLinkActive="active"
+                >Register</a
+              >
             </li>
           </ul>
         </li>

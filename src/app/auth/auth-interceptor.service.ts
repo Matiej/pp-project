@@ -3,7 +3,7 @@ import {
   HttpHandler,
   HttpHeaders,
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -17,9 +17,10 @@ export class AuthInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const headers = new HttpHeaders()
-      .append('MyHeader', 'application/json')
-      .append('Content-Type', 'application/json');
+    const headers = new HttpHeaders().append(
+      'Content-Type',
+      'application/json'
+    );
     const requstWithHeaders = req.clone({ headers });
     return next.handle(requstWithHeaders);
   }

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -8,6 +9,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { AuthResponseData } from 'src/app/auth/authResponse';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
 import { UserSharedService } from '../service/user-shared.service';
@@ -32,7 +35,8 @@ export class UserRegisterComponent implements OnInit {
   constructor(
     private userSharedSevice: UserSharedService,
     private userDatabaseService: UserDatabaseService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     //is necessary because fuction is out of scoop for this
     this.emailExistValidator = this.emailExistValidator.bind(this);
@@ -153,7 +157,7 @@ export class UserRegisterComponent implements OnInit {
   onRegisterSubnit() {
     const formData = this.registerForm.value;
 
-    let userToSve = new User(
+    let userToSave = new User(
       formData.userData.username,
       formData.userData.surname,
       formData.useremail,
@@ -161,20 +165,64 @@ export class UserRegisterComponent implements OnInit {
       formData.userData.editRadio === 'Editable' ? true : false
     );
 
-    userToSve.address1 = formData.userData.address1;
-    userToSve.address2 = formData.userData.address2;
-    userToSve.gender = formData.userData.genderSelect;
-    userToSve.about = formData.userData.aboutYou;
-    userToSve.secret = formData.secretSelect;
-    userToSve.answer = formData.answer;
-    userToSve.password = formData.password;
-    userToSve.matchPassword = formData.matchpassword;
+    userToSave.address1 = formData.userData.address1;
+    userToSave.address2 = formData.userData.address2;
+    userToSave.gender = formData.userData.genderSelect;
+    userToSave.about = formData.userData.aboutYou;
+    userToSave.secret = formData.secretSelect;
+    userToSave.answer = formData.answer;
+    userToSave.password = formData.password;
+    userToSave.matchPassword = formData.matchpassword;
 
     this.isSpinning = true;
 
-    this.userDatabaseService
-      .saveUserFirebase(userToSve)
-      .subscribe((user: User | undefined) => {
+    this.authService
+      .signUpFireBaseUser(userToSave.email, userToSave.password)
+      .subscribe(
+        (data: AuthResponseData) => {
+          userToSave.fireBaseAuthData = data;
+          this.saveUser(userToSave);
+        },
+        (error: HttpErrorResponse) => {
+          this.handleError(error);
+        }
+      );
+
+    // this.userDatabaseService
+    //   .saveUserFirebase(userToSave)
+    //   .subscribe((user: User | undefined) => {
+    //     if (user) {
+    //       this.isSaved = true;
+    //       this.registerForm.reset();
+    //       this.registerForm.patchValue({
+    //         userData: {
+    //           petSelect: 'car',
+    //           editRadoi: 'Uneditable',
+    //         },
+    //         genderSelect: 'other',
+    //       });
+    //       this.userSharedSevice.updateUserDataNotify();
+    //       this.isSpinning = false;
+    //       this.showToastMessage(
+    //         TOAST_MESSAGES.USER_REGISTERED_SUCCESSFULLY,
+    //         2500,
+    //         TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
+    //       );
+    //     } else {
+    //       this.isSaved = false;
+    //       this.isSpinning = false;
+    //       this.showToastMessage(
+    //         TOAST_MESSAGES.USER_REGISTERED_ERROR,
+    //         2500,
+    //         TOAST_MESSAGES.ERROR_ADDING_USER
+    //       );
+    //     }
+    //   });
+  }
+
+  private saveUser(userToSave: User): void {
+    this.userDatabaseService.saveUserFirebase(userToSave).subscribe(
+      (user: User | undefined) => {
         if (user) {
           this.isSaved = true;
           this.registerForm.reset();
@@ -201,7 +249,22 @@ export class UserRegisterComponent implements OnInit {
             TOAST_MESSAGES.ERROR_ADDING_USER
           );
         }
-      });
+      },
+      (error: HttpErrorResponse) => {
+        this.handleError(error);
+      }
+    );
+  }
+
+  private handleError(error: HttpErrorResponse): void {
+    this.isSaved = false;
+    this.isSpinning = false;
+    this.showToastMessage(
+      TOAST_MESSAGES.USER_REGISTERED_ERROR + '------' + error.error.error,
+
+      4500,
+      TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE
+    );
   }
 
   private showToastMessage(
