@@ -1,4 +1,4 @@
-import { AuthResponseData } from "../auth/authResponse";
+import { UserFireBaseAuthData } from "./user-auth-data";
 
 export class User {
   private _id!: string;
@@ -15,7 +15,7 @@ export class User {
   private _secret!: string;
   private _answer!: string;
   private _about!: string;
-  private _fireBaseAuthData!: AuthResponseData;
+  private _fireBaseAuthData!: UserFireBaseAuthData;
 
   constructor(
     name: string,
@@ -102,10 +102,10 @@ export class User {
     this._about = value;
   }
 
-  public get fireBaseAuthData(): AuthResponseData {
+  public get fireBaseAuthData(): UserFireBaseAuthData {
     return this._fireBaseAuthData;
   }
-  public set fireBaseAuthData(value: AuthResponseData) {
+  public set fireBaseAuthData(value: UserFireBaseAuthData) {
     this._fireBaseAuthData = value;
   }
 }
