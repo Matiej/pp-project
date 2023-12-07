@@ -1,9 +1,9 @@
+import { UserFireBaseAuthData } from '../user/user-auth-data';
 import { User } from '../user/user-model';
-import { AuthResponseData } from './auth-response-data';
 
 export class SignInAuthResponse {
   private _user!: User;
-  private _authresponse!: AuthResponseData;
+  private _userAuthData!: UserFireBaseAuthData;
 
   public get user(): User {
     return this._user;
@@ -12,10 +12,10 @@ export class SignInAuthResponse {
     this._user = value;
   }
 
-  public get authresponse(): AuthResponseData {
-    return this._authresponse;
+  public get userAuthData(): UserFireBaseAuthData {
+    return this._userAuthData;
   }
-  public set authresponse(value: AuthResponseData) {
-    this._authresponse = value;
+  public set userAuthData(value: UserFireBaseAuthData) {
+    this._userAuthData = value;
   }
 }
