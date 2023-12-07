@@ -242,9 +242,17 @@ export class UserRegisterComponent implements OnInit {
   private handleError(error: HttpErrorResponse): void {
     this.isSaved = false;
     this.isSpinning = false;
+    let errorMessage = 'An uknown error occurred';
+    if (!error.error || !error.error.error) {
+      errorMessage =
+        TOAST_MESSAGES.USER_REGISTERED_ERROR + '-----' + errorMessage;
+    }
+    errorMessage =
+      TOAST_MESSAGES.USER_REGISTERED_ERROR +
+      '-----' +
+      error.error.error.message;
     this.showToastMessage(
-      TOAST_MESSAGES.USER_REGISTERED_ERROR + '------' + error.error.error,
-
+      errorMessage,
       4500,
       TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE
     );
