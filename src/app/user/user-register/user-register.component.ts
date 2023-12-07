@@ -14,6 +14,7 @@ import { AuthResponseData } from 'src/app/auth/authResponse';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
 import { UserSharedService } from '../service/user-shared.service';
+import { UserFireBaseAuthData } from '../user-auth-data';
 import { User } from '../user-model';
 
 @Component({
@@ -180,44 +181,19 @@ export class UserRegisterComponent implements OnInit {
       .signUpFireBaseUser(userToSave.email, userToSave.password)
       .subscribe(
         (data: AuthResponseData) => {
-          userToSave.fireBaseAuthData = data;
+          userToSave.fireBaseAuthData = new UserFireBaseAuthData(
+            data.idToken,
+            data.email,
+            data.refreshToken,
+            data.expiresIn,
+            data.localId
+          );
           this.saveUser(userToSave);
         },
         (error: HttpErrorResponse) => {
           this.handleError(error);
         }
       );
-
-    // this.userDatabaseService
-    //   .saveUserFirebase(userToSave)
-    //   .subscribe((user: User | undefined) => {
-    //     if (user) {
-    //       this.isSaved = true;
-    //       this.registerForm.reset();
-    //       this.registerForm.patchValue({
-    //         userData: {
-    //           petSelect: 'car',
-    //           editRadoi: 'Uneditable',
-    //         },
-    //         genderSelect: 'other',
-    //       });
-    //       this.userSharedSevice.updateUserDataNotify();
-    //       this.isSpinning = false;
-    //       this.showToastMessage(
-    //         TOAST_MESSAGES.USER_REGISTERED_SUCCESSFULLY,
-    //         2500,
-    //         TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
-    //       );
-    //     } else {
-    //       this.isSaved = false;
-    //       this.isSpinning = false;
-    //       this.showToastMessage(
-    //         TOAST_MESSAGES.USER_REGISTERED_ERROR,
-    //         2500,
-    //         TOAST_MESSAGES.ERROR_ADDING_USER
-    //       );
-    //     }
-    //   });
   }
 
   private saveUser(userToSave: User): void {

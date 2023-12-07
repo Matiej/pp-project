@@ -24,17 +24,13 @@ export class UserComponent implements OnInit, OnDestroy {
         (toast: { message: string; styleClass: string; timeout: number }) => {
           this.showToastMessage(toast.message, toast.timeout, toast.styleClass);
         }
-      );
-
- 
+     );
   }
 
   ngOnDestroy(): void {
     if (this._toastEmiterSubscription) {
       this._toastEmiterSubscription.unsubscribe();
     }
-
- 
   }
 
   private showToastMessage(
