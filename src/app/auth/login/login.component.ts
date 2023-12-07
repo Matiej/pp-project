@@ -5,8 +5,10 @@ import { Subscription } from 'rxjs';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from 'src/app/user/service/user-database.service';
 import { User } from 'src/app/user/user-model';
+import { AuthResponseData } from '../auth-response-data';
 import { AuthService } from '../auth.service';
 import { SharedAuthService } from '../shared-auth.service';
+import { SignInAuthResponse } from '../signin-auth-response';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ import { SharedAuthService } from '../shared-auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  user?: User;
+  private _singinLoginResposne!: SignInAuthResponse;
   isLoggedIn: boolean = false;
   loginForm!: FormGroup;
   isLoginError: boolean = false;
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   showToast: boolean = false;
   toastMessageClass: string = '';
   userToastMessage: string = '';
+  private authObservale?: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -32,8 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required]),
     });
   }
 
@@ -41,78 +44,164 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginObservale) {
       this.loginObservale.unsubscribe();
     }
-  }
-
-  onUserFireBaseLogin(): void {
-    const formData = this.loginForm.value;
-    this.authService.signUpFireBaseUser(formData.email, formData.password).subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (error: HttpErrorResponse) => {
-        console.warn(error);
-      }
-    );
+    if (this.authObservale) {
+      this.authObservale.unsubscribe();
+    }
   }
 
   onUserLogin(): void {
+    if (!this.loginForm.valid) {
+      return;
+    }
+
     this.isSpinning = true;
     const formData = this.loginForm.value;
-    this.loginObservale = this.userDbService
-      .findByEmail(formData.email)
+
+    this.authObservale = this.authService
+      .signInFireBaseUser(formData.email, formData.password)
       .subscribe(
-        (user: User | undefined) => {
-          if (user) {
-            this.authService.userLogin(formData.password, user);
-            this.authService.isAuthenticated().then((auth: boolean) => {
-              this.isLoggedIn = auth;
-              if (this.isLoggedIn) {
-                this.showToastMessage(
-                  TOAST_MESSAGES.LOGGED_SUCCESSFULLY,
-                  2500,
-                  TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
-                );
-                this.user = user;
-                this.sharedAuthService.userLoggedINNotification();
-                this.isSpinning = false;
-                this.loginForm.reset();
-              } else {
-                this.showToastMessage(
-                  TOAST_MESSAGES.WRONG_USERNAME_OR_PASS,
-                  2500,
-                  TOAST_MESSAGES.DANGER_MESSAGE_STYLE
-                );
-                this.loginForm.reset();
-                this.isSpinning = false;
-                console.error('User is not logged in - wrong password');
-                this.isLoginError = true;
-              }
-            });
-          } else {
-            this.showToastMessage(
-              TOAST_MESSAGES.WRONG_USERNAME_OR_PASS,
-              2500,
-              TOAST_MESSAGES.DANGER_MESSAGE_STYLE
-            );
-            this.loginForm.reset();
-            this.isSpinning = false;
-            console.error('User not found');
-            this.isLoginError = true;
-          }
+        (data: AuthResponseData) => {
+          this._singinLoginResposne.authresponse = data;
+          this.findUserInDataBase(formData.email, formData.password);
         },
         (error: HttpErrorResponse) => {
+          const errorMessage = error.error.error.message;
+          if (errorMessage === 'INVALID_LOGIN_CREDENTIALS') {
+            this.isLoginError = true;
+          }
+          console.warn(error);
+          console.log('ERROR========= ', error.error.error.message);
           this.showToastMessage(
             TOAST_MESSAGES.ERROR_LOGGING +
               ' --- Server error: ' +
-              error.error.error,
+              error.error.error.message,
             4000,
             TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE
           );
           this.isSpinning = false;
-          console.error(error);
+
           this.loginForm.reset();
         }
       );
+
+    // this.loginObservale = this.userDbService
+    //   .findByEmail(formData.email)
+    //   .subscribe(
+    //     (user: User | undefined) => {
+    //       if (user) {
+    //         this.authService.userLogin(formData.password, user);
+    //         this.authService.isAuthenticated().then((auth: boolean) => {
+    //           this.isLoggedIn = auth;
+    //           if (this.isLoggedIn) {
+    //             this.showToastMessage(
+    //               TOAST_MESSAGES.LOGGED_SUCCESSFULLY,
+    //               2500,
+    //               TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
+    //             );
+    //             this._singinLoginResposne.user = user;
+    //             this.sharedAuthService.userLoggedINNotification();
+    //             this.isSpinning = false;
+    //             this.loginForm.reset();
+    //           } else {
+    //             this.showToastMessage(
+    //               TOAST_MESSAGES.WRONG_USERNAME_OR_PASS,
+    //               2500,
+    //               TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+    //             );
+    //             this.loginForm.reset();
+    //             this.isSpinning = false;
+    //             console.error('User is not logged in - wrong password');
+    //             this.isLoginError = true;
+    //           }
+    //         });
+    //       } else {
+    //         this.showToastMessage(
+    //           TOAST_MESSAGES.WRONG_USERNAME_OR_PASS,
+    //           2500,
+    //           TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+    //         );
+    //         this.loginForm.reset();
+    //         this.isSpinning = false;
+    //         console.error('User not found');
+    //         this.isLoginError = true;
+    //       }
+    //     },
+    //     (error: HttpErrorResponse) => {
+    //       this.showToastMessage(
+    //         TOAST_MESSAGES.ERROR_LOGGING +
+    //           ' --- Server error: ' +
+    //           error.error.error.message,
+    //         4000,
+    //         TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE
+    //       );
+    //       this.isSpinning = false;
+    //       console.error(error);
+    //       this.loginForm.reset();
+    //     }
+    //   );
+  }
+
+  private findUserInDataBase(email: string, pass: string): void {
+    this.loginObservale = this.userDbService.findByEmail(email).subscribe(
+      (user: User | undefined) => {
+        if (user) {
+          this.authService.userLogin(pass, user);
+          this.authService.isAuthenticated().then((auth: boolean) => {
+            this.isLoggedIn = auth;
+            if (this.isLoggedIn) {
+              this.showToastMessage(
+                TOAST_MESSAGES.LOGGED_SUCCESSFULLY,
+                2500,
+                TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
+              );
+              this._singinLoginResposne.user = user;
+              this.sharedAuthService.userLoggedINNotification();
+              this.isSpinning = false;
+              this.loginForm.reset();
+            } else {
+              this.showToastMessage(
+                TOAST_MESSAGES.WRONG_USERNAME_OR_PASS,
+                2500,
+                TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+              );
+              this.loginForm.reset();
+              this.isSpinning = false;
+              console.error('User is not logged in - wrong password');
+              this.isLoginError = true;
+            }
+          });
+        } else {
+          this.showToastMessage(
+            TOAST_MESSAGES.WRONG_USERNAME_OR_PASS,
+            2500,
+            TOAST_MESSAGES.DANGER_MESSAGE_STYLE
+          );
+          this.loginForm.reset();
+          this.isSpinning = false;
+          console.error('User not found');
+          this.isLoginError = true;
+        }
+      },
+      (error: HttpErrorResponse) => {
+        this.showToastMessage(
+          TOAST_MESSAGES.ERROR_LOGGING +
+            ' --- Server error: ' +
+            error.error.error.message,
+          4000,
+          TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE
+        );
+        this.isSpinning = false;
+        console.error(error);
+        this.loginForm.reset();
+      }
+    );
+  }
+
+  get user(): User | undefined {
+    if (this._singinLoginResposne) {
+      return this._singinLoginResposne.user;
+    }
+    return undefined;
   }
 
   getUserStatus(): string {

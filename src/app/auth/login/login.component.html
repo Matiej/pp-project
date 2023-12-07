@@ -8,7 +8,7 @@
       >
       <form
         [formGroup]="loginForm"
-        (ngSubmit)="onUserFireBaseLogin()"
+        (ngSubmit)="onUserLogin()"
         style="margin-top: 5%"
       >
         <span class="help-block" style="color: red" *ngIf="isLoginError"
