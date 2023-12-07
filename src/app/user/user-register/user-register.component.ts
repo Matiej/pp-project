@@ -9,8 +9,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthResponseData } from 'src/app/auth/auth-response-data';
 import { AuthService } from 'src/app/auth/auth.service';
-import { AuthResponseData } from 'src/app/auth/authResponse';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
 import { UserSharedService } from '../service/user-shared.service';
@@ -74,7 +74,10 @@ export class UserRegisterComponent implements OnInit {
         [this.allowedSecretValidator]
       ),
       answer: new FormControl(null, [Validators.required]),
-      password: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
       matchpassword: new FormControl(null, [
         Validators.required,
         this.matchPasswordValidator.bind(this),
@@ -156,6 +159,10 @@ export class UserRegisterComponent implements OnInit {
   }
 
   onRegisterSubnit() {
+    if (!this.registerForm.valid) {
+      return;
+    }
+
     const formData = this.registerForm.value;
 
     let userToSave = new User(
