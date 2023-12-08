@@ -2,7 +2,6 @@ import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, switchMap } from 'rxjs';
 import { FirebaseUserDatabaseConnService } from '../db/firebase-user-database-conn.service';
-import { UserFireBaseAuthData } from '../user-auth-data';
 import { User } from '../user-model';
 
 @Injectable({
@@ -136,15 +135,6 @@ export class UserDatabaseService {
     if (userData._answer) user.answer = userData._answer;
     if (userData._about) user.about = userData._about;
     if (userData._fireBaseAuthData) {
-      const usfb: UserFireBaseAuthData = new UserFireBaseAuthData(
-        userData._fireBaseAuthData.idToken,
-        userData._fireBaseAuthData.email,
-        userData._fireBaseAuthData.refreshToken,
-        userData._fireBaseAuthData.expiresIn,
-        userData._fireBaseAuthData.localId
-      );
-
-      user.fireBaseAuthData = usfb;
     }
 
     return user;
