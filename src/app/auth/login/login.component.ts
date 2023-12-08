@@ -17,7 +17,7 @@ import { SignInAuthResponse } from '../signin-auth-response';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  private _singinLoginResposne!: SignInAuthResponse;
+  private _singinLoginResposne: SignInAuthResponse = new SignInAuthResponse();
   isLoggedIn: boolean = false;
   loginForm!: FormGroup;
   isLoginError: boolean = false;
