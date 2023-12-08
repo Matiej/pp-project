@@ -14,7 +14,6 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
 import { UserSharedService } from '../service/user-shared.service';
-import { UserFireBaseAuthData } from '../user-auth-data';
 import { User } from '../user-model';
 
 @Component({
@@ -188,13 +187,7 @@ export class UserRegisterComponent implements OnInit {
       .signUpFireBaseUser(userToSave.email, userToSave.password)
       .subscribe(
         (data: AuthResponseData) => {
-          userToSave.fireBaseAuthData = new UserFireBaseAuthData(
-            data.idToken,
-            data.email,
-            data.refreshToken,
-            data.expiresIn,
-            data.localId
-          );
+          
           this.saveUser(userToSave);
         },
         (error: HttpErrorResponse) => {
