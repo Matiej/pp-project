@@ -4,12 +4,14 @@ import {
   Observable,
   Subject,
   Subscription,
+  catchError,
   map,
   of,
   switchMap,
-  throwError
+  throwError,
 } from 'rxjs';
 import { AuthResponseData } from 'src/app/auth/auth-response-data';
+import { environment } from 'src/environments/environment';
 import { UserDatabaseService } from '../user/service/user-database.service';
 import { UserFireBaseAuthData } from '../user/user-auth-data';
 import { User } from '../user/user-model';
@@ -20,12 +22,14 @@ import { SignInAuthResponse } from './signin-auth-response';
 })
 export class AuthService implements OnDestroy {
   isLoggedIn: boolean = false;
+  readonly fireBaseToken: string = environment.apiToken;
   readonly signUpFireBaseUrl: string =
-    'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAKHlrPi_CMaLJNw7FyOP6V3QWJQD9leKE';
+    'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   readonly sginInFireBaseUrl: string =
-    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAKHlrPi_CMaLJNw7FyOP6V3QWJQD9leKE';
+    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
 
   private _singinLoginResposne: Subject<SignInAuthResponse> = new Subject();
+
   private findByEmailSubscription?: Subscription;
 
   constructor(
@@ -39,47 +43,34 @@ export class AuthService implements OnDestroy {
     }
   }
 
-  signUpFireBaseUser(
-    email: string,
-    pass: string
-  ): Observable<AuthResponseData> {
-    return this.http.post<AuthResponseData>(this.signUpFireBaseUrl, {
-      email: email,
-      password: pass,
-      returnSecureToken: true,
-    });
-  }
-
-  signInFireBaseUser1(
-    email: string,
-    pass: string
-  ): Observable<SignInAuthResponse> {
+  signUpFireBaseUser(userToSave: User): Observable<SignInAuthResponse> {
     return this.http
-      .post<AuthResponseData>(this.sginInFireBaseUrl, {
-        email: email,
-        password: pass,
+      .post<AuthResponseData>(this.signUpFireBaseUrl + this.fireBaseToken, {
+        email: userToSave.email,
+        password: userToSave.password,
         returnSecureToken: true,
       })
       .pipe(
-        switchMap((authResposne: AuthResponseData) => {
-          let signInAuthResposne: SignInAuthResponse = new SignInAuthResponse();
-          signInAuthResposne.userAuthData =
-            this.convertToUserFireBaseAuthData(authResposne);
-          return of(signInAuthResposne);
-
-          //   return this.findUserInDataBase(email).pipe(
-          //     map((user: User) => {
-          //       let signInAuthResposne: SignInAuthResponse =
-          //         new SignInAuthResponse();
-          //       signInAuthResposne.user = user;
-          //       signInAuthResposne.userAuthData =
-          //         this.convertToUserFireBaseAuthData(authResposne);
-          //       return signInAuthResposne;
-          //     })
-          //   );
-        // }),
-        // catchError((errorRes) => {
-        //   return this.handleError(errorRes);
+        switchMap((authResponse: AuthResponseData) => {
+          return this.userDbService.saveUserFirebase(userToSave).pipe(
+            map((savedUser: User | undefined) => {
+              if (savedUser && savedUser !== undefined) {
+                return this.handleSuccess(savedUser, authResponse);
+              } else {
+                throw throwError(
+                  () =>
+                    new HttpErrorResponse({
+                      error: 'User not found',
+                      status: 400,
+                      statusText: 'Data base user not found',
+                    })
+                );
+              }
+            })
+          );
+        }),
+        catchError((errorRes) => {
+          return this.handleError(errorRes);
         })
       );
   }
@@ -89,31 +80,33 @@ export class AuthService implements OnDestroy {
     pass: string
   ): Observable<SignInAuthResponse> {
     return this.http
-      .post<AuthResponseData>(this.sginInFireBaseUrl, {
+      .post<AuthResponseData>(this.sginInFireBaseUrl + this.fireBaseToken, {
         email: email,
         password: pass,
         returnSecureToken: true,
       })
       .pipe(
-        map((authResposne: AuthResponseData) => {
-          let signInAuthResposne: SignInAuthResponse = new SignInAuthResponse();
-          signInAuthResposne.userAuthData =
-            this.convertToUserFireBaseAuthData(authResposne);
-          return signInAuthResposne;
-
-          //   return this.findUserInDataBase(email).pipe(
-          //     map((user: User) => {
-          //       let signInAuthResposne: SignInAuthResponse =
-          //         new SignInAuthResponse();
-          //       signInAuthResposne.user = user;
-          //       signInAuthResposne.userAuthData =
-          //         this.convertToUserFireBaseAuthData(authResposne);
-          //       return signInAuthResposne;
-          //     })
-          //   );
-        // }),
-        // catchError((errorRes) => {
-        //   return this.handleError(errorRes);
+        switchMap((authResposne: AuthResponseData) => {
+          return this.findUserInDataBase(email).pipe(
+            map((user: User) => {
+              console.log('looking for user;');
+              return this.handleSuccess(user, authResposne);
+              // let signInAuthResposne: SignInAuthResponse =
+              //   new SignInAuthResponse();
+              // signInAuthResposne.user = user;
+              // signInAuthResposne.userAuthData =
+              //   this.convertToUserFireBaseAuthData(authResposne);
+              // this._singinLoginResposne.next(signInAuthResposne);
+              // this.logOffWhenExpiiesToken(
+              //   signInAuthResposne.userAuthData.tokenExpirationDate
+              // );
+              // this.isLoggedIn = true;
+              // return signInAuthResposne;
+            })
+          );
+        }),
+        catchError((errorRes) => {
+          return this.handleError(errorRes);
         })
       );
   }
@@ -133,6 +126,22 @@ export class AuthService implements OnDestroy {
         return of(user);
       })
     );
+  }
+
+  private handleSuccess(
+    user: User,
+    authResponse: AuthResponseData
+  ): SignInAuthResponse {
+    let signInAuthResposne: SignInAuthResponse = new SignInAuthResponse();
+    signInAuthResposne.user = user;
+    signInAuthResposne.userAuthData =
+      this.convertToUserFireBaseAuthData(authResponse);
+    this._singinLoginResposne.next(signInAuthResposne);
+    this.logOffWhenExpiiesToken(
+      signInAuthResposne.userAuthData.tokenExpirationDate
+    );
+    this.isLoggedIn = true;
+    return signInAuthResposne;
   }
 
   private handleError(errorResposne: HttpErrorResponse): Observable<never> {
@@ -189,6 +198,21 @@ export class AuthService implements OnDestroy {
     this.isLoggedIn = false;
   }
 
+  private logOffWhenExpiiesToken(tokenExpirationDate: Date): void {
+    const currentTime = new Date();
+    const timeUntilExpiration =
+      tokenExpirationDate.getTime() - currentTime.getTime();
+    console.log('tieeeeemeeeeeeeeee:  ', timeUntilExpiration);
+    if (timeUntilExpiration > 0) {
+      setTimeout(() => {
+        this.isLoggedIn = false;
+      }, timeUntilExpiration);
+    } else {
+      console.warn('Invalid time provided: ' + tokenExpirationDate);
+      this.isLoggedIn = false;
+    }
+  }
+
   private convertToUserFireBaseAuthData(
     reposneAuthData: AuthResponseData
   ): UserFireBaseAuthData {
@@ -204,5 +228,12 @@ export class AuthService implements OnDestroy {
       expirationDate
     );
     return userFireBaseAuthData;
+  }
+
+  public get singinLoginResposne(): Subject<SignInAuthResponse> {
+    return this._singinLoginResposne;
+  }
+  public set singinLoginResposne(value: Subject<SignInAuthResponse>) {
+    this._singinLoginResposne = value;
   }
 }

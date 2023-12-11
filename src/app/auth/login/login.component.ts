@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (error.error) {
             errorMessage = error.error;
           }
+          console.warn('Error while logging!: --------', errorMessage);
           this.showToastMessage(
             TOAST_MESSAGES.ERROR_LOGGING + ' ------------ ' + errorMessage,
             4000,
