@@ -9,8 +9,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthResponseData } from 'src/app/auth/auth-response-data';
 import { AuthService } from 'src/app/auth/auth.service';
+import { SignInAuthResponse } from 'src/app/auth/signin-auth-response';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { UserDatabaseService } from '../service/user-database.service';
 import { UserSharedService } from '../service/user-shared.service';
@@ -183,55 +183,36 @@ export class UserRegisterComponent implements OnInit {
 
     this.isSpinning = true;
 
-    this.authService
-      .signUpFireBaseUser(userToSave.email, userToSave.password)
-      .subscribe(
-        (data: AuthResponseData) => {
-          
-          this.saveUser(userToSave);
-        },
-        (error: HttpErrorResponse) => {
-          this.handleError(error);
-        }
-      );
-  }
-
-  private saveUser(userToSave: User): void {
-    this.userDatabaseService.saveUserFirebase(userToSave).subscribe(
-      (user: User | undefined) => {
-        if (user) {
-          this.isSaved = true;
-          this.registerForm.reset();
-          this.registerForm.patchValue({
-            userData: {
-              petSelect: 'car',
-              editRadoi: 'Uneditable',
-            },
-            genderSelect: 'other',
-          });
-          this.userSharedSevice.updateUserDataNotify();
-          this.isSpinning = false;
-          this.showToastMessage(
-            TOAST_MESSAGES.USER_REGISTERED_SUCCESSFULLY,
-            2500,
-            TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
-          );
-        } else {
-          this.isSaved = false;
-          this.isSpinning = false;
-          this.showToastMessage(
-            TOAST_MESSAGES.USER_REGISTERED_ERROR,
-            2500,
-            TOAST_MESSAGES.ERROR_ADDING_USER
-          );
-        }
+    this.authService.signUpFireBaseUser(userToSave).subscribe(
+      (data: SignInAuthResponse) => {
+        this.handleSuccess();
       },
       (error: HttpErrorResponse) => {
         this.handleError(error);
       }
     );
   }
-  
+
+  private handleSuccess() {
+    this.isSaved = true;
+    this.registerForm.reset();
+    this.registerForm.patchValue({
+      userData: {
+        petSelect: 'car',
+        editRadoi: 'Uneditable',
+      },
+      genderSelect: 'other',
+    });
+    this.userSharedSevice.updateUserDataNotify();
+    this.isSpinning = false;
+    this.showToastMessage(
+      TOAST_MESSAGES.USER_REGISTERED_SUCCESSFULLY,
+      2500,
+      TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
+    );
+    this.router.navigate(['user/login']);
+  }
+
   private handleError(error: HttpErrorResponse): void {
     this.isSaved = false;
     this.isSpinning = false;
@@ -263,8 +244,6 @@ export class UserRegisterComponent implements OnInit {
       this.showToast = false;
       this.userToastMessage = '';
       this.toastMessageClass = '';
-
-      this.router.navigate(['user/login']);
     }, timeout);
   }
 }
