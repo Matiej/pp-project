@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { User } from 'src/app/user/user-model';
 import { AuthService } from '../auth.service';
-import { SharedAuthService } from '../shared-auth.service';
 import { SignInAuthResponse } from '../signin-auth-response';
 
 @Component({
@@ -25,10 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private _authObservale?: Subscription;
   private _isUserLoggin?: Subscription;
 
-  constructor(
-    private authService: AuthService,
-    private sharedAuthService: SharedAuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -73,7 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
           );
           this._singinLoginResposne = data;
-          this.sharedAuthService.userLoggedINNotification();
+
           this.isSpinning = false;
           this.loginForm.reset();
         },
