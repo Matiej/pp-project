@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   showToast: boolean = false;
   toastMessageClass: string = '';
   userToastMessage: string = '';
-  private authObservale?: Subscription;
+  private _authObservale?: Subscription;
+  private _isUserLoggin?: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -34,11 +35,24 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
     });
+
+    // this.authService.isAuthenticated().then((isAuthenticated:boolean) => {
+    //   this.isLoggedIn = isAuthenticated;
+    // })
+
+    this._isUserLoggin = this.authService.isUserLoggedIn.subscribe(
+      (isUserLoggedIn: boolean) => {
+        this.isLoggedIn = isUserLoggedIn;
+      }
+    );
   }
 
   ngOnDestroy(): void {
-    if (this.authObservale) {
-      this.authObservale.unsubscribe();
+    if (this._authObservale) {
+      this._authObservale.unsubscribe();
+    }
+    if (this._isUserLoggin) {
+      this._isUserLoggin.unsubscribe();
     }
   }
 
@@ -49,7 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isSpinning = true;
     const formData = this.loginForm.value;
 
-    this.authObservale = this.authService
+    this._authObservale = this.authService
       .signInFireBaseUser(formData.email, formData.password)
       .subscribe({
         next: (data: SignInAuthResponse) => {

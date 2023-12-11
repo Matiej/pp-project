@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Promise<boolean | UrlTree> {
     try {
-      const auth = await this.authService.isAuthenticated();
+      const auth = await this.authService.isUserLoggedIn.getValue();
    
       if (auth) {
         return true;

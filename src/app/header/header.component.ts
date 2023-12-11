@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { SharedAuthService } from '../auth/shared-auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { EXTERNAL_LINKS } from '../constants/external-links';
 import { WishSharedService } from '../shared/wish-shared.service';
 
@@ -8,16 +9,17 @@ import { WishSharedService } from '../shared/wish-shared.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   collapsed = true;
   wishCounter: number = 0;
   gitHubLink: string = EXTERNAL_LINKS.GITHUB_PROJECT_FRONTEND;
   linkedInLink: string = EXTERNAL_LINKS.LINKEDIN_LINK;
   isUserLoggedIn: boolean = false;
+  private _isUserLoggedIn?: Subscription;
 
   constructor(
     private wishSharedService: WishSharedService,
-    private authSharedService: SharedAuthService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -25,15 +27,21 @@ export class HeaderComponent implements OnInit {
       this.wishCounter = wishCounter;
     });
 
-    this.authSharedService.loginNotification.subscribe(
-      (isLoggedIn: boolean) => {
-        this.logginUserActions(isLoggedIn);
+    this._isUserLoggedIn = this.authService.isUserLoggedIn.subscribe(
+      (isAuthenticated: boolean) => {
+        this.logginUserActions(isAuthenticated);
       }
     );
   }
 
+  ngOnDestroy(): void {
+    if (this._isUserLoggedIn) {
+      this._isUserLoggedIn.unsubscribe();
+    }
+  }
+
   private logginUserActions(isLoggedIn: boolean) {
-    if(isLoggedIn) {
+    if (isLoggedIn) {
       this.isUserLoggedIn = true;
     } else {
       this.isUserLoggedIn = false;

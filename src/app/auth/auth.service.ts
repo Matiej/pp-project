@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import {
+  BehaviorSubject,
   Observable,
   Subject,
   Subscription,
@@ -21,16 +22,15 @@ import { SignInAuthResponse } from './signin-auth-response';
   providedIn: 'root',
 })
 export class AuthService implements OnDestroy {
-  isLoggedIn: boolean = false;
+  private _isUserLoggedIn: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
   readonly fireBaseToken: string = environment.apiToken;
   readonly signUpFireBaseUrl: string =
     'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   readonly sginInFireBaseUrl: string =
     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
-
   private _singinLoginResposne: Subject<SignInAuthResponse> = new Subject();
-
-  private findByEmailSubscription?: Subscription;
+  private _findByEmailSubscription?: Subscription;
 
   constructor(
     private http: HttpClient,
@@ -38,8 +38,14 @@ export class AuthService implements OnDestroy {
   ) {}
 
   ngOnDestroy(): void {
-    if (this.findByEmailSubscription) {
-      this.findByEmailSubscription.unsubscribe();
+    if (this._findByEmailSubscription) {
+      this._findByEmailSubscription.unsubscribe();
+    }
+    if (this._isUserLoggedIn) {
+      this._isUserLoggedIn.unsubscribe();
+    }
+    if (this._singinLoginResposne) {
+      this._singinLoginResposne.unsubscribe();
     }
   }
 
@@ -55,6 +61,7 @@ export class AuthService implements OnDestroy {
           return this.userDbService.saveUserFirebase(userToSave).pipe(
             map((savedUser: User | undefined) => {
               if (savedUser && savedUser !== undefined) {
+                this._isUserLoggedIn.next(true);
                 return this.handleSuccess(savedUser, authResponse);
               } else {
                 throw throwError(
@@ -90,18 +97,8 @@ export class AuthService implements OnDestroy {
           return this.findUserInDataBase(email).pipe(
             map((user: User) => {
               console.log('looking for user;');
+
               return this.handleSuccess(user, authResposne);
-              // let signInAuthResposne: SignInAuthResponse =
-              //   new SignInAuthResponse();
-              // signInAuthResposne.user = user;
-              // signInAuthResposne.userAuthData =
-              //   this.convertToUserFireBaseAuthData(authResposne);
-              // this._singinLoginResposne.next(signInAuthResposne);
-              // this.logOffWhenExpiiesToken(
-              //   signInAuthResposne.userAuthData.tokenExpirationDate
-              // );
-              // this.isLoggedIn = true;
-              // return signInAuthResposne;
             })
           );
         }),
@@ -140,7 +137,7 @@ export class AuthService implements OnDestroy {
     this.logOffWhenExpiiesToken(
       signInAuthResposne.userAuthData.tokenExpirationDate
     );
-    this.isLoggedIn = true;
+    this._isUserLoggedIn.next(true);
     return signInAuthResposne;
   }
 
@@ -163,7 +160,7 @@ export class AuthService implements OnDestroy {
     ) {
       errorMessage = 'Too many attempts, try again later!';
     }
-
+    this._isUserLoggedIn.next(false);
     return throwError(() => this.prapreError(errorMessage, errorResposne));
   }
 
@@ -178,24 +175,8 @@ export class AuthService implements OnDestroy {
     });
   }
 
-  isAuthenticated(): Promise<boolean> {
-    const promise = new Promise<boolean>((resolve, reject) => {
-      resolve(this.isLoggedIn);
-    });
-
-    return promise;
-  }
-
-  userLogin(password: string, user: User): void {
-    if (user && user.password === password) {
-      this.isLoggedIn = true;
-    } else {
-      this.isLoggedIn = false;
-    }
-  }
-
   logout(): void {
-    this.isLoggedIn = false;
+    this._isUserLoggedIn.next(false);
   }
 
   private logOffWhenExpiiesToken(tokenExpirationDate: Date): void {
@@ -205,11 +186,12 @@ export class AuthService implements OnDestroy {
     console.log('tieeeeemeeeeeeeeee:  ', timeUntilExpiration);
     if (timeUntilExpiration > 0) {
       setTimeout(() => {
-        this.isLoggedIn = false;
+        this._isUserLoggedIn.next(false);
       }, timeUntilExpiration);
     } else {
       console.warn('Invalid time provided: ' + tokenExpirationDate);
-      this.isLoggedIn = false;
+
+      this._isUserLoggedIn.next(false);
     }
   }
 
@@ -235,5 +217,12 @@ export class AuthService implements OnDestroy {
   }
   public set singinLoginResposne(value: Subject<SignInAuthResponse>) {
     this._singinLoginResposne = value;
+  }
+
+  public get isUserLoggedIn(): BehaviorSubject<boolean> {
+    return this._isUserLoggedIn;
+  }
+  public set isUserLoggedIn(value: BehaviorSubject<boolean>) {
+    this._isUserLoggedIn = value;
   }
 }

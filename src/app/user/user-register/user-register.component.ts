@@ -210,6 +210,7 @@ export class UserRegisterComponent implements OnInit {
       2500,
       TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE
     );
+    this.router.navigate(['user/login']);
   }
 
   private handleError(error: HttpErrorResponse): void {
@@ -243,8 +244,6 @@ export class UserRegisterComponent implements OnInit {
       this.showToast = false;
       this.userToastMessage = '';
       this.toastMessageClass = '';
-
-      this.router.navigate(['user/login']);
     }, timeout);
   }
 }

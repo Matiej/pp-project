@@ -41,6 +41,7 @@ const routes: Routes = [
   {
     path: 'wish',
     component: WishComponent,
+    // canActivate: [AuthGuard],
     children: [
       {
         path: '',
