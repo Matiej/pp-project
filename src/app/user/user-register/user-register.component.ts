@@ -220,11 +220,12 @@ export class UserRegisterComponent implements OnInit {
     if (!error.error || !error.error.error) {
       errorMessage =
         TOAST_MESSAGES.USER_REGISTERED_ERROR + '-----' + errorMessage;
+    } else {
+      errorMessage =
+        TOAST_MESSAGES.USER_REGISTERED_ERROR +
+        '-----' +
+        error.error.error.message;
     }
-    errorMessage =
-      TOAST_MESSAGES.USER_REGISTERED_ERROR +
-      '-----' +
-      error.error.error.message;
     this.showToastMessage(
       errorMessage,
       4500,

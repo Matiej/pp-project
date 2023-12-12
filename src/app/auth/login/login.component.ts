@@ -32,10 +32,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: new FormControl(null, [Validators.required]),
     });
 
-    // this.authService.isAuthenticated().then((isAuthenticated:boolean) => {
-    //   this.isLoggedIn = isAuthenticated;
-    // })
-
     this._isUserLoggin = this.authService.isUserLoggedIn.subscribe(
       (isUserLoggedIn: boolean) => {
         this.isLoggedIn = isUserLoggedIn;

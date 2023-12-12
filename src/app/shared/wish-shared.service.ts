@@ -1,5 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { BookDetailResponse } from '../book-api/books/book-detail/book-detail-response';
 import { BookDetails } from '../book-api/books/model/book.details.model';
 import { Book } from '../book-api/books/model/book.model';
@@ -18,6 +19,11 @@ export class WishSharedService {
   private wishCounter$ = this._wishCounter.asObservable();
   changeStateWishItemNotifier: EventEmitter<void> = new EventEmitter();
   private _toastMessageNotifier: EventEmitter<string> = new EventEmitter();
+  private _wishToastMessageEmiter: EventEmitter<{
+    toastMessage: string;
+    styleClass: string;
+    timeout: number;
+  }> = new EventEmitter();
 
   constructor(private databaseService: WishDatabaseService) {}
 
@@ -36,20 +42,61 @@ export class WishSharedService {
         this.prepareDescription(bookDetails.bookDetails, bookDetails.book),
         picUrl
       );
-      this.databaseService.saveWishItem(item);
+      this.databaseService.saveWish(item);
       this.refreshWishCounter(this.databaseService.getNumberOfItems());
     });
   }
 
-  public addNewItemToWishList(wishitem: WishItem): boolean {
-    const savedWishItem: WishItem | undefined =
-      this.databaseService.saveWishItem(wishitem);
-    if (savedWishItem && savedWishItem.id) {
-      this.refreshWishCounter(this.databaseService.getNumberOfItems());
-      return true;
-    } else {
-      return false;
+  public addNewItemToWishList(
+    wishitem: WishItem
+  ): Observable<WishItem | undefined> {
+    return this.databaseService.saveWish(wishitem).pipe(
+      tap((savedwish: WishItem | undefined) => {
+        if (savedwish) {
+          this.refreshWishCounter(this.databaseService.getNumberOfItems());
+          return savedwish;
+        } else {
+          return undefined;
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        return this.handleError(error);
+      })
+    );
+  }
+
+  private handleError(errorResposne: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'An unknown error occurred!';
+    if (!errorResposne.error || !errorResposne.error.error) {
+      return throwError(() => this.prapreError(errorMessage, errorResposne));
     }
+
+    switch (errorResposne.error.error.message) {
+      case 'INVALID_LOGIN_CREDENTIALS':
+        errorMessage = 'Invalid login credentials!';
+        break;
+      case 'EMAIL_EXISTS':
+        errorMessage = 'Email address already exists';
+        break;
+    }
+    if (
+      errorResposne.error.error.message.includes('TOO_MANY_ATTEMPTS_TRY_LATER')
+    ) {
+      errorMessage = 'Too many attempts, try again later!';
+    }
+
+    return throwError(() => this.prapreError(errorMessage, errorResposne));
+  }
+
+  private prapreError(
+    errorMessage: string,
+    error: HttpErrorResponse
+  ): HttpErrorResponse {
+    return new HttpErrorResponse({
+      error: errorMessage,
+      status: error.status,
+      statusText: error.statusText,
+    });
   }
 
   private prepareDescription(
@@ -93,13 +140,24 @@ export class WishSharedService {
     return this.wishCounter$;
   }
 
-  public removeWishItem(wishItemId: number) {
-    const isRemoved: boolean = this.databaseService.removeById(wishItemId);
-    if (isRemoved) {
-      this.changeStateWishItemNotifier.emit();
-      this._toastMessageNotifier.emit(TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY);
-    }
+  public removeWishItem(wishItemId: string) {
+    this.databaseService
+      .removeById(wishItemId)
+      .subscribe((isRemoved: boolean) => {
+        if (isRemoved) {
+          this.changeStateWishItemNotifier.emit();
+          this._toastMessageNotifier.emit(
+            TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY
+          );
+        } else {
+          this._toastMessageNotifier.emit(
+            TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY
+          );
+        }
+      });
   }
+
+  public removeWish(wishId: string) {}
 
   public get toastMessageNotifier(): EventEmitter<string> {
     return this._toastMessageNotifier;
