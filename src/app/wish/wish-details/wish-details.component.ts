@@ -28,7 +28,7 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
         const wishItemID: string = params['id'];
         if (wishItemID && !Number.isNaN(wishItemID)) {
           this.wishDatabaseService
-            .findById(Number.parseFloat(wishItemID))
+            .findWishByid( wishItemID)
             .subscribe((data) => {
               this.wishItem = data;
             });

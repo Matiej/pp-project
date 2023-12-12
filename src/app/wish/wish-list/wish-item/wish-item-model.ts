@@ -3,7 +3,7 @@ import { WishItemDescription } from './wish-item-description';
 import { WishType } from './wish-type';
 
 export class WishItem {
-  private _id!: number;
+  private _id!: string;
   public name: string;
   public type: WishType;
   public descriptions: WishItemDescription[];
@@ -21,11 +21,11 @@ export class WishItem {
     this.pictureUrl = pictureUrl || null;
   }
 
-  get id(): number {
+  get id(): string {
     return this._id;
   }
 
-  set id(value: number) {
+  set id(value: string) {
     this._id = value;
   }
 }

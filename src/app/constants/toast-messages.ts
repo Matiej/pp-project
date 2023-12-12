@@ -1,5 +1,6 @@
 export const TOAST_MESSAGES = {
   WISH_ADDED_SUCCESSFULLY: 'Wish added successfully!',
+  WISH_ADDING_ERROR: 'Error occured while adding wish!',
   WISH_REMOVED_SUCCESSFULLY: 'Wish removed successfully!',
   USER_REMOVED_SUCCESSFULLY: 'User removed successfully!',
   ERROR_USER_REMOVING: 'An ERROR occurred while deleting a user!',
