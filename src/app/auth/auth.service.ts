@@ -6,9 +6,11 @@ import {
   Subject,
   Subscription,
   catchError,
+  exhaustMap,
   map,
   of,
   switchMap,
+  take,
   throwError,
 } from 'rxjs';
 import { AuthResponseData } from 'src/app/auth/auth-response-data';
@@ -56,8 +58,8 @@ export class AuthService implements OnDestroy {
         password: userToSave.password,
         returnSecureToken: true,
       })
-      .pipe(
-        switchMap((authResponse: AuthResponseData) => {
+      .pipe(take(1),
+        exhaustMap((authResponse: AuthResponseData) => {
           return this.userDbService.saveUserFirebase(userToSave).pipe(
             map((savedUser: User | undefined) => {
               if (savedUser && savedUser !== undefined) {
@@ -92,8 +94,8 @@ export class AuthService implements OnDestroy {
         password: pass,
         returnSecureToken: true,
       })
-      .pipe(
-        switchMap((authResposne: AuthResponseData) => {
+      .pipe(take(1),
+        exhaustMap((authResposne: AuthResponseData) => {
           return this.findUserInDataBase(email).pipe(
             map((user: User) => {
               console.log('looking for user;');
