@@ -28,15 +28,16 @@
     </div>
     <div class="row wish-row">
       <div class="col-md-5 mds5">
-        <app-wish-list
-          [&childInputWhisItemhList]="$wishItemParentList"
-        ></app-wish-list>
+        <app-wish-list></app-wish-list>
       </div>
       <div class="col-md-7 mds7">
         <div class="row">
           <router-outlet></router-outlet>
         </div>
       </div>
+    </div>
+    <div class="{{ wishToastStyleClass }}" *ngIf="showToast">
+      {{ wishToastMessage }}
     </div>
   </div>
 </div>

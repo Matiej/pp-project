@@ -12,8 +12,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CanComponentDeactivate } from 'src/app/auth/can-deactivate-guard.service';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
-import { WishSharedService } from 'src/app/shared/wish-shared.service';
-import { WishDatabaseService } from '../service/wish-database.service';
+import { WishitemService } from '../service/wishitem.service';
 import { WISH_EDIT_BUTTON_METHODS } from '../wish-edit-button-methods-const';
 import { WishItemDescription } from '../wish-list/wish-item/wish-item-description';
 import { WishItem } from '../wish-list/wish-item/wish-item-model';
@@ -63,8 +62,7 @@ export class WishEditComponent
 
   constructor(
     private fb: FormBuilder,
-    private wishSharedService: WishSharedService,
-    private wishItemDataBaseService: WishDatabaseService,
+    private wishItemService: WishitemService,
     private route: ActivatedRoute
   ) {}
 
@@ -79,7 +77,7 @@ export class WishEditComponent
     this._paramSubscription = this.route.params.subscribe((params: Params) => {
       const wishId: string = params['id'];
       if (wishId) {
-        this.wishItemDataBaseService.findWishByid(wishId).subscribe((wish) => {
+        this.wishItemService.findWishByid(wishId).subscribe((wish) => {
           if (wish) {
             this.wishItem = wish;
             this.fillOutForm(wish);
@@ -94,7 +92,7 @@ export class WishEditComponent
       this._paramSubscription?.unsubscribe();
     }
 
-    if(this._wishSharedServiceSubs) {
+    if (this._wishSharedServiceSubs) {
       this._wishSharedServiceSubs.unsubscribe();
     }
   }
@@ -168,22 +166,22 @@ export class WishEditComponent
 
   private onAddClick() {
     if (this.wishForm.valid) {
-    this._wishSharedServiceSubs =   this.wishSharedService
+      this._wishSharedServiceSubs = this.wishItemService
         .addNewItemToWishList(this.convertFormToWishItem(this.wishForm))
         .subscribe({
           next: (wish: WishItem | undefined) => {
             if (wish) {
-              this.wishSharedService.changeStateWishItemNotifier.emit();
-              this.showToastMessage(
+              this.wishItemService.emitWishToastMessage(
                 TOAST_MESSAGES.WISH_ADDED_SUCCESSFULLY,
                 TOAST_MESSAGES.SUCCESS_MESSAGE_STYLE,
                 3000
               );
+
               this.changesSaved = true;
               this.wishForm.reset();
             } else {
               this.changesSaved = false;
-              this.showToastMessage(
+              this.wishItemService.emitWishToastMessage(
                 TOAST_MESSAGES.WISH_ADDING_ERROR,
                 TOAST_MESSAGES.DANGER_MESSAGE_STYLE,
                 3000
@@ -196,32 +194,18 @@ export class WishEditComponent
             if (errorRes.error) {
               errorMessage = errorRes.error;
             }
-            this.showToastMessage(
+            this.wishItemService.emitWishToastMessage(
               TOAST_MESSAGES.WISH_ADDING_ERROR +
                 ' ------------ ' +
                 errorMessage,
               TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
               4000
             );
+
             console.warn('Wish adding error:   ', errorMessage);
           },
         });
     }
-  }
-
-  //todo create shared service for toastmessages
-  private showToastMessage(
-    message: string,
-    styleClass: string,
-    timeout: number
-  ): void {
-    this.wishEditToastMessage = message;
-    this.styleClass = styleClass;
-    this.showToast = true;
-    setTimeout(() => {
-      this.showToast = false;
-      this.wishEditToastMessage = '';
-    }, timeout);
   }
 
   private convertFormToWishItem(form: FormGroup): WishItem {

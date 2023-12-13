@@ -23,8 +23,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.wishSharedService.getWishiesCounter().subscribe((wishCounter) => {
-      this.wishCounter = wishCounter;
+    this.wishSharedService.wishesBasketCounter().subscribe({
+      next: (wishCounter: number) => {
+        this.wishCounter = wishCounter;
+      },
+      error: (err: any) => {
+        console.warn(err);
+      },
     });
 
     this._isUserLoggedIn = this.authService.isUserLoggedIn.subscribe(

@@ -3,23 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable, map, switchMap } from 'rxjs';
 import { FirebaseWishDatabaseService } from '../db/firebase-wish-database.service';
 
+import { WishItemDescription } from '../wish-list/wish-item/wish-item-description';
 import { WishItem } from '../wish-list/wish-item/wish-item-model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WishDatabaseService {
-  // private _whisItemDatabase!: InMemoryWishItemDataBase;
-
   constructor(
     private firebaseWishDatabaseService: FirebaseWishDatabaseService
-  ) {
-    // this._whisItemDatabase = new InMemoryWishItemDataBase();
-  }
-
-  // saveWishItem(item: WishItem): WishItem | undefined {
-  //   return this._whisItemDatabase.add(item);
-  // }
+  ) {}
 
   saveWish(wish: WishItem): Observable<WishItem | undefined> {
     return this.firebaseWishDatabaseService.saveWish(wish).pipe(
@@ -57,31 +50,40 @@ export class WishDatabaseService {
   }
 
   removeById(id: string): Observable<boolean> {
-   return this.firebaseWishDatabaseService.deleteWishById(id)
-   .pipe(map((resposne: HttpResponse<any>) => {
-      if(resposne.status ===200) {
-        return true;
-      } else {
-        return false;
-      }
-   }));
-     
- 
-  }
-
-  getNumberOfItems(): number {
-    return this.firebaseWishDatabaseService.findAllWishes.length;
+    return this.firebaseWishDatabaseService.deleteWishById(id).pipe(
+      map((resposne: HttpResponse<any>) => {
+        if (resposne.status === 200) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 
   private convertToWishItem(wishData: any, key: string): WishItem {
     const wishItem = new WishItem(
       wishData.name,
       wishData.type,
-      wishData.descriptions,
+      this.convertToWishItemDescription(wishData.descriptions),
       wishData.pictureUrl
     );
     wishItem.id = key;
 
     return wishItem;
+  }
+
+  private convertToWishItemDescription(
+    descriptions: any[]
+  ): WishItemDescription[] {
+    const wishItemDescriptions: WishItemDescription[] = [];
+    descriptions.forEach((description) => {
+      const desc = new WishItemDescription(
+        description._name,
+        description._content
+      );
+      wishItemDescriptions.push(desc);
+    });
+    return wishItemDescriptions;
   }
 }
