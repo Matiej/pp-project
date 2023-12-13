@@ -33,8 +33,8 @@ export class WishitemService implements OnDestroy {
     }
   }
 
-  public removeWishItem(wishItemId: string) {
-    this.databaseService.removeById(wishItemId).pipe(
+  public removeWishItem(wishItemId: string): Observable<boolean> {
+    return this.databaseService.removeById(wishItemId).pipe(
       tap((isRemoved: boolean) => {
         return isRemoved;
       }),

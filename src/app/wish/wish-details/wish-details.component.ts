@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, Subscription, takeUntil } from 'rxjs';
+import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
 import { WishitemService } from '../service/wishitem.service';
 import { WishItem } from '../wish-list/wish-item/wish-item-model';
 
@@ -63,7 +64,37 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
 
   onRemoveWish() {
     if (this.wishItem) {
-      this.wishItemService.removeWishItem(this.wishItem.id);
+      this.wishItemService.removeWishItem(this.wishItem.id).subscribe({
+        next: (isRemoved) => {
+          if (isRemoved) {
+            this.wishItemService.emitWishToastMessage(
+              TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY,
+              TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
+              3000
+            );
+          } else {
+            this.wishItemService.emitWishToastMessage(
+              TOAST_MESSAGES.WISH_REMOVED_SUCCESSFULLY,
+              TOAST_MESSAGES.DANGER_MESSAGE_STYLE,
+              3000
+            );
+          }
+          this.wishItemService.fetchAllWishItemsToListComponent();
+          this.onCloseClick();
+        },
+        error: (errorRes) => {
+          let errorMessage = 'An uknown error occurred';
+          if (errorRes.error) {
+            errorMessage = errorRes.error;
+          }
+          this.wishItemService.emitWishToastMessage(
+            TOAST_MESSAGES.WISH_ADDING_ERROR + ' ------------ ' + errorMessage,
+            TOAST_MESSAGES.DANGER_MESSAGE_BIG_STYLE,
+            4000
+          );
+          console.warn(errorRes);
+        },
+      });
       this.onCloseClick();
     }
   }
