@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { WishitemService } from './service/wishitem.service';
 import { ButtonDetails } from './wish-edit/wish-edit.component';
-import { WishItem } from './wish-list/wish-item/wish-item-model';
 
 @Component({
   selector: 'app-wish',
@@ -15,7 +14,6 @@ export class WishComponent implements OnInit, OnDestroy {
   wishEditBottomsForChild$: Observable<ButtonDetails[]> = new Observable<
     ButtonDetails[]
   >();
-  $wishItemParentList: Observable<WishItem[]> = new Observable<WishItem[]>();
   isSpinner: boolean = false;
   isWishDetail: boolean = false;
   private _toastMessageSubscription!: Subscription;
