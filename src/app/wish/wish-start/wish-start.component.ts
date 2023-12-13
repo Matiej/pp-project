@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ASSETS_PATHS } from '../../constants/assets-paths';
-import { WishDatabaseService } from '../service/wish-database.service';
+import { WishitemService } from '../service/wishitem.service';
 
 @Component({
   selector: 'app-wish-start',
@@ -9,14 +9,21 @@ import { WishDatabaseService } from '../service/wish-database.service';
 })
 export class WishStartComponent implements OnInit {
   wishStartMessage: string = 'Wish Section starts.';
-  readonly startImagePath: string =  ASSETS_PATHS.START_IMAGE_FILE_SOURCE;
+  readonly startImagePath: string = ASSETS_PATHS.START_IMAGE_FILE_SOURCE;
 
-  constructor(private wishDBservice: WishDatabaseService) {}
+  constructor(private wishItemService: WishitemService) {}
   ngOnInit(): void {
-    if (this.wishDBservice.getNumberOfItems() < 1) {
-      this.wishStartMessage = "Currently you don't have any wish items!";
-    } else {
-      this.wishStartMessage = 'Please select a wish item!';
-    }
+    this.wishItemService.wishCounterBehaviorSubject.subscribe({
+      next: (value: number) => {
+        if (value < 1) {
+          this.wishStartMessage = "Currently you don't have any wish items!";
+        } else {
+          this.wishStartMessage = 'Please select a wish item!';
+        }
+      },
+      error: (err: any) => {
+        console.warn(err);
+      },
+    });
   }
 }

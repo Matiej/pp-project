@@ -1,8 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
-import { WishSharedService } from 'src/app/shared/wish-shared.service';
-import { WishDatabaseService } from '../service/wish-database.service';
+import { Subject, Subscription, takeUntil } from 'rxjs';
+import { WishitemService } from '../service/wishitem.service';
 import { WishItem } from '../wish-list/wish-item/wish-item-model';
 
 @Component({
@@ -13,10 +13,10 @@ import { WishItem } from '../wish-list/wish-item/wish-item-model';
 export class WishDetailsComponent implements OnInit, OnDestroy {
   wishItem: WishItem | undefined;
   private _destroy$: Subject<void> = new Subject<void>();
+  private _wishItemServiceSubscription!: Subscription;
 
   constructor(
-    private wishSharedService: WishSharedService,
-    private wishDatabaseService: WishDatabaseService,
+    private wishItemService: WishitemService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -26,12 +26,22 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe((params: Params) => {
         const wishItemID: string = params['id'];
-        if (wishItemID && !Number.isNaN(wishItemID)) {
-          this.wishDatabaseService
-            .findWishByid( wishItemID)
-            .subscribe((data) => {
-              this.wishItem = data;
-            });
+        if (wishItemID) {
+          this.wishItemService.findWishByid(wishItemID).subscribe({
+            next: (wishItem: WishItem | undefined) => {
+              if (wishItem) {
+                this.wishItem = wishItem;
+              } else {
+                // do sometnigh maybe toast message here
+              }
+            },
+            error: (err: HttpErrorResponse) => {
+              console.warn(
+                'Error occured while fetching wishItem details--- ',
+                err
+              );
+            },
+          });
         }
       });
   }
@@ -39,6 +49,9 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+    if (this._wishItemServiceSubscription) {
+      this._wishItemServiceSubscription.unsubscribe();
+    }
   }
 
   openLargeImage(arg0: any) {}
@@ -46,12 +59,11 @@ export class WishDetailsComponent implements OnInit, OnDestroy {
   onCloseClick() {
     this.wishItem = undefined;
     this.router.navigate(['wish']);
- 
   }
 
   onRemoveWish() {
     if (this.wishItem) {
-      this.wishSharedService.removeWishItem(this.wishItem.id);
+      this.wishItemService.removeWishItem(this.wishItem.id);
       this.onCloseClick();
     }
   }
