@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { WishSharedService } from '../shared/wish-shared.service';
+import { Observable, Subscription } from 'rxjs';
+import { WishitemService } from './service/wishitem.service';
 import { ButtonDetails } from './wish-edit/wish-edit.component';
 import { WishItem } from './wish-list/wish-item/wish-item-model';
 
@@ -10,7 +10,7 @@ import { WishItem } from './wish-list/wish-item/wish-item-model';
   templateUrl: './wish.component.html',
   styleUrls: ['./wish.component.css'],
 })
-export class WishComponent implements OnInit {
+export class WishComponent implements OnInit, OnDestroy {
   readonly wishComponentTitle: string = 'Your wishies and findings sector';
   wishEditBottomsForChild$: Observable<ButtonDetails[]> = new Observable<
     ButtonDetails[]
@@ -18,26 +18,50 @@ export class WishComponent implements OnInit {
   $wishItemParentList: Observable<WishItem[]> = new Observable<WishItem[]>();
   isSpinner: boolean = false;
   isWishDetail: boolean = false;
-
-  private _changeStateWishItemNotifier: EventEmitter<void> = new EventEmitter();
+  private _toastMessageSubscription!: Subscription;
+  wishToastStyleClass: string = '';
+  wishToastMessage: string = '';
+  showToast: boolean = false;
 
   constructor(
-    private wishSharedService: WishSharedService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private wishService: WishitemService
   ) {}
 
   ngOnInit(): void {
-    this._changeStateWishItemNotifier =
-      this.wishSharedService.changeStateWishItemNotifier;
-    this._changeStateWishItemNotifier.subscribe(() => {
-      this.$wishItemParentList = this.wishSharedService.getWishList();
-    });
+    this._toastMessageSubscription =
+      this.wishService.wishToastMessageEmiter.subscribe((toast) => {
+        this.showToastMessage(
+          toast.toastMessage,
+          toast.timeout,
+          toast.styleClass
+        );
+      });
+  }
 
-    this.$wishItemParentList = this.wishSharedService.getWishList();
+  ngOnDestroy(): void {
+    if (this._toastMessageSubscription) {
+      this._toastMessageSubscription.unsubscribe();
+    }
   }
 
   onAddNewWish() {
     this.router.navigate(['new'], { relativeTo: this.route });
+  }
+
+  private showToastMessage(
+    message: string,
+    timeout: number,
+    messageStyle: string
+  ): void {
+    this.wishToastMessage = message;
+    this.showToast = true;
+    this.wishToastStyleClass = messageStyle;
+    setTimeout(() => {
+      this.showToast = false;
+      this.wishToastMessage = '';
+      this.wishToastStyleClass = '';
+    }, timeout);
   }
 }
