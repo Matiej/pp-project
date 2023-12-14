@@ -5,6 +5,8 @@ export class SignInAuthResponse {
   private _user!: User;
   private _userAuthData!: UserFireBaseAuthData;
 
+
+
   public get user(): User {
     return this._user;
   }

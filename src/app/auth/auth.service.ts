@@ -3,7 +3,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
-  Subject,
   Subscription,
   catchError,
   exhaustMap,
@@ -31,7 +30,9 @@ export class AuthService implements OnDestroy {
     'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   readonly sginInFireBaseUrl: string =
     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
-  private _singinLoginResposne: Subject<SignInAuthResponse> = new Subject();
+
+  private _singinLoginResposne: BehaviorSubject<SignInAuthResponse | null> =
+    new BehaviorSubject<SignInAuthResponse | null>(null);
   private _findByEmailSubscription?: Subscription;
 
   constructor(
@@ -46,9 +47,6 @@ export class AuthService implements OnDestroy {
     if (this._isUserLoggedIn) {
       this._isUserLoggedIn.unsubscribe();
     }
-    if (this._singinLoginResposne) {
-      this._singinLoginResposne.unsubscribe();
-    }
   }
 
   signUpFireBaseUser(userToSave: User): Observable<SignInAuthResponse> {
@@ -58,7 +56,8 @@ export class AuthService implements OnDestroy {
         password: userToSave.password,
         returnSecureToken: true,
       })
-      .pipe(take(1),
+      .pipe(
+        take(1),
         exhaustMap((authResponse: AuthResponseData) => {
           return this.userDbService.saveUserFirebase(userToSave).pipe(
             map((savedUser: User | undefined) => {
@@ -94,12 +93,11 @@ export class AuthService implements OnDestroy {
         password: pass,
         returnSecureToken: true,
       })
-      .pipe(take(1),
+      .pipe(
+        take(1),
         exhaustMap((authResposne: AuthResponseData) => {
           return this.findUserInDataBase(email).pipe(
             map((user: User) => {
-              console.log('looking for user;');
-
               return this.handleSuccess(user, authResposne);
             })
           );
@@ -185,7 +183,6 @@ export class AuthService implements OnDestroy {
     const currentTime = new Date();
     const timeUntilExpiration =
       tokenExpirationDate.getTime() - currentTime.getTime();
-    console.log('tieeeeemeeeeeeeeee:  ', timeUntilExpiration);
     if (timeUntilExpiration > 0) {
       setTimeout(() => {
         this._isUserLoggedIn.next(false);
@@ -214,10 +211,12 @@ export class AuthService implements OnDestroy {
     return userFireBaseAuthData;
   }
 
-  public get singinLoginResposne(): Subject<SignInAuthResponse> {
+  public get singinLoginResposne(): BehaviorSubject<SignInAuthResponse | null> {
     return this._singinLoginResposne;
   }
-  public set singinLoginResposne(value: Subject<SignInAuthResponse>) {
+  public set singinLoginResposne(
+    value: BehaviorSubject<SignInAuthResponse | null>
+  ) {
     this._singinLoginResposne = value;
   }
 
