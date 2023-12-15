@@ -3,16 +3,20 @@ import {
   HttpHandler,
   HttpHeaders,
   HttpInterceptor,
+  HttpParams,
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, exhaustMap, take } from 'rxjs';
+import { AuthService } from './auth.service';
+import { SignInAuthResponse } from './signin-auth-response';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor() {}
+  constructor(private authService: AuthService) {}
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -22,6 +26,26 @@ export class AuthInterceptorService implements HttpInterceptor {
       'application/json'
     );
     const requstWithHeaders = req.clone({ headers });
-    return next.handle(requstWithHeaders);
+
+    //take(1) makes that take only once data and usnubsrcibe
+    return this.authService.singinLoginResposne.pipe(
+      take(1),
+      exhaustMap((singResp: SignInAuthResponse | null) => {
+        console.log('reeeeeeeeeeeeeeeewsp intercepter  ', singResp)
+        if (singResp && singResp.userAuthData.idToken) {
+          let token: string = singResp.userAuthData.idToken;
+          console.log('token     ', token);
+          const authParams = new HttpParams().set('auth', token);
+          const requestWithAuthAndHeaders = requstWithHeaders.clone({
+            params: authParams,
+          });
+          return next.handle(requestWithAuthAndHeaders);
+        } else {
+          return next.handle(requstWithHeaders);
+        }
+      })
+    );
+
+    // return next.handle(requstWithHeaders);
   }
 }
