@@ -30,7 +30,7 @@ export class AuthService implements OnDestroy {
     'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   readonly sginInFireBaseUrl: string =
     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
-
+  private loginResposne!: SignInAuthResponse;
   private _singinLoginResposne: BehaviorSubject<SignInAuthResponse | null> =
     new BehaviorSubject<SignInAuthResponse | null>(null);
   private _findByEmailSubscription?: Subscription;
@@ -59,6 +59,10 @@ export class AuthService implements OnDestroy {
       .pipe(
         take(1),
         exhaustMap((authResponse: AuthResponseData) => {
+          this.loginResposne = new SignInAuthResponse();
+          this.loginResposne.userAuthData =
+            this.convertToUserFireBaseAuthData(authResponse);
+          this._singinLoginResposne.next(this.loginResposne);
           return this.userDbService.saveUserFirebase(userToSave).pipe(
             map((savedUser: User | undefined) => {
               if (savedUser && savedUser !== undefined) {
@@ -96,6 +100,7 @@ export class AuthService implements OnDestroy {
       .pipe(
         take(1),
         exhaustMap((authResposne: AuthResponseData) => {
+          this.handleSuccess(undefined, authResposne);
           return this.findUserInDataBase(email).pipe(
             map((user: User) => {
               return this.handleSuccess(user, authResposne);
@@ -126,19 +131,21 @@ export class AuthService implements OnDestroy {
   }
 
   private handleSuccess(
-    user: User,
+    user: User | undefined,
     authResponse: AuthResponseData
   ): SignInAuthResponse {
-    let signInAuthResposne: SignInAuthResponse = new SignInAuthResponse();
-    signInAuthResposne.user = user;
-    signInAuthResposne.userAuthData =
+    this.loginResposne = new SignInAuthResponse();
+    if (user) {
+      this.loginResposne.user = user;
+    }
+    this.loginResposne.userAuthData =
       this.convertToUserFireBaseAuthData(authResponse);
-    this._singinLoginResposne.next(signInAuthResposne);
+    this._singinLoginResposne.next(this.loginResposne);
     this.logOffWhenExpiiesToken(
-      signInAuthResposne.userAuthData.tokenExpirationDate
+      this.loginResposne.userAuthData.tokenExpirationDate
     );
     this._isUserLoggedIn.next(true);
-    return signInAuthResposne;
+    return this.loginResposne;
   }
 
   private handleError(errorResposne: HttpErrorResponse): Observable<never> {
