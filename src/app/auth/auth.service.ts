@@ -30,7 +30,7 @@ export class AuthService implements OnDestroy {
     'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   readonly sginInFireBaseUrl: string =
     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
-  private loginResposne!: SignInAuthResponse;
+  private loginResposne!: SignInAuthResponse | null;
   private _singinLoginResposne: BehaviorSubject<SignInAuthResponse | null> =
     new BehaviorSubject<SignInAuthResponse | null>(null);
   private _findByEmailSubscription?: Subscription;
@@ -85,6 +85,12 @@ export class AuthService implements OnDestroy {
           return this.handleError(errorRes);
         })
       );
+  }
+
+  public logout(): void {
+    this._isUserLoggedIn.next(false);
+    this.loginResposne = null;
+    this._singinLoginResposne.next(null);
   }
 
   signInFireBaseUser(
@@ -180,10 +186,6 @@ export class AuthService implements OnDestroy {
       status: error.status,
       statusText: error.statusText,
     });
-  }
-
-  logout(): void {
-    this._isUserLoggedIn.next(false);
   }
 
   private logOffWhenExpiiesToken(tokenExpirationDate: Date): void {
