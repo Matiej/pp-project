@@ -11,9 +11,14 @@
         (ngSubmit)="onUserLogin()"
         style="margin-top: 5%"
       >
-        <span class="help-block" style="color: red" *ngIf="isLoginError"
+        <!-- <span class="help-block" style="color: red" *ngIf="isLoginError"
           >User email or password is wrong!</span
-        >
+        > -->
+        <app-alert
+          *ngIf="isLoginError"
+          [alertMessage]="errorMessage"
+          (closeAlertEmiter)="onCloseAlert()"
+        ></app-alert>
         <div class="col-xs-10">
           <div class="col-xs-5">
             <label for="username">Email</label>
@@ -73,9 +78,7 @@
     <hr />
     <div class="row" style="margin: 3%; margin-top: 5%">
       <div class="col-xs-10">
-        <h3>
-          If you don't have an account you can register
-        </h3>
+        <h3>If you don't have an account you can register</h3>
         <i
           >It is just fake login service in orderd to test and learn routing
           guards</i
