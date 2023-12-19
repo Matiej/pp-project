@@ -21,25 +21,6 @@ export class FirebaseWishDatabaseService {
 
   public findAllWishes(): Observable<{ [key: string]: WishItem }> {
     return this.http.get<{ [key: string]: WishItem }>(this.fireBaseWishestUrl);
-    //take(1) makes that take only once data and usnubsrcibe
-    // return this.authService.singinLoginResposne.pipe(
-    //   take(1),
-    //   exhaustMap((singResp: SignInAuthResponse | null) => {
-    //     if (singResp && singResp.userAuthData.idToken) {
-    //       const token = singResp.userAuthData.idToken;
-    //       let authParams = new HttpParams().set('auth', token);
-    //       return this.http.get<{ [key: string]: WishItem }>(
-    //         this.fireBaseWishestUrl,
-    //         { params: authParams }
-    //       );
-    //     } else {
-    //       console.warn(
-    //         'Trying to fetch WISH data wihtout login, or TOKEN is not valid.'
-    //       );
-    //       return throwError(() => Error);
-    //     }
-    //   })
-    // );
   }
 
   public deleteAllWishes(): Observable<boolean> {
