@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   loginForm!: FormGroup;
   isLoginError: boolean = false;
+  errorMessage: string = 'User email or password is wrong!';
   isSpinning: boolean = false;
   showToast: boolean = false;
   toastMessageClass: string = '';
@@ -48,6 +49,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  onCloseAlert() {
+    this.isLoginError = false;
+  }
+
   onUserLogin(): void {
     if (!this.loginForm.valid) {
       return;
@@ -74,6 +79,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (error.error) {
             errorMessage = error.error;
           }
+          this.errorMessage = errorMessage;
+          this.isLoginError = true;
           console.warn('Error while logging!: --------', errorMessage);
           this.showToastMessage(
             TOAST_MESSAGES.ERROR_LOGGING + ' ------------ ' + errorMessage,

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AlertComponent } from './alert/alert.component';
 import { BetterCorrectHighlightDirective } from './direcives/better-correct-highlight.directive';
 import { DropdownDirective } from './direcives/dropdown.directive';
 import { HostbindingMouseOnHighlightDirective } from './direcives/hostbinding-mouse-on-highlight.directive';
@@ -13,6 +14,7 @@ import { UnlessDirective } from './direcives/unless.directive';
     HostbindingMouseOnHighlightDirective,
     UnlessDirective,
     DropdownDirective,
+    AlertComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -20,7 +22,7 @@ import { UnlessDirective } from './direcives/unless.directive';
     MouseOnHighlightDirective,
     HostbindingMouseOnHighlightDirective,
     UnlessDirective,
-    DropdownDirective
+    DropdownDirective, AlertComponent
   ],
 })
 export class SharedModule {}
