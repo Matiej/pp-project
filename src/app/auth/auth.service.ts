@@ -93,7 +93,7 @@ export class AuthService implements OnDestroy {
     this._singinLoginResposne.next(null);
   }
 
-  signInFireBaseUser(
+  public loginFireBaseUser(
     email: string,
     pass: string
   ): Observable<SignInAuthResponse> {
@@ -119,17 +119,55 @@ export class AuthService implements OnDestroy {
       );
   }
 
+  autoLogin(): void {
+    console.log('autologin has been');
+    const loginData = localStorage.getItem('loginData');
+    if (!loginData) {
+      return;
+    }
+    const loginDataParsed: {
+      _idToken: string;
+      email: string;
+      refreshToken: string;
+      expiresIn: string;
+      localId: string;
+      tokenExpirationDate: string;
+    } = JSON.parse(loginData);
+
+    const loadedUserAuthData: UserFireBaseAuthData = new UserFireBaseAuthData(
+      loginDataParsed._idToken,
+      loginDataParsed.email,
+      loginDataParsed.refreshToken,
+      loginDataParsed.expiresIn,
+      loginDataParsed.localId,
+      new Date(loginDataParsed.tokenExpirationDate)
+    );
+
+    if (loadedUserAuthData.idToken) {
+      const signInAuthResposne = new SignInAuthResponse();
+      signInAuthResposne.userAuthData = loadedUserAuthData;
+      this._singinLoginResposne.next(signInAuthResposne);
+
+      this.findUserInDataBase(loadedUserAuthData.email).subscribe((user) => {
+        signInAuthResposne.user = user;
+        this._singinLoginResposne.next(signInAuthResposne);
+        this.isUserLoggedIn.next(true);
+        console.log('autologin woooooooooooooorking');
+      });
+    }
+  }
+
   private findUserInDataBase(email: string): Observable<User> {
     return this.userDbService.findByEmail(email).pipe(
       switchMap((user: User | undefined) => {
         if (!user) {
-          return throwError(
+          return throwError(() => {
             new HttpErrorResponse({
               error: 'User not found',
               status: 400,
               statusText: 'Data base user not found',
-            })
-          );
+            });
+          });
         }
         return of(user);
       })
@@ -147,7 +185,12 @@ export class AuthService implements OnDestroy {
     this.loginResposne.userAuthData =
       this.convertToUserFireBaseAuthData(authResponse);
     this._singinLoginResposne.next(this.loginResposne);
-    this.logOffWhenExpiiesToken(
+    localStorage.setItem(
+      'loginData',
+      JSON.stringify(this.loginResposne.userAuthData)
+    );
+
+    this.logOffWhenExpiresToken(
       this.loginResposne.userAuthData.tokenExpirationDate
     );
     this._isUserLoggedIn.next(true);
@@ -188,7 +231,7 @@ export class AuthService implements OnDestroy {
     });
   }
 
-  private logOffWhenExpiiesToken(tokenExpirationDate: Date): void {
+  private logOffWhenExpiresToken(tokenExpirationDate: Date): void {
     const currentTime = new Date();
     const timeUntilExpiration =
       tokenExpirationDate.getTime() - currentTime.getTime();

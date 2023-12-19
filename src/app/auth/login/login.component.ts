@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const formData = this.loginForm.value;
 
     this._authObservale = this.authService
-      .signInFireBaseUser(formData.email, formData.password)
+      .loginFireBaseUser(formData.email, formData.password)
       .subscribe({
         next: (data: SignInAuthResponse) => {
           this.showToastMessage(
