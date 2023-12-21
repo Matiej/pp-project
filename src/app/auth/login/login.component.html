@@ -14,11 +14,18 @@
         <!-- <span class="help-block" style="color: red" *ngIf="isLoginError"
           >User email or password is wrong!</span
         > -->
-        <app-alert
+<!-- 
+       IS BETTER TO USE THIS aproach for alert, easier and 
+       angular dosn't need to create component if is no needed. if
+      condition is of then not cluttering DOM with unused content co   -->
+        <!-- <app-alert
           *ngIf="isLoginError"
           [alertMessage]="errorMessage"
           (closeAlertEmiter)="onCloseAlert()"
-        ></app-alert>
+        ></app-alert> -->
+
+        <ng-template appPlaceholder> </ng-template>
+
         <div class="col-xs-10">
           <div class="col-xs-5">
             <label for="username">Email</label>

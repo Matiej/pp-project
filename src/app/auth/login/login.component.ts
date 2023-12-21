@@ -1,8 +1,17 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { TOAST_MESSAGES } from 'src/app/constants/toast-messages';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { PlaceholderDirective } from 'src/app/shared/direcives/placeholder/placeholder.directive';
 import { User } from 'src/app/user/user-model';
 import { AuthService } from '../auth.service';
 import { SignInAuthResponse } from '../signin-auth-response';
@@ -16,7 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private _singinLoginResposne: SignInAuthResponse = new SignInAuthResponse();
   isLoggedIn: boolean = false;
   loginForm!: FormGroup;
-  isLoginError: boolean = false;
+  // isLoginError: boolean = false;
   errorMessage: string = 'User email or password is wrong!';
   isSpinning: boolean = false;
   showToast: boolean = false;
@@ -25,7 +34,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   private _authObservale?: Subscription;
   private _isUserLoggin?: Subscription;
 
-  constructor(private authService: AuthService) {}
+  @ViewChild(PlaceholderDirective, { static: false })
+  alertHost!: PlaceholderDirective;
+  private _closeAlertWindowSub!: Subscription;
+
+  constructor(
+    private authService: AuthService,
+    private componentFacotryResolver: ComponentFactoryResolver
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -47,11 +63,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this._isUserLoggin) {
       this._isUserLoggin.unsubscribe();
     }
+    if (this._closeAlertWindowSub) {
+      this._closeAlertWindowSub.unsubscribe();
+    }
   }
 
-  onCloseAlert() {
-    this.isLoginError = false;
-  }
+  // onCloseAlert() {
+  //   this.isLoginError = false;
+  // }
 
   onUserLogin(): void {
     if (!this.loginForm.valid) {
@@ -79,8 +98,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (error.error) {
             errorMessage = error.error;
           }
-          this.errorMessage = errorMessage;
-          this.isLoginError = true;
+          // this.errorMessage = errorMessage;
+          this.showErrorAlert(errorMessage);
+
           console.warn('Error while logging!: --------', errorMessage);
           this.showToastMessage(
             TOAST_MESSAGES.ERROR_LOGGING + ' ------------ ' + errorMessage,
@@ -117,5 +137,24 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.userToastMessage = '';
       this.toastMessageClass = '';
     }, timeout);
+  }
+
+  private showErrorAlert(errorMessage: string): void {
+    // this.isLoginError = true;
+    const alertComponentFactory: ComponentFactory<AlertComponent> =
+      this.componentFacotryResolver.resolveComponentFactory(AlertComponent);
+    console.log('show error : ', this.alertHost);
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+    hostViewContainerRef.clear(); // is better to clear before create something new
+
+    let createdComponentRef = hostViewContainerRef.createComponent(
+      alertComponentFactory
+    );
+    createdComponentRef.instance.alertMessage = errorMessage;
+    this._closeAlertWindowSub =
+      createdComponentRef.instance.closeAlertEmiter.subscribe(() => {
+        this._closeAlertWindowSub.unsubscribe();
+        hostViewContainerRef.clear();
+      });
   }
 }
