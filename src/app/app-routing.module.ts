@@ -41,10 +41,6 @@ const routes: Routes = [
     component: ErrorPageComponent,
     data: { message: 'Page not found!' },
   },
-  // {
-  //   path: '**',
-  //   redirectTo: '/not-found',
-  // },
 ];
 
 @NgModule({
