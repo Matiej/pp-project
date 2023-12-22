@@ -1,7 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from '../app-routing.module';
 import { FilterServerPipe } from '../pipes/filter-server.pipe';
 import { NameFilterServerPipe } from '../pipes/name-filter-server.pipe';
 import { ReversePipe } from '../pipes/reverse.pipe';
@@ -14,6 +14,8 @@ import { ClickTaskComponent } from './click-task/click-task.component';
 import { ActivatorComponent } from './custom-observables/activator/activator.component';
 import { CustomObservablesComponent } from './custom-observables/custom-observables.component';
 import { ExampleReactiveFormComponent } from './example-reactive-form/example-reactive-form.component';
+import { LearningMixRoutingModule } from './learning-mix-routing.module';
+import { LearningMixComponent } from './learning-mix.component';
 import { OutstandingTask1Component } from './outstanding-task1/outstanding-task1.component';
 import { SuccessAlertComponent } from './outstanding-task1/success-alert/success-alert.component';
 import { WarningAlertComponent } from './outstanding-task1/warning-alert/warning-alert.component';
@@ -45,6 +47,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
 
 @NgModule({
   declarations: [
+    LearningMixComponent,
     ServerComponent,
     ServersComponent,
     UserTaskComponent,
@@ -86,38 +89,12 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section18HttpReqComponent,
   ],
   imports: [
+    CommonModule,
     FormsModule,
     BrowserModule,
     ReactiveFormsModule,
     SharedModule,
-    AppRoutingModule,
+    LearningMixRoutingModule,
   ],
-  exports: [
-    ServersComponent,
-    UserTaskComponent,
-    ClickTaskComponent,
-    Section5TaskComponent,
-    SpinnerTestComponent,
-    ButtonsBoardComponent,
-    ControlButtonComponent,
-    Section7DirectivesComponent,
-    BasicHighlightDirective,
-    Section9TaskUserComponent,
-    OutstandingTask1Component,
-    Section11RoutingComponent,
-    CustomObservablesComponent,
-    Section15FormsComponent,
-    Section15Task6Component,
-    ExampleReactiveFormComponent,
-    Section15Task7Component,
-    Section17PipesComponent,
-    ShortenPipe,
-    FilterServerPipe,
-    NameFilterServerPipe,
-    ReversePipe,
-    SortPipe,
-    Section18HttpReqComponent,
-  ],
-  providers: [],
 })
 export class LearningMixModule {}
