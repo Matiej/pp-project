@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from '../app-routing.module';
 import { AuthorsComponent } from './authors/authors.component';
+import { BookApiRoutingModule } from './book-api-routing.module';
 import { BookApiComponent } from './book-api.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { BookItemComponent } from './books/book-list/book-item/book-item.component';
@@ -21,14 +21,15 @@ import { BooksComponent } from './books/books.component';
     BooksSerchBarComponent,
     AuthorsComponent,
   ],
-  imports: [CommonModule, RouterModule, FormsModule, AppRoutingModule],
+  imports: [CommonModule, RouterModule, FormsModule, BookApiRoutingModule],
   exports: [
     BookApiComponent,
     BooksComponent,
     BookListComponent,
     BookDetailComponent,
     BookItemComponent,
-    BooksSerchBarComponent,  AuthorsComponent,
+    BooksSerchBarComponent,
+    AuthorsComponent,
   ],
 })
-export class BookModule {}
+export class BookApiModule {}
