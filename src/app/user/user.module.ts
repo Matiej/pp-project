@@ -20,13 +20,5 @@ import { UserComponent } from './user.component';
     UserRegisterComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule, UserRoutingModule],
-  exports: [
-    UserComponent,
-    UserItemComponent,
-    UserListComponent,
-    UserDetailsComponent,
-    UserEditComponent,
-    UserRegisterComponent,
-  ],
 })
 export class UserModule {}

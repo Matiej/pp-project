@@ -27,14 +27,5 @@ import { WishComponent } from './wish.component';
     ReactiveFormsModule,
     SharedModule,
   ],
-
-  exports: [
-    WishListComponent,
-    WishItemComponent,
-    WishEditComponent,
-    WishComponent,
-    WishDetailsComponent,
-    WishStartComponent,
-  ],
 })
 export class WishModule {}
