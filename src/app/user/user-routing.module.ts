@@ -10,13 +10,12 @@ import { UserComponent } from './user.component';
 
 const routes: Routes = [
   {
-    path: 'user/register',
+    path: 'register',
     component: UserRegisterComponent,
     canDeactivate: [CanDeactivateGuardService],
   },
-
   {
-    path: 'user',
+    path: '',
     component: UserComponent,
     canActivate: [AuthGuard],
     children: [
@@ -38,11 +37,10 @@ const routes: Routes = [
       },
     ],
   },
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {}

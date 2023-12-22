@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { CourseCertComponent } from './course-cert/course-cert.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { HomeComponent } from './home/home.component';
@@ -13,9 +13,16 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'home',
-    component: HomeComponent,
+    path: 'wishes',
+    loadChildren: () => import('./wish/wish.module').then((m) => m.WishModule),
+    // it is old version of anuglar syntax
+    // loadChildren: './wish/wish.module.ts#WishModule',
   },
+  {
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then((l) => l.UserModule),
+  },
+
   {
     path: 'learning-mix',
     component: LearningMixComponent,
@@ -44,7 +51,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+  ],
   exports: [RouterModule],
   providers: [],
 })

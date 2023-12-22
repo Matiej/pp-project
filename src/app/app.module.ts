@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,8 +14,6 @@ import { LoginInterceptorService } from './interceptors/login--interceptor.servi
 import { LearningMixModule } from './learning-mix/learning-mix.module';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
 import { SharedModule } from './shared/shared.module';
-import { UserModule } from './user/user.module';
-import { WishModule } from './wish/wish.module';
 
 @NgModule({
   declarations: [
@@ -26,13 +25,12 @@ import { WishModule } from './wish/wish.module';
     ErrorPageComponent,
   ],
   imports: [
+    CommonModule,
     AppRoutingModule,
     LearningMixModule,
     HttpClientModule,
     SharedModule,
     BookApiModule,
-    WishModule,
-    UserModule,
     AuthModule,
   ],
   providers: [

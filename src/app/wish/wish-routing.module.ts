@@ -8,7 +8,7 @@ import { WishComponent } from './wish.component';
 
 const routes: Routes = [
   {
-    path: 'wish',
+    path: '',
     component: WishComponent,
     // canActivate: [AuthGuard],
     children: [
