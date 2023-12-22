@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 import { AlertComponent } from './alert/alert.component';
 import { BetterCorrectHighlightDirective } from './direcives/better-correct-highlight.directive';
 import { DropdownDirective } from './direcives/dropdown.directive';
@@ -18,13 +21,15 @@ import { UnlessDirective } from './direcives/unless.directive';
     AlertComponent,
     PlaceholderDirective,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   exports: [
     BetterCorrectHighlightDirective,
     MouseOnHighlightDirective,
     HostbindingMouseOnHighlightDirective,
     UnlessDirective,
-    DropdownDirective, AlertComponent, PlaceholderDirective
+    DropdownDirective,
+    AlertComponent,
+    PlaceholderDirective,
   ],
 })
 export class SharedModule {}
