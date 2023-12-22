@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AuthModule } from './auth/auth.module';
-import { BookModule } from './book-api/book.module';
+import { BookApiModule } from './book-api/book-api.module';
 import { CourseCertComponent } from './course-cert/course-cert.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { HeaderComponent } from './header/header.component';
@@ -28,22 +28,21 @@ import { WishModule } from './wish/wish.module';
     HomeComponent,
     CourseCertComponent,
     NamedOutletTestComponent,
-  
     ErrorPageComponent,
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     LearningMixModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxExtendedPdfViewerModule,
     SharedModule,
+    BookApiModule,
     WishModule,
     UserModule,
-    BookModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [
     {

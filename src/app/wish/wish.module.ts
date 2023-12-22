@@ -7,6 +7,7 @@ import { WishDetailsComponent } from './wish-details/wish-details.component';
 import { WishEditComponent } from './wish-edit/wish-edit.component';
 import { WishItemComponent } from './wish-list/wish-item/wish-item.component';
 import { WishListComponent } from './wish-list/wish-list.component';
+import { WishRoutingModule } from './wish-routing.module';
 import { WishStartComponent } from './wish-start/wish-start.component';
 import { WishComponent } from './wish.component';
 
@@ -19,7 +20,13 @@ import { WishComponent } from './wish.component';
     WishDetailsComponent,
     WishStartComponent,
   ],
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, SharedModule],
+  imports: [
+    WishRoutingModule,
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    SharedModule,
+  ],
 
   exports: [
     WishListComponent,
