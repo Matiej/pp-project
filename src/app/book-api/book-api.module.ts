@@ -22,14 +22,5 @@ import { BooksComponent } from './books/books.component';
     AuthorsComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule, BookApiRoutingModule],
-  exports: [
-    BookApiComponent,
-    BooksComponent,
-    BookListComponent,
-    BookDetailComponent,
-    BookItemComponent,
-    BooksSerchBarComponent,
-    AuthorsComponent,
-  ],
 })
 export class BookApiModule {}

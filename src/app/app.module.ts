@@ -13,7 +13,6 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LoginInterceptorService } from './interceptors/login--interceptor.service';
-import { LearningMixComponent } from './learning-mix/learning-mix.component';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
 import { SharedModule } from './shared/shared.module';
@@ -23,7 +22,6 @@ import { WishModule } from './wish/wish.module';
 @NgModule({
   declarations: [
     AppComponent,
-    LearningMixComponent,
     HeaderComponent,
     HomeComponent,
     CourseCertComponent,
