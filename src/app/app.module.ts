@@ -1,8 +1,5 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
@@ -30,12 +27,8 @@ import { WishModule } from './wish/wish.module';
   ],
   imports: [
     AppRoutingModule,
-    BrowserModule,
     LearningMixModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    NgxExtendedPdfViewerModule,
     SharedModule,
     BookApiModule,
     WishModule,
