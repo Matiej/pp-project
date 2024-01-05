@@ -4,6 +4,8 @@ import { WishType } from './wish-type';
 
 export class WishItem {
   private _id!: string;
+  private _userId!: string;
+
   public name: string;
   public type: WishType;
   public descriptions: WishItemDescription[];
@@ -27,5 +29,11 @@ export class WishItem {
 
   set id(value: string) {
     this._id = value;
+  }
+  public get userId(): string {
+    return this._userId;
+  }
+  public set userId(value: string) {
+    this._userId = value;
   }
 }

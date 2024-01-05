@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   @ViewChild(PlaceholderDirective, { static: false })
   alertHost!: PlaceholderDirective;
+
   private _closeAlertWindowSub!: Subscription;
 
   constructor(

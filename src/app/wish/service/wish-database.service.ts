@@ -69,6 +69,7 @@ export class WishDatabaseService {
       wishData.pictureUrl
     );
     wishItem.id = key;
+    wishItem.userId = wishData._userId;
 
     return wishItem;
   }

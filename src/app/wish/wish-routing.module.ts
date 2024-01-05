@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../auth/auth-guard.service';
 import { CanDeactivateGuardService } from '../auth/can-deactivate-guard.service';
 import { WishDetailsComponent } from './wish-details/wish-details.component';
 import { WishEditComponent } from './wish-edit/wish-edit.component';
@@ -10,7 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: WishComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

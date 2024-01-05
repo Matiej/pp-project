@@ -32,6 +32,8 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     BookApiModule,
     AuthModule,
+    // UserModule, -------- don't need it becasue of lazy loading
+    // WishModule, -------- don't need it becasue of lazy loading
   ],
   providers: [
     {
