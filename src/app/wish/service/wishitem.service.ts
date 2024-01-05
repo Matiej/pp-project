@@ -5,9 +5,12 @@ import {
   Observable,
   Subscription,
   catchError,
+  of,
   tap,
   throwError,
 } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { SignInAuthResponse } from 'src/app/auth/signin-auth-response';
 import { WishItem } from '../wish-list/wish-item/wish-item-model';
 import { WishDatabaseService } from './wish-database.service';
 
@@ -20,16 +23,31 @@ export class WishitemService implements OnDestroy {
     styleClass: string;
     timeout: number;
   }> = new EventEmitter();
+  private _signResponse!: SignInAuthResponse | null;
 
   private _wishItemsBehaviorSubject = new BehaviorSubject<WishItem[]>([]);
   private _wishCounterBehaviorSubject = new BehaviorSubject<number>(0);
   private _wishItemsSubscription!: Subscription;
+  private _singInLoginRespSubj!: Subscription;
 
-  constructor(private databaseService: WishDatabaseService) {}
+  constructor(
+    private databaseService: WishDatabaseService,
+    private authService: AuthService
+  ) {
+    this._singInLoginRespSubj = this.authService.singinLoginResposne.subscribe(
+      (res: SignInAuthResponse | null) => {
+        this._signResponse = res;
+      }
+    );
+  }
 
   ngOnDestroy(): void {
     if (this._wishItemsSubscription) {
       this._wishItemsSubscription.unsubscribe();
+    }
+
+    if (this._singInLoginRespSubj) {
+      this._singInLoginRespSubj.unsubscribe();
     }
   }
 
@@ -47,6 +65,12 @@ export class WishitemService implements OnDestroy {
   public addNewItemToWishList(
     wishitem: WishItem
   ): Observable<WishItem | undefined> {
+    console.log(this._signResponse);
+    if (this._signResponse === null || this._signResponse.user === undefined) {
+      return of(undefined);
+    }
+
+    wishitem.userId = this._signResponse.user.id;
     return this.databaseService.saveWish(wishitem).pipe(
       tap((savedwish: WishItem | undefined) => {
         if (savedwish) {
@@ -77,8 +101,18 @@ export class WishitemService implements OnDestroy {
   public fetchAllWishItemsToListComponent(): void {
     this._wishItemsSubscription = this.findAll().subscribe({
       next: (wishItems: WishItem[]) => {
-        this._wishItemsBehaviorSubject.next(wishItems);
-        this._wishCounterBehaviorSubject.next(wishItems.length);
+        if (this._signResponse && this._signResponse.user) {
+          const userId = this._signResponse.user.id;
+          const filteredWishItems = wishItems.filter(
+            (item) => item.userId === userId
+          );
+
+          this._wishItemsBehaviorSubject.next(filteredWishItems);
+          this.wishCounterBehaviorSubject.next(filteredWishItems.length);
+        } else {
+          this._wishItemsBehaviorSubject.next([]);
+          this._wishCounterBehaviorSubject.next(0);
+        }
       },
       error: (errorResposne: HttpErrorResponse) => {
         console.warn(
