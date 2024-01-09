@@ -25,13 +25,13 @@ export class AuthInterceptorService implements HttpInterceptor {
       'Content-Type',
       'application/json'
     );
+
     const requstWithHeaders = req.clone({ headers });
 
     //take(1) makes that take only once data and usnubsrcibe
     return this.authService.singinLoginResposne.pipe(
       take(1),
       exhaustMap((singResp: SignInAuthResponse | null) => {
-        console.log('reeeeeeeeeeeeeeeewsp intercepter  ', singResp)
         if (singResp && singResp.userAuthData.idToken) {
           let token: string = singResp.userAuthData.idToken;
           console.log('token     ', token);
@@ -40,9 +40,10 @@ export class AuthInterceptorService implements HttpInterceptor {
             params: authParams,
           });
           return next.handle(requestWithAuthAndHeaders);
-        } else {
+        } else if (!req.url.toString().includes('openlibrary')) {
           return next.handle(requstWithHeaders);
         }
+        return next.handle(req);
       })
     );
 
