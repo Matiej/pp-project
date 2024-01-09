@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiToken: 'your-production-token'
+    apiToken: 'AIzaSyAKHlrPi_CMaLJNw7FyOP6V3QWJQD9leKE'
   };

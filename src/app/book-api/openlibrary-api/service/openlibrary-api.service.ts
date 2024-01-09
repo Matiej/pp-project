@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { SearchBook } from '../model/search-book.model';
-import { AUTHOR_SEARCH_RESULT } from '../books-database';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { OpenLibrarySearch } from '../model/openLibrary.search';
+import { AUTHOR_SEARCH_RESULT } from '../books-database';
 import { OpenLibraryBook } from '../model/opeLibrary.book.model';
+import { OpenLibrarySearch } from '../model/openLibrary.search';
+import { SearchBook } from '../model/search-book.model';
 
 @Injectable({
   providedIn: 'root',
