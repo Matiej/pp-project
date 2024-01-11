@@ -1,27 +1,57 @@
-# PpProject
+# PpProject# PP Project (Learning Angular and TypeScript)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.5.
+PP Project is a web application developed as part of a journey to learn Angular and TypeScript. It showcases various features and concepts of these technologies and provides practical examples.
+
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- User registration and authentication using Firebase.
+- Secured access to "WISH" and "USER" tabs after login.
+- "LEARNING" tab with tests and short Angular examples.
+- "Library" tab for book searching via the OpenLibrary API.
+- Continuous development and improvement as a learning project.
 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Getting Started
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clone the repository:
 
-## Running end-to-end tests
+```bash
+git clone https://github.com/Matiej/pp-project.git 
+```
+2. Navigate to the project folder and install dependencies
+```bash
+cd pp-project
+npm install
+ng serve
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+ ```
+## Usage
 
-## Further help
+Access the application in your browser at http://localhost:4200.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Create an account and log in to access restricted features.
+Explore the "LEARNING" tab for Angular tutorials and tests.
+Use the "Library" tab to search for books using OpenLibrary API.
+Contributing
+Contributions are welcome! Feel free to open issues or pull requests if you have any suggestions, bug reports, or improvements to make.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+GitHub: https://github.com/Matiej
+Email: maciek.wojcik179@gmail.com
+LinkedIn: https://www.linkedin.com/in/matiej/
+
+This README will provide a clear overview of your project and how others can get started and contribute to it.
