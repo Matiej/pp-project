@@ -37,6 +37,7 @@ export class LearningMixComponent implements OnInit {
     app_section15_task7: false,
     app_section17_pipes: false,
     app_section18_http_req: false,
+    app_section25_signals: false,
   };
 
   constructor() {}

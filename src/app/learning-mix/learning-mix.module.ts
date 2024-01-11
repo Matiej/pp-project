@@ -31,6 +31,7 @@ import { Section15Task6Component } from './section15-task6/section15-task6.compo
 import { Section15Task7Component } from './section15-task7/section15-task7.component';
 import { Section17PipesComponent } from './section17-pipes/section17-pipes.component';
 import { Section18HttpReqComponent } from './section18-http-req/section18-http-req.component';
+import { Section25SignalsComponent } from './section25-signals/section25-signals.component';
 import { EvenComponent } from './section5-task/even/even.component';
 import { GameControlComponent } from './section5-task/game-control/game-control.component';
 import { OddComponent } from './section5-task/odd/odd.component';
@@ -88,6 +89,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     SortPipe,
     Section18HttpReqComponent,
   ],
+
   imports: [
     CommonModule,
     FormsModule,
@@ -95,6 +97,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     ReactiveFormsModule,
     SharedModule,
     LearningMixRoutingModule,
+    Section25SignalsComponent,
   ],
 })
 export class LearningMixModule {}
