@@ -54,4 +54,4 @@ GitHub: https://github.com/Matiej
 Email: maciek.wojcik179@gmail.com
 LinkedIn: https://www.linkedin.com/in/matiej/
 
-This README will provide a clear overview of your project and how others can get started and contribute to it.
+ 
