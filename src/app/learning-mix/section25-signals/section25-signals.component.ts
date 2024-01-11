@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 
 @Component({
   selector: 'app-section25-signals',
@@ -11,6 +11,12 @@ import { Component, signal } from '@angular/core';
 export class Section25SignalsComponent {
   actions = signal<string[]>([]);
   signalCounter = signal(0);
+
+  constructor() {
+    effect(() =>
+      console.log('test counter with effect function: ', this.signalCounter())
+    );
+  }
 
   increment() {
     this.signalCounter.update((oldCounter) => oldCounter + 1);
