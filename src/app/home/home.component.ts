@@ -13,6 +13,5 @@ export class HomeComponent {
     { path: 'assets/im4.jpg', imageName: 'Moto Guzzi V85TT 2021`' },
   ];
 
-  description: string = "A short description of the app.";
-  title: string = "Traning -Angular+TypeScript- application by Maciej Wójcik.";
+  title: string = 'Traning -Angular+TypeScript- application by Maciej Wójcik.';
 }
