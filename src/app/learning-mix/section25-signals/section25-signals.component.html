@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <h1>Default (Automatic Change Detection)</h1>
+    <div id="counter">
+      <i id="counter-output">Counter: {{ signalCounter() }}</i>
+      <div id="counter-btns">
+        <div class="row">
+          <div class="col-xs-12 col-md-6 col-md-offset-3" style="margin: 3px">
+            <button class="btn btn-primary" (click)="decrement()">
+              DECREMENT
+            </button>
+          </div>
+          <div class="col-xs-12 col-md-6 col-md-offset-3" style="margin: 3px">
+            <button class="btn btn-danger" (click)="increment()">
+              INCREMENT
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <h2>Action Log</h2>
+          <ol id="log">
+            <li *ngFor="let action of actions">{{ action }}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
