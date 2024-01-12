@@ -14,6 +14,7 @@ import { LoginInterceptorService } from './interceptors/login--interceptor.servi
 import { LearningMixModule } from './learning-mix/learning-mix.module';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
 import { SharedModule } from './shared/shared.module';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     BookApiModule,
     AuthModule,
+    StoreModule.forRoot({}, {}),
     // UserModule, -------- don't need it becasue of lazy loading
     // WishModule, -------- don't need it becasue of lazy loading
   ],
