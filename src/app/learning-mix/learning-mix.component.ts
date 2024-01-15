@@ -144,7 +144,6 @@ export class LearningMixComponent implements OnInit {
     Object.keys(this.fourthLineComponentStates).forEach((component) =>
       buttonLabelNames.push(getButtonLabel(component))
     );
-    console.log('buuuuuuuuuuuuuuuuton 4', buttonLabelNames);
     return buttonLabelNames;
   }
 }

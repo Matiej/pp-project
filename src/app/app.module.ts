@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
@@ -12,9 +13,9 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LoginInterceptorService } from './interceptors/login--interceptor.service';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
+import { counterReducer } from './learning-mix/store/counter.reducer';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
 import { SharedModule } from './shared/shared.module';
-import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,10 @@ import { StoreModule } from '@ngrx/store';
     SharedModule,
     BookApiModule,
     AuthModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({
+      counterKey: counterReducer,
+      //auth: authReducer - foex example. you can add another recures here
+    }),
     // UserModule, -------- don't need it becasue of lazy loading
     // WishModule, -------- don't need it becasue of lazy loading
   ],
