@@ -33,6 +33,7 @@ import { Section17PipesComponent } from './section17-pipes/section17-pipes.compo
 import { Section18HttpReqComponent } from './section18-http-req/section18-http-req.component';
 import { Section25SignalsComponent } from './section25-signals/section25-signals.component';
 import { Section26NgrxComponent } from './section26-ngrx/section26-ngrx.component';
+import { Section26TrainComponent } from './section26-train/section26-train.component';
 import { EvenComponent } from './section5-task/even/even.component';
 import { GameControlComponent } from './section5-task/game-control/game-control.component';
 import { OddComponent } from './section5-task/odd/odd.component';
@@ -89,6 +90,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     ReversePipe,
     SortPipe,
     Section18HttpReqComponent,
+    Section26TrainComponent,
   ],
 
   imports: [
