@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Section26Service } from '../section26.service';
-import { decrement, increment } from '../store/counter.actions';
+import { decrement } from '../store/counter.actions';
+import { IncrementAction } from '../store/increment.action';
 
 @Component({
   selector: 'app-s26-controls',
@@ -17,11 +18,10 @@ export class S26ControlsComponent {
 
   public increment() {
     this.section26Service.increment();
-    this.store.dispatch(increment())
-
+    this.store.dispatch(new IncrementAction(1));
   }
   public decrement() {
-    this.store.dispatch(decrement())
+    this.store.dispatch(decrement({ value: 1 }));
     this.section26Service.decrement();
   }
 }
