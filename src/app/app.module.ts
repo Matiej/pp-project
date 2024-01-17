@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LoginInterceptorService } from './interceptors/login--interceptor.service';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
+import { CounterEffects } from './learning-mix/section26-ngrx/store/counter.effects';
 import { counterReducer } from './learning-mix/section26-ngrx/store/counter.reducer';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
 import { SharedModule } from './shared/shared.module';
@@ -38,6 +40,7 @@ import { SharedModule } from './shared/shared.module';
       counterKey: counterReducer,
       //auth: authReducer - foex example. you can add another recures here
     }),
+    EffectsModule.forRoot([CounterEffects]),
     // UserModule, -------- don't need it becasue of lazy loading
     // WishModule, -------- don't need it becasue of lazy loading
   ],
