@@ -28,6 +28,14 @@
     >
     </app-buttons-board>
   </div>
+
+  <div class="row">
+    <app-buttons-board
+      (boardlButtonClicked)="onBoardButtonClick($event)"
+      [linebuttonLables]="fourthLineButtonLabelNames"
+    >
+    </app-buttons-board>
+  </div>
 </div>
 
 <div class="task" *ngIf="isComponentActive('app_spinner_test')">
@@ -134,7 +142,13 @@
 
 <div class="task" *ngIf="isComponentActive('app_section26_ngrx')">
   <hr />
-   <app-section26-ngrx></app-section26-ngrx>
+  <app-section26-ngrx></app-section26-ngrx>
+  <hr />
+</div>
+
+<div class="task" *ngIf="isComponentActive('app_section26_train')">
+  <hr />
+  <app-section26-train></app-section26-train>
   <hr />
 </div>
 

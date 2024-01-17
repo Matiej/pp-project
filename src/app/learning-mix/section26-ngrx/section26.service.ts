@@ -11,11 +11,11 @@ export class Section26Service {
   constructor() {}
 
   public decrement() {
-    this.counter++;
+    this.counter--;
     this.counterChanged.next(this.counter);
   }
   public increment() {
-    this.counter--;
+    this.counter++;
     this.counterChanged.next(this.counter);
   }
 }

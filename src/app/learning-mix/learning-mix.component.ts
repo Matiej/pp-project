@@ -41,6 +41,10 @@ export class LearningMixComponent implements OnInit {
     app_section26_ngrx: false,
   };
 
+  fourthLineComponentStates: { [key: string]: boolean } = {
+    app_section26_train: false,
+  };
+
   constructor() {}
 
   ngOnInit(): void {
@@ -51,7 +55,8 @@ export class LearningMixComponent implements OnInit {
     return (
       this.firsLineComponentStates[name] ||
       this.secondLineComponentStates[name] ||
-      this.thirdLineComponentStates[name]
+      this.thirdLineComponentStates[name] ||
+      this.fourthLineComponentStates[name]
     );
   }
 
@@ -98,6 +103,15 @@ export class LearningMixComponent implements OnInit {
         boardlButtonClicked.isTurnedOn;
     }
 
+    if (
+      this.fourthLineComponentStates.hasOwnProperty(
+        boardlButtonClicked.componentName
+      )
+    ) {
+      this.fourthLineComponentStates[boardlButtonClicked.componentName] =
+        boardlButtonClicked.isTurnedOn;
+    }
+
     this.setRadommixImageSrc();
   }
 
@@ -122,7 +136,14 @@ export class LearningMixComponent implements OnInit {
     Object.keys(this.thirdLineComponentStates).forEach((component) =>
       buttonLabelNames.push(getButtonLabel(component))
     );
+    return buttonLabelNames;
+  }
 
+  get fourthLineButtonLabelNames(): ButtonLabelName[] {
+    let buttonLabelNames: ButtonLabelName[] = [];
+    Object.keys(this.fourthLineComponentStates).forEach((component) =>
+      buttonLabelNames.push(getButtonLabel(component))
+    );
     return buttonLabelNames;
   }
 }
