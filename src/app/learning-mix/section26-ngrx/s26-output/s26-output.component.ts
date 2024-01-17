@@ -9,7 +9,7 @@ import { Section26Service } from '../section26.service';
   templateUrl: './s26-output.component.html',
   styleUrls: ['./s26-output.component.css'],
   standalone: true,
-  imports:[CommonModule]
+  imports: [CommonModule],
 })
 export class S26OutputComponent implements OnInit, OnDestroy {
   counter: number = 0;
@@ -25,7 +25,7 @@ export class S26OutputComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.counterServiceSub = this.counterService.counterChanged.subscribe(
-      (counter) => (this.counter = counter)
+      (counter: number) => (this.counter = counter)
     );
   }
 

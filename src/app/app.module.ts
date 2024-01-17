@@ -13,7 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LoginInterceptorService } from './interceptors/login--interceptor.service';
 import { LearningMixModule } from './learning-mix/learning-mix.module';
-import { counterReducer } from './learning-mix/store/counter.reducer';
+import { counterReducer } from './learning-mix/section26-ngrx/store/counter.reducer';
 import { NamedOutletTestComponent } from './named-outlet-test/named-outlet-test.component';
 import { SharedModule } from './shared/shared.module';
 
