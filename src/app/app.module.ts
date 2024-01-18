@@ -40,7 +40,7 @@ import { SharedModule } from './shared/shared.module';
       counterKey: counterReducer,
       //auth: authReducer - foex example. you can add another recures here
     }),
-    EffectsModule.forRoot([CounterEffects]),
+    EffectsModule.forRoot([CounterEffects, ]),
     // UserModule, -------- don't need it becasue of lazy loading
     // WishModule, -------- don't need it becasue of lazy loading
   ],
