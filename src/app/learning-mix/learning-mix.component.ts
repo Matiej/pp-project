@@ -43,6 +43,8 @@ export class LearningMixComponent implements OnInit {
 
   fourthLineComponentStates: { [key: string]: boolean } = {
     app_section26_train: false,
+    app_section28_animations: false,
+
   };
 
   constructor() {}
