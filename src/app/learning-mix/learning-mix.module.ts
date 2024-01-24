@@ -34,6 +34,7 @@ import { Section18HttpReqComponent } from './section18-http-req/section18-http-r
 import { Section25SignalsComponent } from './section25-signals/section25-signals.component';
 import { Section26NgrxComponent } from './section26-ngrx/section26-ngrx.component';
 import { Section26TrainComponent } from './section26-train/section26-train.component';
+import { Section28AnimationsComponent } from './section28-animations/section28-animations.component';
 import { EvenComponent } from './section5-task/even/even.component';
 import { GameControlComponent } from './section5-task/game-control/game-control.component';
 import { OddComponent } from './section5-task/odd/odd.component';
@@ -102,6 +103,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     LearningMixRoutingModule,
     Section25SignalsComponent,
     Section26NgrxComponent,
+    Section28AnimationsComponent
   ],
 })
 export class LearningMixModule {}
