@@ -62,8 +62,36 @@ import { Component } from '@angular/core';
           style({ 'background-color': 'yellow', borderRadius: '50px' })
         ),
         animate(
-          500,
+          500
           // style({ 'background-color': 'black', borderRadius: '0px' })
+        ),
+      ]),
+    ]),
+
+    trigger('list1', [
+      state(
+        'in',
+        style({
+          opacity: 1,
+          transform: 'translateX(0)',
+        })
+      ),
+
+      transition('void  => *', [
+        style({
+          opacity: 0,
+          transform: 'translateX(-100px)',
+        }),
+        animate(200),
+      ]),
+
+      transition('* => void', [
+        animate(
+          500,
+          style({
+            opacity: 0,
+            transform: 'translateX(100px)',
+          })
         ),
       ]),
     ]),
@@ -78,7 +106,13 @@ export class Section28AnimationsComponent {
     this.list.push(item);
   }
 
-  onDelete(item: any): void {}
+  onDelete(item: any): void {
+    const index = this.list.indexOf(item);
+    if (index > -1) {
+      this.list.splice(item, index + 1);
+    }
+  }
+
   toggleState(): void {
     this.state = this.state === 'normal' ? 'highlighted' : 'normal';
     this.wildState = this.wildState === 'normal' ? 'highlighted' : 'normal';
