@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterServerPipe } from '../pipes/filter-server.pipe';
 import { NameFilterServerPipe } from '../pipes/name-filter-server.pipe';
 import { ReversePipe } from '../pipes/reverse.pipe';
@@ -49,6 +50,7 @@ import { ServersComponent } from './servers/servers.component';
 import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 import { UserTaskComponent } from './user-task/user-task.component';
 
+
 @NgModule({
   declarations: [
     LearningMixComponent,
@@ -92,6 +94,8 @@ import { UserTaskComponent } from './user-task/user-task.component';
     SortPipe,
     Section18HttpReqComponent,
     Section26TrainComponent,
+    Section28AnimationsComponent,
+    
   ],
 
   imports: [
@@ -103,7 +107,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     LearningMixRoutingModule,
     Section25SignalsComponent,
     Section26NgrxComponent,
-    Section28AnimationsComponent
+    BrowserAnimationsModule
   ],
 })
 export class LearningMixModule {}
