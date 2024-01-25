@@ -113,27 +113,27 @@ import { Component } from '@angular/core';
             style({
               opacity: 0,
               transform: 'translateX(-100px)',
-              offset: 0
+              offset: 0,
             }),
             style({
               opacity: 0.5,
               transform: 'translateX(-50px)',
-              offset: 0.3
+              offset: 0.3,
             }),
             style({
               opacity: 1,
               transform: 'translateX(-20px)',
-              offset: 0.6
+              offset: 0.6,
             }),
             style({
               opacity: 1,
               transform: 'translateX(30px)',
-              offset: 0.8
+              offset: 0.8,
             }),
             style({
               opacity: 1,
               transform: 'translateX(0px)',
-              offset: 1
+              offset: 1,
             }),
           ])
         ),
@@ -153,7 +153,7 @@ export class Section28AnimationsComponent {
   onDelete(item: any): void {
     const index = this.list.indexOf(item);
     if (index > -1) {
-      this.list.splice(item, index + 1);
+      this.list.splice(index, 1);
     }
   }
 
