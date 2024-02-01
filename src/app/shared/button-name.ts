@@ -18,7 +18,8 @@ export enum ButtonLabelName {
   SECTION25_SIGNALS = 'Secetion25 Signals',
   SECTION26_NGRX = 'Section26 NgRx',
   SECTION26_TRAINING = 'Section26 Training',
-  SECTION28_ANIMATIONS = 'Section28 ANIMATIOS',
+  SECTION28_ANIMATIONS = 'Section28 ANIMATIONS',
+  SECTION30_UNIT_TESTS = 'Unit Tests',
 }
 
 export function getComponentName(buttonLabel: ButtonLabelName): string {
@@ -63,6 +64,9 @@ export function getComponentName(buttonLabel: ButtonLabelName): string {
       return 'app_section26_train';
     case ButtonLabelName.SECTION28_ANIMATIONS:
       return 'app_section28_animations';
+    case ButtonLabelName.SECTION30_UNIT_TESTS:
+      return 'app_section30_unit_tests';
+
     default:
       throw new Error("No component for button label '" + buttonLabel);
   }
@@ -110,6 +114,8 @@ export function getButtonLabel(componentName: string): ButtonLabelName {
       return ButtonLabelName.SECTION26_TRAINING;
     case 'app_section28_animations':
       return ButtonLabelName.SECTION28_ANIMATIONS;
+    case 'app_section30_unit_tests':
+      return ButtonLabelName.SECTION30_UNIT_TESTS;
     default:
       throw new Error(
         "No button label for component name '" + componentName + "'"

@@ -36,6 +36,8 @@ import { Section25SignalsComponent } from './section25-signals/section25-signals
 import { Section26NgrxComponent } from './section26-ngrx/section26-ngrx.component';
 import { Section26TrainComponent } from './section26-train/section26-train.component';
 import { Section28AnimationsComponent } from './section28-animations/section28-animations.component';
+import { Section30UnitTestsComponent } from './section30-unit-tests/section30-unit-tests.component';
+import { UnitUserComponent } from './section30-unit-tests/unit-user/unit-user.component';
 import { EvenComponent } from './section5-task/even/even.component';
 import { GameControlComponent } from './section5-task/game-control/game-control.component';
 import { OddComponent } from './section5-task/odd/odd.component';
@@ -49,7 +51,6 @@ import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import { SpinnerTestComponent } from './spinner-test/spinner-test.component';
 import { UserTaskComponent } from './user-task/user-task.component';
-
 
 @NgModule({
   declarations: [
@@ -95,7 +96,9 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section18HttpReqComponent,
     Section26TrainComponent,
     Section28AnimationsComponent,
-    
+    Section30UnitTestsComponent,
+    UnitUserComponent,
+    ReversePipe
   ],
 
   imports: [
@@ -107,7 +110,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     LearningMixRoutingModule,
     Section25SignalsComponent,
     Section26NgrxComponent,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
 })
 export class LearningMixModule {}
