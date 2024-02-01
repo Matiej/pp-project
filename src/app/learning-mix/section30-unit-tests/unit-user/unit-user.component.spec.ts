@@ -1,10 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 
 import { Section30UnitTestsComponent } from '../section30-unit-tests.component';
+import { UnitSharedService } from '../shared/unit-shared.service';
 import { UnitUserComponent } from './unit-user.component';
 import { UnitUserService } from './unit-user.service';
 
-describe('UnitUserComponent', () => {
+describe('UnitUserComponent unit tests', () => {
   let component: UnitUserComponent;
   let fixture: ComponentFixture<UnitUserComponent>;
 
@@ -77,4 +83,39 @@ describe('UnitUserComponent', () => {
       'Please log in first'
     );
   });
+
+  it('should NOT fetch data succesfully if not called async', async () => {
+    let app = fixture.debugElement.componentInstance;
+    let unitShared = fixture.debugElement.injector.get(UnitSharedService);
+    let spy = spyOn(unitShared, 'getDetails').and.returnValue(
+      Promise.resolve('TestData')
+    );
+    fixture.detectChanges();
+    expect(app.myData).toEqual(undefined);
+  });
+
+  it('should fetch data succesfully if not called async', async () => {
+    let app = fixture.debugElement.componentInstance;
+    let unitShared = fixture.debugElement.injector.get(UnitSharedService);
+    let spy = spyOn(unitShared, 'getDetails').and.returnValue(
+      Promise.resolve('TestData')
+    );
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      //starts when app i stable and all async tasks are done. But we wont wait 2000ms like in service
+      expect(app.myData).toEqual('TestData');
+    });
+  });
+
+  it('should fetch using FAKEASYNC data succesfully if not called async', fakeAsync(() => {
+    let app = fixture.debugElement.componentInstance;
+    let unitShared = fixture.debugElement.injector.get(UnitSharedService);
+    let spy = spyOn(unitShared, 'getDetails').and.returnValue(
+      Promise.resolve('TestData')
+    );
+    fixture.detectChanges();
+    tick();
+    //starts when app i stable and all async tasks are done. 
+    expect(app.myData).toEqual('TestData');
+  }));
 });

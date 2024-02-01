@@ -98,6 +98,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
     Section28AnimationsComponent,
     Section30UnitTestsComponent,
     UnitUserComponent,
+    ReversePipe
   ],
 
   imports: [
